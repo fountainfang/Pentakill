@@ -26,7 +26,7 @@ Outline the main functional features of your platform, including user authentica
 Highlight non-functional aspects such as usability, performance, scalability, security, reliability, and accessibility.
 
 ## Use Case Diagram
-Include a link or image of the use case diagram for better visualization.
+![Use Case Diagram](/Requirments/use_case_diagram.jpg)
 
 ## User Stories
 List and briefly describe the user stories to provide a comprehensive understanding of user needs.
