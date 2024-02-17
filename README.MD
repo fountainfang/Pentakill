@@ -14,8 +14,7 @@ Welcome to the Pentakill Event Ticketing Platform - a web-based application for 
 - [License](#license)
 
 ## Introduction
-Describe your project in a few sentences, including its purpose and the value it provides to users.
-
+Our project introduces a web-based platform event ticket selling platform web application, aims to provide our users with the ability to select events and to purchase tickets online. Various events including concerts, performances, sports matches, and cultural gatherings will be categorized, with their information like address, date, ticket price, descriptions and so on. Event organizers will be able to add events and modify events. After that the system admin will be able to approve the modification and publish the result. Then our user can select an event they are interested in and purchase the ticket.
 ## User Requirements
 Briefly list and describe the key user requirements for your platform.
 
