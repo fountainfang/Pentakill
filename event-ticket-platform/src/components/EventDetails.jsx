@@ -39,7 +39,7 @@ const EventDetails = () => {
           <a href="/login">Log In</a>
         </div>
       </div>
-    <div className="banner-image" style={{ backgroundImage: `url(${event.bannerImage})` }}></div>
+    <div className="banner-image" style={{ backgroundImage: `url(${event.bannerImage})` }} data-testid="banner-image"></div>
     <div className="banner-content">
       <div className="title-and-button">
     <h1 className="event-title">{event.title}</h1>
