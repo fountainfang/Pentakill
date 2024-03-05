@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import api from '../../api';
 
 export default class Signupform extends Component {
     constructor() {
@@ -16,9 +17,19 @@ export default class Signupform extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        console.log(this.state)
-
+        console.log(this.state);
+        api.register({
+            username: this.state.username,
+            password: this.state.password,
+            email: this.state.email,
+            passwordConfirmation: this.state.passwordConfirmation,
+        }).then(res => {
+            console.log(res.data);
+        }).catch(error => {
+            console.log(error);
+        });
     }
+
     changeHandle = (e) => {
         this.setState({
             [e.target.name]: e.target.value
