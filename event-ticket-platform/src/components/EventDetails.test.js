@@ -9,6 +9,7 @@ jest.mock('react-router-dom', () => ({
   useParams: jest.fn(),
 }));
 
+// Test cases for EventDetails Component
 describe('EventDetails Component', () => {
   beforeEach(() => {
     require('react-router-dom').useParams.mockImplementation(() => ({ eventId: '1' }));

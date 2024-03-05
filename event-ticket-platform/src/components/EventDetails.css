@@ -1,3 +1,4 @@
+/* CSS for the EventDetails component */
 html, body {
     height: 100%;
     margin: 0;
@@ -50,8 +51,8 @@ html, body {
   
   .top-section {
     display: flex;
-    align-items: center; /* Adjust this as needed */
-    justify-content: space-around; /* Adjust this as needed */
+    align-items: center;
+    justify-content: space-around; 
     width: 100%;
   }
   
@@ -108,14 +109,14 @@ html, body {
   }
   
   .poster-image {
-    width: 80%; /* Adjust this as needed */
-    margin-top: 20px; /* Adds space between date and poster image */
+    width: 80%; 
+    margin-top: 20px;
     padding-left: 50px;
   }
   
   .description {
     flex: 2;
-    padding-left: 50px; /* Ensures space between poster and description */
+    padding-left: 50px;
   }
   
   .event-info {
@@ -134,10 +135,10 @@ html, body {
   .menu-bar {
     background-color: #000000;
     color: #f2f2f2;
-    padding: 14px 50px; /* Adjusted padding for consistency */
+    padding: 14px 50px; 
     display: flex;
     justify-content: space-between;
-    align-items: center; /* Corrected from 'left' to 'center' for vertical alignment */
+    align-items: center; 
   }
   
   
