@@ -1,33 +1,16 @@
-import React, { useState } from 'react';
-import EventList from './components/EventList';
-import TicketPurchase from './components/TicketPurchase';
-
-const initialEvents = [
-  { id: 1, name: 'Concert', price: 50 },
-  { id: 2, name: 'Theater', price: 40 },
-  { id: 3, name: 'Sport Event', price: 30 },
-];
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import EventDetails from './components/EventDetails'; // Adjust the path as necessary
 
 function App() {
-  const [events] = useState(initialEvents);
-  const [selectedEvent, setSelectedEvent] = useState(null);
-
-  const handleSelectEvent = event => {
-    setSelectedEvent(event);
-  };
-
-  const handlePurchase = () => {
-    alert(`Purchased ticket for ${selectedEvent.name}!`);
-    setSelectedEvent(null); // Reset selection
-  };
-
   return (
-    <div className="App">
-      <EventList events={events} onSelectEvent={handleSelectEvent} />
-      <TicketPurchase event={selectedEvent} onPurchase={handlePurchase} />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/event/:eventId" element={<EventDetails />} />
+        {/* Add more routes as needed */}
+      </Routes>
+    </Router>
   );
 }
 
 export default App;
-
