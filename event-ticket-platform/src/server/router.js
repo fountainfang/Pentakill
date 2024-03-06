@@ -16,7 +16,7 @@ const validatorInput = (data) => {
     if (validator.isEmpty(data.password)) {
         errors.password = "Password can not be empty"
     }
-    console.log(1)
+
     if (!validator.equals(data.password, data.passwordConfirmation)) {
         errors.passwordConfirmation = "Password does not match"
         console.log(errors.passwordConfirmation)

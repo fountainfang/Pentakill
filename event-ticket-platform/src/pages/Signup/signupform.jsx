@@ -26,7 +26,20 @@ export default class Signupform extends Component {
         }).then(res => {
             console.log(res.data);
         }).catch(error => {
-            console.log(error);
+            console.log("Registration failed:", error);
+
+            if (error.response) {
+                // 请求已经发出，但服务器返回状态码不在2xx范围内
+                console.error("Response data:", error.response.data);
+                console.error("Response status:", error.response.status);
+                console.error("Response headers:", error.response.headers);
+            } else if (error.request) {
+                // 请求已经发出，但没有收到响应
+                console.error("No response received:", error.request);
+            } else {
+                // 在设置请求时触发错误
+                console.error("Error setting up the request:", error.message);
+            }
         });
     }
 
