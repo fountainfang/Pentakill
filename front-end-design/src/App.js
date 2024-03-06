@@ -1,11 +1,15 @@
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import TheaterFrontPage from './Front-Page/EventList';
+import TicketPurchase from './Purchase-Page/TicketPurchase';
 
-
-function App() {
-  return (
-    <div >
-      
-    </div>
-  );
-}
+const App = () => (
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<TheaterFrontPage />} />
+      <Route path="/purchase" element={<TicketPurchase />} />
+    </Routes>
+  </BrowserRouter>
+);
 
 export default App;
