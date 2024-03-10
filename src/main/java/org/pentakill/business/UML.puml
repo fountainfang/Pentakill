@@ -1,0 +1,174 @@
+@startuml UML Class Diagram
+class Customer{
+    - customerId : Int
+    - firstName : String
+    - lastName : String
+    - email : String
+    - phoneNum : String
+    - city : String
+    - state : String
+    - street : String
+    - country : String
+    - postalCode : String
+    - userId : String
+    - password : String
+
+    + setCustomerId() : void
+    + getCustomerId() : Int
+    + setName() : void
+    + getName() : String
+    + setAddress() : void
+    + getAddress() : String
+    + setEmail() : void
+    + getEmail() : String
+    + setPhoneNum() : void
+    + getPhoneNum() : String
+    + setUserId() : void
+    + getUserId() : String
+    + setPassword() : void
+    + getPassword() : String
+}
+
+class Event{
+    - eventId : Int
+    - eventName : String
+    - eventDate : Date
+    - startTime : Date
+    - endTime : Date
+    - address : String
+    - totalTicket : Int
+    - ticketNum : Int
+    - ticketPrice : Double
+
+    + setEventId() : void
+    + getEventId() : Int
+    + setEventName() : void
+    + getEventName() : String
+    + setEventDate() : void
+    + getEventDate() : Date
+    + setStartTime() : void
+    + getStartTime() : Date
+    + setEndTime() : void
+    + getEndTime() : Date
+    + setAddress() : void
+    + getAddress() : String
+    + setTotalTicket() : void
+    + getTotalTicket() : Int
+    + setTicketNum() : void
+    + getTicketNum() : Int
+    + setTicketPrice() : void
+    + getTicketPrice() : Double
+}
+
+class EventHolder{
+    - isEventHolder : Boolean
+    - eventList : List<Event>
+
+    + isEventHolder() : Boolean
+    + setEventHolder() : void
+    + setEventList() : void
+    + getEventList() : List<Event>
+    + issueNewEvent() : Boolean
+    + cancelEvent() : Boolean
+}
+
+class Order{
+    - orderId : Int
+    - orderDate : Date
+    - orderEvents : List<OrderEvent>
+    - customer : Customer
+    - totalAmount : Double
+
+    + setOrderId() : void
+    + getOrderId() : Int
+    + setOrderDate() : void
+    + getOrderDate() : Date
+    + setOrderEvent() : void
+    + getOrderEvent() : List<OrderEvent>
+    + setCustomer() : void
+    + getCustomer() : Customer
+    + setTotalAmount() : void
+    + getTotalAmount() : Double
+}
+
+class OrderEvent{
+    - eventId : Int
+    - ticketQuantity : Int
+    - subTotalCost : Double
+
+    + setEventId() : void
+    + getEventId() : Int
+    + setTicketQuantity() : void
+    + getTicketQuantity() : Int
+    + setSubTotalCost() : void
+    + getSubTotalCost() : Double
+}
+
+class Admin{
+    - adminId : Int
+    
+    + setAdminId() : void
+    + getAdminId() : Int
+    + verifyEvent() : void
+}
+
+class Rating{
+    - rateValue : Int
+    
+    + setRateValue() : void
+    + getRateValue() : Int
+}
+
+class Tickets{
+    - ticketId : Int
+    - price : Double
+    - seatNum : String
+
+    + setTicketId() : void
+    + getTicketId() : Int
+    + setPrice() : void
+    + getPrice() : Double
+    + setSeatNum() : void
+    + getSeatNum() : String
+}
+
+class PaymentMethod{
+    - paymentId : Int
+    - cardType : String
+    - cardNum : Int
+    - cardExpiryDate : Date
+
+    + setPaymentId() : void
+    + getPaymentId() : Int
+    + setCardType() : void
+    + getCardType() : String
+    + setCardNum() : void
+    + getCardNum() : Int
+    + setCardExpiryDate() : void
+    + getCardExpiryDate() : Date
+}
+
+class ShoppingCart{
+
+}
+
+class CustomerFactory{
+    - factory : CustomerFactory
+    - objectMapper : ObjectMapper
+
+    - CustomerFactory()
+    + getInstance() : CustomerFactory
+    + createCustomer() : Customer
+}
+
+Customer <|--  EventHolder : extend
+Customer <--  CustomerFactory
+Customer "0..*"-->"0..*" OrderEvent : has
+OrderEvent "0..*" --> "1..1" Order : has
+Order "1"-->"1..*" Tickets : has
+Event "0..*"<--"0..*" Customer : view
+Admin "0..*"-->"0..*" Event : view
+Customer "0..*"-->"0..*" Rating : has
+Customer "1"-->"1..*" PaymentMethod : has
+Customer "1"-->"1" ShoppingCart : has
+@enduml
