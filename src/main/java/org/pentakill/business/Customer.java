@@ -21,10 +21,11 @@ public class Customer implements ICustomer {
 
     public Customer() {
     }
-    public Customer(int customerId, String firstName, String lastName, String email,String address,String city, String state, String postalCode, String country, String userid, String password) {
+    public Customer(int customerId, String firstName, String lastName, String email,String phoNum,String address,String city, String state, String postalCode, String country, String userid, String password) {
         setCustomerId(customerId);
         setFirstName(firstName);
         setLastName(lastName);
+        setPhoneNum(phoNum);
         setEmail(email);
         setAddress(address);
         setCity(city);
