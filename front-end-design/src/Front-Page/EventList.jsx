@@ -1,6 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate hook for navigation
 // Importing components from Material-UI
+import Navbar from '../component/Navbar';
 import {
   AppBar,
   Toolbar,
@@ -51,37 +53,7 @@ const TheaterFrontPage = () => {
   return (
     <>
       {/* AppBar for the navigation bar at the top of the page */}
-      <AppBar position="static" sx={{ backgroundColor: '#000', color: '#FFF' }}>
-        <Toolbar>
-          {/* Theater's name/logo */}
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Grand Theater
-          </Typography>
-          {/* Navigation links */}
-          <NavBarButton>What's On</NavBarButton>
-          <NavBarButton>Tickets</NavBarButton>
-          <NavBarButton>News & Interviews</NavBarButton>
-          <NavBarButton>Reviews</NavBarButton>
-          <NavBarButton>Theatres</NavBarButton>
-          <NavBarButton>Info</NavBarButton>
-          {/* Search bar */}
-          <TextField
-            variant="outlined"
-            size="small"
-            sx={{ backgroundColor: '#FFF', borderRadius: 1, marginRight: 2 }}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
-          {/* Login and Sign-up buttons */}
-          <Button color="inherit">Login</Button>
-          <Button color="inherit">Sign-up</Button>
-        </Toolbar>
-      </AppBar>
+      <Navbar />
       <Container maxWidth="lg" sx={{ mt: 12 }}>
         {/* Loop through sections to display events */}
         {sections.map((section) => (
