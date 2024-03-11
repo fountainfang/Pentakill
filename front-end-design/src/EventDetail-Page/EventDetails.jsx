@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import './EventDetails.css';
+import styles from './EventDetails.css';
 
 const EventDetails = () => {
   const { eventId } = useParams();
@@ -32,21 +32,21 @@ const EventDetails = () => {
     <div className="event-details">
       <div className="menu-bar">
         <div className="menu-links">
-          <a href="/home">Home</a>
+          <a href="/  ">Home</a>
           <a href="/events">Events</a>
         </div>
         <div className="login-link">
           <a href="/login">Log In</a>
         </div>
       </div>
-    <div className="banner-image" style={{ backgroundImage: `url(${event.bannerImage})` }}></div>
-    <div className="banner-content">
-      <div className="title-and-button">
-    <h1 className="event-title">{event.title}</h1>
-    
-    </div>
-      <p className="event-date">{formattedDate}</p>
-    </div>
+      <div className="banner-image" style={{ backgroundImage: `url(${event.bannerImage})` }}></div>
+      <div className="banner-content">
+        <div className="title-and-button">
+          <h1 className="event-title">{event.title}</h1>
+
+        </div>
+        <p className="event-date">{formattedDate}</p>
+      </div>
       <div className="content">
         <div className="left-content"> {/* New div for left content */}
           <div className="poster">
