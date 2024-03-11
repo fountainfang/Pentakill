@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import TheaterFrontPage from './Front-Page/HomePage';
-import TicketPurchase from './Purchase-Page/TicketPurchase';
-import EventDetails from './EventDetail-Page/EventDetails';
+import TheaterFrontPage from './pages/Front-Page/HomePage';
+import TicketPurchase from './pages/Purchase-Page/TicketPurchase';
+import EventDetails from './pages/EventDetail-Page/EventDetails';
 import Signin from "./pages/Signin/signin"
 import Signup from "./pages/Signup/signup"
 
