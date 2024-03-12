@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="01856711-08f2-40bb-b99b-ba2bceda54f8" name="Changes" comment="Modify Customer,CustomerFactory, Event, EventHolder (phase 1)">
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/pentakill/db/DBManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/pentakill/web/RegServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/pentakill/business/TestCustomer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/pentakill/business/TestCustomerFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/pentakill/business/TestEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/pentakill/business/TestEventHolder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/pentakill/business/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/pentakill/business/Event.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/WebContent/ddl/SQLServer_eventsdb.ddl" beforeDir="false" afterPath="$PROJECT_DIR$/target/WebContent/ddl/SQLServer_eventsdb.ddl" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="Eric-Week9-business-entity-object-phase-1" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2dAS3Tu8IqYcEfIV6CvbQxlQ9HB" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "82-eric-week9-business-entity-object-testphase-1",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/0_CTX/COSC310/Pentakill/src/test",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settings.ide.settings.new.ui",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="org.pentakill.business" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-17.0.10-corretto-17.0.10-4caba194b151-5cd809f4" />
+        <option value="jdk-18.0.2-azul-18.0.2.1-4caba194b151-760f583b" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="01856711-08f2-40bb-b99b-ba2bceda54f8" name="Changes" comment="" />
+      <created>1709449191820</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1709449191820</updated>
+      <workItem from="1709449196096" duration="591000" />
+      <workItem from="1709449802661" duration="3383000" />
+      <workItem from="1709616156280" duration="17407000" />
+      <workItem from="1709848737927" duration="13783000" />
+      <workItem from="1710053720147" duration="19096000" />
+    </task>
+    <task id="LOCAL-00001" summary="High-Level Design document created(version 1)">
+      <option name="closed" value="true" />
+      <created>1709450765959</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1709450765959</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Modify Customer,CustomerFactory, Event, EventHolder (phase 1)">
+      <option name="closed" value="true" />
+      <created>1710126474080</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1710126474080</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="High-Level Design document created(version 1)" />
+    <MESSAGE value="Modify Customer,CustomerFactory, Event, EventHolder (phase 1)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Modify Customer,CustomerFactory, Event, EventHolder (phase 1)" />
+  </component>
+</project>
