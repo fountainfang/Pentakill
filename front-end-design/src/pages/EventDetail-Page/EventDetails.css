@@ -1,0 +1,173 @@
+html,
+
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.event-details {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+  color: white;
+}
+
+.banner-image {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  /* Fixed height */
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: start;
+  align-items: end;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-bottom: 20px;
+}
+
+.banner-image::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent, black 90%),
+    /* Bottom fade */
+    linear-gradient(to left, black 0%, transparent 10%),
+    /* Left fade */
+    linear-gradient(to right, black 0%, transparent 10%);
+  /* Right fade */
+}
+
+.banner-content {
+  padding-left: 50px;
+}
+
+.top-section {
+  display: flex;
+  align-items: center;
+  /* Adjust this as needed */
+  justify-content: space-around;
+  /* Adjust this as needed */
+  width: 100%;
+}
+
+.event-title {
+  font-size: 3rem;
+  margin-bottom: 0.5rem
+}
+
+.title-and-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.buy-ticket-btn {
+  background-color: #230bd8;
+  /* Button background color */
+  color: #fff;
+  /* Button text color */
+  padding: 10px 20px;
+  /* Button padding */
+  text-decoration: none;
+  /* Removes underline from link */
+  border-radius: 5px;
+  /* Optional: rounds the corners of the button */
+  font-weight: bold;
+  /* Optional: makes the button text bold */
+  /* Additional button styling as needed */
+  margin-right: 100px;
+}
+
+.buy-ticket-btn:hover {
+  background-color: #100674;
+  /* Darker shade for hover effect */
+  color: #ffffff;
+}
+
+.event-date {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.poster {
+  flex: 1;
+}
+
+.left-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.poster-image {
+  width: 80%;
+  /* Adjust this as needed */
+  margin-top: 20px;
+  /* Adds space between date and poster image */
+  padding-left: 50px;
+}
+
+.description {
+  flex: 2;
+  padding-left: 50px;
+  /* Ensures space between poster and description */
+}
+
+.event-info {
+  margin-top: 20px;
+}
+
+.event-info p {
+  padding-bottom: 50px;
+}
+
+.event-not-found {
+  text-align: center;
+  padding: 50px;
+}
+
+.menu-bar {
+  background-color: #000000;
+  color: #f2f2f2;
+  padding: 14px 50px;
+  /* Adjusted padding for consistency */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* Corrected from 'left' to 'center' for vertical alignment */
+}
+
+
+.menu-bar a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.menu-bar a:hover {
+  background-color: #000000;
+  color: #230bd8;
+}
