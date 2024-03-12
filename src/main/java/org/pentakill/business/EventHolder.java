@@ -12,10 +12,20 @@ public class EventHolder extends Customer{
         setEventHolder(true);
         setEventList(new ArrayList<Event>());
     }
-    public EventHolder(int customerId, String firstName, String lastName, String email, String address, String city, String state, String postalCode, String country, String userid, String password){
-        super(customerId, firstName, lastName, email, address, city, state, postalCode, country, userid, password);
-        setEventHolder(true);
-        setEventList(new ArrayList<Event>());
+    public EventHolder(int customerId, String firstName, String lastName, String email, String phoneNum,  String address, String city, String state, String postalCode, String country, String userid, String password){
+        this();
+        setCustomerId(customerId);
+        setFirstName(firstName);
+        setLastName(lastName);
+        setEmail(email);
+        setPhoneNum(phoneNum);
+        setAddress(address);
+        setCity(city);
+        setState(state);
+        setPostalCode(postalCode);
+        setCountry(country);
+        setUserid(userid);
+        setPassword(password);
     }
 
     public boolean isEventHolder() {
