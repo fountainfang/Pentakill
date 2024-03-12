@@ -5,7 +5,7 @@ import java.util.Date;
 public class Event {
     private int eventId;
     private String eventName;
-    private Date eventDate;
+    private String eventDate;
     private Date startTime;
     private Date endTime;
     private String address;
@@ -14,16 +14,20 @@ public class Event {
 
     private double tickectPrice;
 
-    public Event(int eventId,String eventName,Date eventDate,Date startTime,Date endTime,String address,int totalTicket,int ticketNum, double tickectPrice){
+    public Event(int eventId,String eventName,String eventDate,Date startTime,Date endTime,int totalTicket,double tickectPrice){
         setEventId(eventId);
         setEventName(eventName);
         setEventDate(eventDate);
         setStartTime(startTime);
         setEndTime(endTime);
-        setAddress(address);
         setTotalTicket(totalTicket);
-        setTicketNum(ticketNum);
+        setTicketNum(totalTicket);
         setTickectPrice(tickectPrice);
+    }
+    public Event(int eventId,String eventName,String eventDate,Date startTime,Date endTime,String address,int totalTicket,int ticketNum, double tickectPrice){
+        this(eventId,eventName,eventDate,startTime,endTime,totalTicket,tickectPrice);
+        setAddress(address);
+        setTicketNum(ticketNum);
     }
     public int getEventId() {
         return eventId;
@@ -41,11 +45,11 @@ public class Event {
         this.eventName = eventName;
     }
 
-    public Date getEventDate() {
+    public String getEventDate() {
         return eventDate;
     }
 
-    public void setEventDate(Date eventDate) {
+    public void setEventDate(String eventDate) {
         this.eventDate = eventDate;
     }
 
@@ -95,5 +99,20 @@ public class Event {
 
     public void setTickectPrice(double tickectPrice) {
         this.tickectPrice = tickectPrice;
+    }
+
+    @Override
+    public String toString(){
+        return "EventId:"+eventId+" EventDate:"+eventDate+" StartTime:"+startTime+" EndTime:"+endTime+" TotalTicket:"+totalTicket+" TickectPrice:"+tickectPrice;
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        boolean result = false;
+        if(obj instanceof Event){
+            Event e = (Event)obj;
+            result= e.toString().equals(this.toString());
+        }
+        return result;
     }
 }
