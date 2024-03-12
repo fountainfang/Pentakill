@@ -1,41 +1,64 @@
 // HomePage.js
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import {
-  Container,
-  Grid,
-  Card,
-  CardContent,
-  CardActions,
-  Typography,
-  Box,
-  Button,
-} from '@mui/material';
-import Navbar from './Navbar'; // make sure this path is correct based on your project structure
+import { Container, Grid, Box, Typography, Paper, Button } from '@mui/material';
+import Navbar from './Navbar';
+import EventCard from './EventCard';
+import Carousel from 'react-material-ui-carousel';
+import { ArrowForward as ArrowForwardIcon } from '@mui/icons-material';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-// Sample events data
-const sections = [
+// Poster images for carousel (4 sample events)
+const carouselItems = [
   {
-    name: 'Drama',
-    events: [
-      { id: 1, title: 'Hamlet', description: 'A Shakespearean tragedy.', price: '30' },
-      { id: 2, title: 'Death of a Salesman', description: 'An American classic.', price: '25' },
-    ],
+    name: 'Park Romance',
+    imageUrl: 'sample_posters/large/dzq.jpg', // Path should be from public folder
   },
   {
-    name: 'Comedy',
-    events: [
-      { id: 3, title: 'The Play That Goes Wrong', description: 'A hilarious comedy.', price: '35' },
-      { id: 4, title: 'Noises Off', description: 'A comedic masterpiece.', price: '30' },
-    ],
+    name: 'Harry Potter and the Cursed Child',
+    imageUrl: 'sample_posters/large/sp1.jpg', // Path should be from public folder
   },
-  // Add more sections and events as needed
+  {
+    name: 'Spectacular Show',
+    imageUrl: 'sample_posters/large/sp2.jpg', // Path should be from public folder
+  },
+  {
+    name: 'Red Moon',
+    imageUrl: 'sample_posters/large/soccer.jpg', // Path should be from public folder
+  },
 ];
 
-const HomePage = () => {
-  const navigate = useNavigate();
-  const offsetHeight = '140px'; // Adjust as necessary based on the actual Navbar and intro section height
+// Sample events data (12 sample events)
+const eventsByType = {
+  Drama: Array.from({ length: 4 }, (_, index) => ({
+    id: index + 1,
+    title: `Drama Event ${index + 1}`,
+    type: 'Drama',
+    rating: 4.8, // Static rating for the example
+    reviews: 200, // Static reviews for the example
+    price: 30, // Static price for the example
+    imageUrl: `sample_posters/small/s-${index + 1}.jpg`, // Path should be from public folder
+  })),
+  Concert: Array.from({ length: 4 }, (_, index) => ({
+    id: index + 5,
+    title: `Concert Event ${index + 5}`,
+    type: 'Concert',
+    rating: 4.7,
+    reviews: 350,
+    price: 45,
+    imageUrl: `sample_posters/small/s-${index + 5}.jpg`,
+  })),
+  Sports: Array.from({ length: 4 }, (_, index) => ({
+    id: index + 9,
+    title: `Sports Event ${index + 9}`,
+    type: 'Sports',
+    rating: 4.9,
+    reviews: 150,
+    price: 25,
+    imageUrl: `sample_posters/small/s-${index + 9}.jpg`,
+  })),
+};
 
+const HomePage = () => {
   return (
     <>
       <Navbar />
@@ -45,35 +68,39 @@ const HomePage = () => {
             Show Time Is Now!
           </Typography>
           <Typography variant="subtitle1" align="center" sx={{ mb: 2 }}>
-            Theater performances, concerts, sporting events and more from all over the world.
+            Theater performances, concerts, sporting events, and more from all over the world.
           </Typography>
         </Container>
       </Box>
-      <Container maxWidth="lg" sx={{ mt: offsetHeight }}>
-        {sections.map((section) => (
-          <Box key={section.name} sx={{ marginBottom: 4 }}>
-            <Typography variant="h4" gutterBottom component="div">
-              {section.name}
-            </Typography>
+      <Carousel interval={5000} animation="slide">
+        {carouselItems.map((item, i) => (
+          <Box key={i} component={Paper} elevation={0} square sx={{ position: 'relative' }}>
+            <img
+              src={item.imageUrl}
+              alt={item.name}
+              style={{ width: '100%', maxHeight: '500px', objectFit: 'cover' }}
+            />
+          </Box>
+        ))}
+      </Carousel>
+      <Container maxWidth="lg" sx={{ my: 4 }}>
+        {Object.entries(eventsByType).map(([type, events], index) => (
+          <Box key={type} sx={{ mb: 5 }}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+              <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
+                {type}
+              </Typography>
+              <Button
+                endIcon={<ArrowForwardIcon />}
+                sx={{ color: 'CornflowerBlue', textTransform: 'none' }} // Style the button text to be blue and keep text casing
+              >
+                View More
+              </Button>
+            </Box>
             <Grid container spacing={2}>
-              {section.events.map((event) => (
-                <Grid item xs={12} sm={6} md={4} key={event.id}>
-                  <Card sx={{ minWidth: 275, margin: 2 }}>
-                    <CardContent>
-                      <Typography variant="h5" component="div">
-                        {event.title}
-                      </Typography>
-                      <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                        {event.description}
-                      </Typography>
-                      <Typography variant="body2">
-                        Price: ${event.price}
-                      </Typography>
-                    </CardContent>
-                    <CardActions>
-                      <Button size="small" onClick={() => navigate('/purchase')}>Buy Tickets</Button>
-                    </CardActions>
-                  </Card>
+              {events.map((event) => (
+                <Grid item key={event.id} xs={12} sm={6} md={3} lg={3}>
+                  <EventCard event={event} />
                 </Grid>
               ))}
             </Grid>
