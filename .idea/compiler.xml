@@ -6,9 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Pentakill" />
         <module name="team-Pentakill" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Pentakill" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>
