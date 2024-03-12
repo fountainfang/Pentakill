@@ -1,7 +1,5 @@
 package org.pentakill.business;
 
-// import java.math.BigDecimal;
-
 public class OrderEvent {
     private int eventId;
     private int ticketQuantity;

@@ -1,20 +1,15 @@
 package org.pentakill.business;
 
-import java.util.Date;
-import java.util.List;
-
 public class Order {
     private int orderId;
-    private Date orderDate;
-    private List<OrderEvent> orderEvents;
-    private Customer customer;
+    private String orderDate;
+    private int customerId;
     private double totalAmount;
 
-    public Order(int orderId, Date orderDate, List<OrderEvent> orderEvents, Customer customer, double totalAmount) {
+    public Order(int orderId, String orderDate, int customerId, double totalAmount) {
         setOrderId(orderId);
         setOrderDate(orderDate);
-        setOrderEvent(orderEvents);
-        setCustomer(customer);
+        setCustomerId(customerId);
         setTotalAmount(totalAmount);
     }
 
@@ -26,35 +21,27 @@ public class Order {
         return orderId;
     }
 
-    public void setOrderDate(Date orderDate) {
+    public void setOrderDate(String orderDate) {
         this.orderDate = orderDate;
     }
 
-    public Date getOrderDate() {
+    public String getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderEvent(List<OrderEvent> orderEvents) {
-        this.orderEvents = orderEvents;
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 
-    public List<OrderEvent> getOrderEvent() {
-        return orderEvents;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public Customer getCustomer() {
-        return customer;
+    public int getCustomerId() {
+        return customerId;
     }
 
     public void setTotalAmount(double totalAmount) {
         this.totalAmount = totalAmount;
     }
 
-    public double getAmount() {
+    public double getTotalAmount() {
         return totalAmount;
     }
 }
