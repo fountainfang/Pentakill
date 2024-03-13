@@ -47,6 +47,11 @@ html,
   /* Right fade */
 }
 
+.right-content {
+  flex-direction: column;
+  width: 100%;
+  padding-left: 50px;
+}
 .banner-content {
   padding-left: 50px;
 }
@@ -72,28 +77,24 @@ html,
   width: 100%;
 }
 
-.buy-ticket-btn {
-  background-color: #230bd8;
-  /* Button background color */
-  color: #fff;
-  /* Button text color */
-  padding: 10px 20px;
-  /* Button padding */
-  text-decoration: none;
-  /* Removes underline from link */
-  border-radius: 5px;
-  /* Optional: rounds the corners of the button */
-  font-weight: bold;
-  /* Optional: makes the button text bold */
-  /* Additional button styling as needed */
-  margin-right: 100px;
+.buy-ticket-button {
+  background-color: #007bff; /* Keeps the background color */
+  color: #ffffff; /* Keeps text color white */
+  padding: 10px 180px; /* Increases padding to make the button longer */
+  font-size: 16px; /* Keeps font size as is */
+  border-radius: 4px; /* Keeps rounded corners */
+  border: none; /* Keeps the border removed */
+  cursor: pointer; /* Keeps the pointer cursor */
+  display: inline-block; /* Keeps display as inline-block */
+  text-align: center; /* Text alignment is already centered, applies to the text inside the button */
+  width: auto; /* Adjust if you want a specific width instead of auto */
 }
 
+
 .buy-ticket-btn:hover {
-  background-color: #100674;
-  /* Darker shade for hover effect */
-  color: #ffffff;
+  background-color: #0056b3; /* Darker shade for the hover effect */
 }
+
 
 .event-date {
   font-size: 1.5rem;
@@ -120,25 +121,21 @@ html,
 }
 
 .poster-image {
-  width: 80%;
-  /* Adjust this as needed */
-  margin-top: 20px;
-  /* Adds space between date and poster image */
-  padding-left: 50px;
+  width: 250px; /* Set the width to your desired fixed size */
+  height: 350px; /* Set the height to your desired fixed size */
+  object-fit: cover; /* This ensures the image covers the space without stretching. */
+  margin-left:50px;
+  margin-bottom:50px;
 }
 
 .description {
+  padding-top: 50px;
   flex: 2;
-  padding-left: 50px;
   /* Ensures space between poster and description */
 }
 
 .event-info {
-  margin-top: 20px;
-}
-
-.event-info p {
-  padding-bottom: 50px;
+  margin-top: 0px;
 }
 
 .event-not-found {
@@ -146,28 +143,40 @@ html,
   padding: 50px;
 }
 
-.menu-bar {
-  background-color: #000000;
-  color: #f2f2f2;
-  padding: 14px 50px;
-  /* Adjusted padding for consistency */
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  /* Corrected from 'left' to 'center' for vertical alignment */
-}
+/* Existing styles above, then add the following media query for iPhone Pro Max dimensions and similar sizes */
 
+@media screen and (max-width: 430px) {
+  .banner-image {
+    height: 250px; /* Reduce height for smaller screens */
+  }
 
-.menu-bar a {
-  float: left;
-  display: block;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
+  .event-title {
+    font-size: 2rem; /* Reduce font size for smaller screens */
+    padding: 0 20px; /* Add padding to prevent text from touching the edges */
+  }
 
-.menu-bar a:hover {
-  background-color: #000000;
-  color: #230bd8;
+  .buy-ticket-button {
+    padding: 10px 20px; /* Adjust padding to make the button fit better */
+    font-size: 14px; /* Optionally reduce font size for consistency */
+  }
+
+  .content, .left-content, .description {
+    flex-direction: column; /* Stack elements vertically on smaller screens */
+    align-items: center; /* Center-align the flex items for a better layout */
+    padding: 0 20px; /* Add some padding to prevent content from touching the edges */
+  }
+
+  .poster-image {
+    width: 200px; /* Adjust image width to better fit the screen */
+    height: auto; /* Adjust height automatically to maintain aspect ratio */
+    margin: 0 auto 20px; /* Center the image and add margin below */
+  }
+
+  .description {
+    padding-top: 20px; /* Adjust padding to reduce space */
+  }
+
+  .right-content, .banner-content {
+    padding-left: 20px; /* Adjust left padding for consistency */
+  }
 }
