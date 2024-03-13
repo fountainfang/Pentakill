@@ -1,10 +1,17 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate} from 'react-router-dom';
 import styles from './EventDetails.css';
 import Navbar from '../Front-Page/Navbar';
+import PurchasingPage from '../Purchasing-Page/PurchasingPage';
 
 const EventDetails = () => {
   const { eventId } = useParams();
+  const navigate = useNavigate();
+
+  const handleBuyTicketsClick = (e) => {
+    e.preventDefault();
+    navigate(`/purchase/id=${eventId}`);
+  };
 
   const taylorSwiftConcert = {
     id: 0,
@@ -65,7 +72,7 @@ const EventDetails = () => {
         </div>
       </div>
       <div className="right-content">
-          <button href="/buy-tickets" type="button" className="buy-ticket-button">Buy Ticket</button>
+          <button href="/purchase/1" type="button" className="buy-ticket-button" onClick={handleBuyTicketsClick}>Buy Ticket</button>
         <div className="description">
           <p>{event.description}</p>
         </div>
