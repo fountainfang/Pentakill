@@ -1,6 +1,12 @@
 import React, { Component } from 'react'
 import api from '../../api';
 import classNames from 'classnames';
+import CryptoJS from 'crypto-js';
+import validator from 'validator';
+import { isEmpty } from 'lodash';
+import axios from 'axios'
+
+
 
 
 
@@ -8,6 +14,14 @@ export default class Signupform extends Component {
     constructor() {
         super();
         this.state = {
+            firstname: "",
+            lastname: "",
+            phonenum: "",
+            address: "",
+            city: "",
+            province: "",
+            postalCode: "",
+            country: "",
             username: "",
             email: "",
             password: "",
@@ -23,58 +37,85 @@ export default class Signupform extends Component {
     onSubmit = (e) => {
         e.preventDefault();
         // console.log(this.state);
-        api.register({
-            username: this.state.username,
-            password: this.state.password,
-            email: this.state.email,
-            passwordConfirmation: this.state.passwordConfirmation,
-        }).then(res => {
-            console.log(res.data)
+        const validation = validatorInput(this.state);
+        if (!validation.isValid) {
+            // Set errors and return
+            this.setState({
+                errors: validation.errors,
+                registrationStatus: 'failure'
+            });
+            return;
+        }
+        const fullregisterinfo = this.state
+        const registerinfo = {
+            "customerId": "",
+            "firstName": fullregisterinfo.firstname,
+            "lastName": fullregisterinfo.lastname,
+            "email": fullregisterinfo.email,
+            "phoneNum": fullregisterinfo.phonenum,
+            "address": fullregisterinfo.address,
+            "city": fullregisterinfo.city,
+            "province": fullregisterinfo.province,
+            "postalCode": fullregisterinfo.postalCode,
+            "country": fullregisterinfo.country,
+            "userId": fullregisterinfo.username,
+            "password": fullregisterinfo.password,
+        };
+        console.log(registerinfo)
+        const backendinfo = JSON.stringify(registerinfo)
+
+        axios.post('http://localhost/petp/api/register', backendinfo)
+
+            .then(res => {
+                console.log(res.data)
+                console.log(this.state)
 
 
-            // this.setState({
-            //     errors: res.data,
-            //     registrationStatus: 'success',
+                console.log(backendinfo)
+                // this.setState({
+                //     errors: res.data,
+                //     registrationStatus: 'success',
 
-            // })
-
-            if (res.data.msg === 'success') {
-                // Registration successful
-                this.setState({
-                    errors: {},
-                    registrationStatus: 'success',
-                });
-            } else {
-                // Registration failed with an error message
-                this.setState({
-                    errors: res.data,
-                    registrationStatus: 'failure',
-                });
-            }
+                // })
 
 
-        }).catch(error => {
+                if (res.data.msg.success === true) {
+                    // Registration successful
+                    this.setState({
+                        errors: {},
+                        registrationStatus: 'success',
+                    });
+                } else {
+                    // Registration failed with an error message
+                    this.setState({
+                        errors: res.data,
+                        registrationStatus: 'failure',
+                    });
+                }
 
-            console.log("Error object:", error);
 
-            if (error.response) {
-                // 请求已经发出，但服务器返回状态码不在2xx范围内
-                console.error("Response data:", error.response.data);
-                console.error("Response status:", error.response.status);
-                console.error("Response headers:", error.response.headers);
-                this.setState({
-                    errors: error.response.data,
-                    registrationStatus: 'failure', // Set registration status to failure
-                });
-            } else if (error.request) {
-                // 请求已经发出，但没有收到响应
-                console.error("No response received:", error.request);
+            }).catch(error => {
 
-            } else {
-                // 在设置请求时触发错误
-                console.error("Error setting up the request:", error.message);
-            }
-        });
+                console.log("Error object:", error);
+
+                if (error.response) {
+                    // 请求已经发出，但服务器返回状态码不在2xx范围内
+                    console.error("Response data:", error.response.data);
+                    console.error("Response status:", error.response.status);
+                    console.error("Response headers:", error.response.headers);
+                    this.setState({
+                        errors: error.response.data,
+                        registrationStatus: 'failure', // Set registration status to failure
+                    });
+                } else if (error.request) {
+                    // 请求已经发出，但没有收到响应
+                    console.error("No response received:", error.request);
+
+                } else {
+                    // 在设置请求时触发错误
+                    console.error("Error setting up the request:", error.message);
+                }
+            });
 
 
 
@@ -86,7 +127,7 @@ export default class Signupform extends Component {
         });
     }
     render() {
-        const { username, email, password, passwordConfirmation, errors } = this.state;
+        const { firstname, lastname, phonenum, address, city, province, postalCode, country, username, email, password, passwordConfirmation, errors } = this.state;
         const registrationStatus = this.state.registrationStatus;
 
         return (
@@ -104,6 +145,117 @@ export default class Signupform extends Component {
                         </div>
                     )}
                     <div className="form-group">
+                        <label className="control-label">Firstname</label>
+                        <input
+
+                            className={classNames("form-control", { "is-invalid": errors.firstname })}
+                            type="text"
+                            name="firstname"
+                            value={firstname}
+                            onChange={this.changeHandle}
+                        />
+
+
+                    </div>
+
+
+                    <div className="form-group">
+                        <label className="control-label">Lastname</label>
+                        <input
+
+                            className={classNames("form-control", { "is-invalid": errors.lastname })}
+                            type="text"
+                            name="lastname"
+                            value={lastname}
+                            onChange={this.changeHandle}
+                        />
+
+
+                    </div>
+
+                    <div className="form-group">
+                        <label className="control-label">Phone number</label>
+                        <input
+
+                            className={classNames("form-control", { "is-invalid": errors.phonenum })}
+                            type="text"
+                            name="phonenum"
+                            value={phonenum}
+                            onChange={this.changeHandle}
+                        />
+
+
+                    </div>
+
+                    <div className="form-group">
+                        <label className="control-label">Address</label>
+                        <input
+
+                            className={classNames("form-control", { "is-invalid": errors.address })}
+                            type="text"
+                            name="address"
+                            value={address}
+                            onChange={this.changeHandle}
+                        />
+
+
+                    </div>
+                    <div className="form-group">
+                        <label className="control-label">City</label>
+                        <input
+
+                            className={classNames("form-control", { "is-invalid": errors.address })}
+                            type="text"
+                            name="city"
+                            value={city}
+                            onChange={this.changeHandle}
+                        />
+
+
+                    </div>
+
+                    <div className="form-group">
+                        <label className="control-label">Province</label>
+                        <input
+
+                            className={classNames("form-control", { "is-invalid": errors.province })}
+                            type="text"
+                            name="province"
+                            value={province}
+                            onChange={this.changeHandle}
+                        />
+
+
+                    </div>
+                    <div className="form-group">
+                        <label className="control-label">Post code</label>
+                        <input
+
+                            className={classNames("form-control", { "is-invalid": errors.postalCode })}
+                            type="text"
+                            name="postalCode"
+                            value={postalCode}
+                            onChange={this.changeHandle}
+                        />
+
+
+                    </div>
+
+                    <div className="form-group">
+                        <label className="control-label">Country</label>
+                        <input
+
+                            className={classNames("form-control", { "is-invalid": errors.country })}
+                            type="text"
+                            name="country"
+                            value={country}
+                            onChange={this.changeHandle}
+                        />
+
+
+                    </div>
+
+                    <div className="form-group">
                         <label className="control-label">Username</label>
                         <input
 
@@ -116,6 +268,7 @@ export default class Signupform extends Component {
                         {errors.username ? <span style={{ color: 'red' }}>{errors.username}</span> : ""}
 
                     </div>
+
                     <div className="form-group">
                         <label className="control-label">Email</label>
                         <input
@@ -154,6 +307,7 @@ export default class Signupform extends Component {
 
 
 
+
                     <div className="form-group">
                         <button className="btn btn-primary btn-lg">submit</button>
                     </div>
@@ -163,3 +317,28 @@ export default class Signupform extends Component {
         )
     }
 }
+
+
+
+const validatorInput = (data) => {
+    let errors = {};
+    if (validator.isEmpty(data.username)) {
+        errors.username = "Username can not be empty";
+    }
+    if (!validator.isEmail(data.email)) {
+        errors.email = "This is not a valid email";
+    }
+
+    if (validator.isEmpty(data.password)) {
+        errors.password = "Password can not be empty";
+    }
+
+    if (!validator.equals(data.password, data.passwordConfirmation)) {
+        errors.passwordConfirmation = "Password does not match";
+    }
+
+    return {
+        isValid: isEmpty(errors),
+        errors
+    };
+};
