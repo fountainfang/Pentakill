@@ -6,6 +6,7 @@ import EventCard from './EventCard';
 import Carousel from 'react-material-ui-carousel';
 import { ArrowForward as ArrowForwardIcon } from '@mui/icons-material';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 // Poster images for carousel (4 sample events)
 const carouselItems = [
@@ -75,11 +76,7 @@ const HomePage = () => {
       <Carousel interval={5000} animation="slide">
         {carouselItems.map((item, i) => (
           <Box key={i} component={Paper} elevation={0} square sx={{ position: 'relative' }}>
-            <img
-              src={item.imageUrl}
-              alt={item.name}
-              style={{ width: '100%', maxHeight: '500px', objectFit: 'cover' }}
-            />
+            <img src={item.imageUrl} alt={item.name} style={{ width: '100%', maxHeight: '500px', objectFit: 'cover' }} />
           </Box>
         ))}
       </Carousel>
@@ -91,8 +88,10 @@ const HomePage = () => {
                 {type}
               </Typography>
               <Button
+                component={Link}
+                to={`/whats-on#${type.toLowerCase()}`}
                 endIcon={<ArrowForwardIcon />}
-                sx={{ color: 'CornflowerBlue', textTransform: 'none' }} // Style the button text to be blue and keep text casing
+                sx={{ color: 'CornflowerBlue', textTransform: 'none' }}
               >
                 View More
               </Button>
