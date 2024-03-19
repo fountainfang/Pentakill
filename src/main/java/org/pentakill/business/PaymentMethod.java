@@ -1,14 +1,12 @@
 package org.pentakill.business;
 
-import java.util.Date;
-
 public class PaymentMethod {
     private int paymentId;
     private String cardType;
-    private int cardNum;
-    private Date cardExpiryDate;
+    private String cardNum;
+    private String cardExpiryDate;
 
-    public PaymentMethod(int paymentId, String cardType, int cardNum, Date cardExpiryDate) {
+    public PaymentMethod(int paymentId, String cardType, String cardNum, String cardExpiryDate) {
         setPaymentId(paymentId);
         setCardType(cardType);
         setCardNum(cardNum);
@@ -31,19 +29,19 @@ public class PaymentMethod {
         return cardType;
     }
 
-    public void setCardNum(int cardNum) {
+    public void setCardNum(String cardNum) {
         this.cardNum = cardNum;
     }
 
-    public int getCardNum() {
+    public String getCardNum() {
         return cardNum;
     }
 
-    public void setCardExpiryDate(Date cardExpiryDate) {
+    public void setCardExpiryDate(String cardExpiryDate) {
         this.cardExpiryDate = cardExpiryDate;
     }
 
-    public Date getCardExpiryDate() {
+    public String getCardExpiryDate() {
         return cardExpiryDate;
     }
 }

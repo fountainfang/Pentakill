@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Signinform from './signinform'
-import Navbar from '../../component/Navbar'
+import Navbar from '../../pages/Front-Page/Navbar'
 import FlashMessage from '../../component/Flash/FlashMessage'
 
 export default class signin extends Component {

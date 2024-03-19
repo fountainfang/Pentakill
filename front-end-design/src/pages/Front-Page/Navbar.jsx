@@ -30,11 +30,11 @@ const Navbar = () => {
         </Typography>
         <NavBarButton onClick={() => navigate('/')}>Home</NavBarButton>
         <NavBarButton onClick={() => navigate('/whats-on')}>What's On</NavBarButton>
-        <NavBarButton onClick={() => navigate('/tickets')}>Tickets</NavBarButton>
         <NavBarButton onClick={() => navigate('/news')}>News & Interviews</NavBarButton>
         <NavBarButton onClick={() => navigate('/reviews')}>Reviews</NavBarButton>
         <NavBarButton onClick={() => navigate('/locations')}>Locations</NavBarButton>
         <NavBarButton onClick={() => navigate('/info')}>Info</NavBarButton>
+        <NavBarButton onClick={() => navigate('/profile')}>ProfileDemo</NavBarButton>
         <TextField
           variant="outlined"
           size="small"
