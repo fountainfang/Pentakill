@@ -48,6 +48,7 @@ router.post("/register", (req, res) => {
             console.log(result);
         });
         res.send({ msg: "success" });
-    });
+    }
+});
 
 module.exports = router;

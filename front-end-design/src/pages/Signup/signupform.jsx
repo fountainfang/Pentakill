@@ -79,7 +79,7 @@ export default class Signupform extends Component {
                 // })
 
 
-                if (res.data.msg.success === true) {
+                if (res.data.success === true) {
                     // Registration successful
                     this.setState({
                         errors: {},
