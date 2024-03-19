@@ -35,7 +35,10 @@ const encryptPassword = (password) => {
 
 router.post("/register", (req, res) => {
     const { isValid, errors } = validatorInput(req.body);
+<<<<<<< HEAD
     console.log(req.body)
+=======
+>>>>>>> front-end
     if (!isValid) {
         res.send(errors);
         return;
