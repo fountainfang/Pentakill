@@ -8,7 +8,28 @@ import Signup from "./pages/Signup/signup";
 import PurchasingPage from './pages/Purchasing-Page/PurchasingPage';
 import EventTicketingPage from './pages/Event-Page/EventTicketingPage';
 import EventCreation from './pages/EventCreation-Page/EventCreation';
-import ProfilePage from './pages/Userprofile-Page/Userprofile';
+import Notfound from "./pages/NotFound/Notfound"
+import Userprofile from "./pages/userprofile/Userprofile"
+
+
+// const App = () => (
+//   <BrowserRouter>
+//     <Routes>
+//       <Route path="/" element={<TheaterFrontPage />} />
+//       <Route path="/purchase" element={<TicketPurchase />} />
+//       <Route path="/purchase/:eventId" element={<PurchasingPage />} />
+//       <Route path="/login" element={<Signin />} />
+//       <Route path="/signup" element={<Signup />} />
+//       <Route path="/signin" element={<Signin />} />
+//       <Route path="/event/:eventId" element={<EventDetails />} />
+//       <Route path="/create-event" element={<EventCreation />} />
+//     </Routes>
+//   </BrowserRouter>
+// );
+
+// export default App;
+
+
 
 // Simple component for displaying fetched data
 const DataDisplay = ({ data }) => (
@@ -41,8 +62,10 @@ const App = () => {
         <Route path="/whats-on" element={<EventTicketingPage />} />
         <Route path="/data" element={<DataDisplay data={data} />} />
         <Route path="/create-event" element={<EventCreation />} />
-        <Route path="/profile" element={<ProfilePage />} />
-        
+        <Route path="/userprofile" element={<Userprofile />} />
+
+        <Route path="/*" element={<Notfound />} />
+
       </Routes>
     </BrowserRouter>
   );
