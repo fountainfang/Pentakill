@@ -15,6 +15,15 @@ html,
   color: white;
 }
 
+.pending-approval-banner {
+  background-color: red;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
 .banner-image {
   position: relative;
   width: 100%;
@@ -72,12 +81,13 @@ html,
 
 .title-and-button {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
+  flex-direction: column; /* Stack items vertically */
+  align-items: flex-start; /* Align items to the start */
+  width: 100%; /* Full width to use all available space */
 }
 
 .buy-ticket-button {
+  margin-left: 0;
   background-color: #007bff; /* Keeps the background color */
   color: #ffffff; /* Keeps text color white */
   padding: 10px 180px; /* Increases padding to make the button longer */
@@ -158,6 +168,11 @@ html,
   .buy-ticket-button {
     padding: 10px 20px; /* Adjust padding to make the button fit better */
     font-size: 14px; /* Optionally reduce font size for consistency */
+  }
+
+  .event-info-container {
+    display: flex;
+    flex-direction: column;
   }
 
   .content, .left-content, .description {

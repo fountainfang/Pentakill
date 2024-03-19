@@ -10,6 +10,7 @@ import EventTicketingPage from './pages/Event-Page/EventTicketingPage';
 import EventCreation from './pages/EventCreation-Page/EventCreation';
 import Notfound from "./pages/NotFound/Notfound"
 import Userprofile from "./pages/userprofile/Userprofile"
+import EventApproval from './pages/EventApproval-Page/EventApproval';
 
 
 // const App = () => (
@@ -63,6 +64,7 @@ const App = () => {
         <Route path="/data" element={<DataDisplay data={data} />} />
         <Route path="/create-event" element={<EventCreation />} />
         <Route path="/userprofile" element={<Userprofile />} />
+        <Route path="/event-approval" element={<EventApproval />} />
 
         <Route path="/*" element={<Notfound />} />
 
