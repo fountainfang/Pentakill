@@ -14,10 +14,7 @@
     "classnames": "^2.5.1",
     "cors": "^2.8.5",
     "crypto-js": "^4.2.0",
-<<<<<<< HEAD
     "cypress": "^13.6.6",
-=======
->>>>>>> 59c10efc (update)
     "mysql": "^2.18.1",
     "querystring": "^0.2.1",
     "react": "^18.2.0",
