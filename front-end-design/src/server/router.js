@@ -35,24 +35,19 @@ const encryptPassword = (password) => {
 
 router.post("/register", (req, res) => {
     const { isValid, errors } = validatorInput(req.body);
-<<<<<<< HEAD
-    console.log(req.body)
-=======
->>>>>>> front-end
-    if (!isValid) {
-        res.send(errors);
-        return;
-    }
+    if (isValid) {
+        res.send(errors)
+    } else {
 
-    //success
-    const { username, email, password, passwordConfirmation } = req.body;
-    const encryptedPassword = encryptPassword(password); // Encrypt password
-    const sql = "insert into user values(null,?,?,?)";
-    const arr = [username, encryptedPassword, email]; // Use encrypted password
-    sqlFn(sql, arr, result => {
-        console.log(result);
+        //success
+        const { username, email, password, passwordConfirmation } = req.body;
+        const encryptedPassword = encryptPassword(password); // Encrypt password
+        const sql = "insert into user values(null,?,?,?)";
+        const arr = [username, encryptedPassword, email]; // Use encrypted password
+        sqlFn(sql, arr, result => {
+            console.log(result);
+        });
+        res.send({ msg: "success" });
     });
-    res.send({ msg: "success" });
-});
 
 module.exports = router;
