@@ -12,7 +12,7 @@ public class EventHolder extends Customer{
         setEventHolder(true);
         setEventList(new ArrayList<Event>());
     }
-    public EventHolder(int customerId, String firstName, String lastName, String email, String phoneNum,  String address, String city, String state, String postalCode, String country, String userid, String password){
+    public EventHolder(int customerId, String firstName, String lastName, String email, String phoneNum,  String address, String city, String state, String postalCode, String country, String userId, String password){
         this();
         setCustomerId(customerId);
         setFirstName(firstName);
@@ -21,10 +21,10 @@ public class EventHolder extends Customer{
         setPhoneNum(phoneNum);
         setAddress(address);
         setCity(city);
-        setState(state);
+        setProvince(state);
         setPostalCode(postalCode);
         setCountry(country);
-        setUserid(userid);
+        setUserId(userId);
         setPassword(password);
     }
 
