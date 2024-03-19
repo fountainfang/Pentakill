@@ -67,9 +67,10 @@ export default class Signupform extends Component {
         axios.post('http://localhost/petp/api/register', backendinfo)
 
             .then(res => {
-                console.log(res.data)
-                console.log(this.state)
 
+                console.log(this.state)
+                console.log(res.data)
+                console.log(res.data.success)
 
                 console.log(backendinfo)
                 // this.setState({
@@ -79,7 +80,9 @@ export default class Signupform extends Component {
                 // })
 
 
-                if (res.data.success === true) {
+                if (res.data.success === "true") {
+
+
                     // Registration successful
                     this.setState({
                         errors: {},

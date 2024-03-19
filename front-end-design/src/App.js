@@ -62,7 +62,7 @@ const App = () => {
         <Route path="/create-event" element={<EventCreation />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/*" element={<Not />} />
-        
+
       </Routes>
     </BrowserRouter>
   );
