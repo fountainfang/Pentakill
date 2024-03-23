@@ -11,6 +11,7 @@ import EventCreation from './pages/EventCreation-Page/EventCreation';
 import Notfound from "./pages/NotFound/Notfound"
 import Userprofile from "./pages/userprofile/Userprofile"
 import EventApproval from './pages/EventApproval-Page/EventApproval';
+import NewsPage from './pages/News-Page/NewsPage';
 
 const DataDisplay = ({ data }) => (
   <div>{data ? data : "Loading..."}</div>
@@ -43,7 +44,7 @@ const App = () => {
         <Route path="/create-event" element={<EventCreation />} />
         <Route path="/userprofile" element={<Userprofile />} />
         <Route path="/event-approval" element={<EventApproval />} />
-
+        <Route path="/news" element={<NewsPage />} />
         <Route path="/*" element={<Notfound />} />
 
       </Routes>
