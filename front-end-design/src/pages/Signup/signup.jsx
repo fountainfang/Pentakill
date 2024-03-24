@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react'
 import Signupform from './signupform'
-import Navbar from '../../component/Navbar'
+import Navbar from '../../pages/Front-Page/Navbar'
 import FlashMesageList from '../../component/Flash/FlashMesageList'
 
 export default class signup extends Component {
