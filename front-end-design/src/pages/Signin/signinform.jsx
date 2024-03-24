@@ -1,64 +1,67 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-export default class Signinform extends Component {
-    constructor() {
-        super();
-        this.state = {
-            username: "",
-            password: ""
+function Signinform(props) {
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
-        }
-    }
-
-    onSubmit = (e) => {
+    const onSubmit = (e) => {
         e.preventDefault();
-        console.log(this.state)
+        console.log({ username, password });
+        props.authActions.asyncsetUserObj({ username, password })
+            .then(res => {
+                console.log(res.data);
+                console.log(res.data.status);
+                if (res.data.status === 200) {
+                    navigate('/userprofile', { state: { userData: res.data } });
+                } else {
 
-    }
-    changeHandle = (e) => {
-        this.setState({
-            [e.target.name]: e.target.value
-        });
-    }
+                }
+            });
+    };
 
+    const changeHandle = (e) => {
+        const { name, value } = e.target;
+        if (name === 'username') {
+            setUsername(value);
+        } else if (name === 'password') {
+            setPassword(value);
+        }
+    };
 
-    render() {
+    return (
+        <div>
+            <form onSubmit={onSubmit}>
+                <h1>Log in our website</h1>
+                <div className="form-group">
+                    <label className="control-label">Username</label>
+                    <input
+                        className="form-control"
+                        type="text"
+                        name="username"
+                        value={username}
+                        onChange={changeHandle}
+                    />
+                </div>
 
-        const { username, password } = this.state;
-        return (
-            <div>
-                <form onSubmit={this.onSubmit}>
-                    <h1>Log in our website</h1>
-                    <div className="form-group">
-                        <label className="control-label">Username</label>
-                        <input
-                            className="form-control"
-                            type="text"
-                            name="username"
-                            value={username}
-                            onChange={this.changeHandle}
-                        />
+                <div className="form-group">
+                    <label className="control-label">Password</label>
+                    <input
+                        className="form-control"
+                        type="password"
+                        name="password"
+                        value={password}
+                        onChange={changeHandle}
+                    />
+                </div>
 
-                    </div>
-
-                    <div className="form-group">
-                        <label className="control-label">Password</label>
-                        <input
-                            className="form-control"
-                            type="password"
-                            name="password"
-                            value={password}
-                            onChange={this.changeHandle}
-                        />
-
-                    </div>
-
-                    <div className="form-group">
-                        <button className="btn btn-primary btn-lg">Log in</button>
-                    </div>
-
-                </form >
-            </div >
-        )
-    }
+                <div className="form-group">
+                    <button className="btn btn-primary btn-lg">Log in</button>
+                </div>
+            </form>
+        </div>
+    );
 }
+
+export default Signinform;

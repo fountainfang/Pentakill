@@ -1,5 +1,7 @@
 // Navbar.js
 import React from 'react';
+import { Link } from "react-router-dom"
+import { connect } from "react-redux"
 import { useNavigate } from 'react-router-dom';
 import {
   AppBar,
@@ -12,14 +14,25 @@ import {
 import SearchIcon from '@mui/icons-material/Search';
 import websiteIcon from './website-logo.png'; // Adjust the path as needed
 
+import { bindActionCreators } from 'redux';
+import * as authActions from "../action/auth"
+
+
+
 const NavBarButton = ({ children, ...props }) => (
   <Button color="inherit" sx={{ marginRight: 2 }} {...props}>
     {children}
   </Button>
 );
 
-const Navbar = () => {
+const Navbar = (props) => {
   const navigate = useNavigate();
+
+  const logoutHandle = (props) => {
+    props.authActions.logOut();
+    navigate('/');
+  }
+
 
   return (
     <AppBar position="static" sx={{ backgroundColor: '#000', color: '#FFF' }}>
@@ -35,23 +48,46 @@ const Navbar = () => {
         <NavBarButton onClick={() => navigate('/reviews')}>Reviews</NavBarButton>
         <NavBarButton onClick={() => navigate('/theatres')}>Theatres</NavBarButton>
         <NavBarButton onClick={() => navigate('/info')}>Info</NavBarButton>
-        <TextField
-          variant="outlined"
-          size="small"
-          sx={{ backgroundColor: '#FFF', borderRadius: 1, marginRight: 2 }}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon />
-              </InputAdornment>
-            ),
-          }}
-        />
-        <Button color="inherit" onClick={() => navigate('/signin')}>Login</Button>
-        <Button color="inherit" onClick={() => navigate('/signup')}>Sign-up</Button>
+        {
+          props.auth.user.token ?
+            <>
+              <Link>{props.auth.user.nick}</Link>
+              <Button color="inherit" onClick={() => logoutHandle(props)}>Log out</Button>
+            </>
+            :
+            <>   <TextField
+              variant="outlined"
+              size="small"
+              sx={{ backgroundColor: '#FFF', borderRadius: 1, marginRight: 2 }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon />
+                  </InputAdornment>
+                ),
+              }}
+            />
+              <Button color="inherit" onClick={() => navigate('/signin')}>Login</Button>
+              <Button color="inherit" onClick={() => navigate('/signup')}>Sign-up</Button></>
+
+        }
+
+
+
+
+
       </Toolbar>
     </AppBar>
   );
 };
 
-export default Navbar;
+//export default Navbar;
+const mapStateToProps = state => {
+  return { auth: state.auth }
+}
+
+const mapDispatchToProps = dispatch => {
+  return { authActions: bindActionCreators(authActions, dispatch) }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar)
