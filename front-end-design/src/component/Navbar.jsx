@@ -28,10 +28,12 @@ const NavBarButton = ({ children, ...props }) => (
 const Navbar = (props) => {
   const navigate = useNavigate();
 
-  const logoutHandle = (props) => {
+  const logoutHandle = () => {
     props.authActions.logOut();
     navigate('/');
+    localStorage.removeItem("rl")
   }
+
 
 
   return (
@@ -51,7 +53,7 @@ const Navbar = (props) => {
         {
           props.auth.user.token ?
             <>
-              <Link>{props.auth.user.nick}</Link>
+              <Link to="/userprofile">{props.auth.user.nick}</Link>
               <Button color="inherit" onClick={() => logoutHandle(props)}>Log out</Button>
             </>
             :
