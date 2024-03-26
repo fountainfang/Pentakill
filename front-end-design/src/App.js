@@ -12,6 +12,7 @@ import Notfound from "./pages/NotFound/Notfound"
 import Userprofile from "./pages/userprofile/Userprofile"
 import EventApproval from './pages/EventApproval-Page/EventApproval';
 import NewsPage from './pages/News-Page/NewsPage';
+import OrderConfirmationPage from './pages/OrderFormation-Page/OrderFormation';
 
 const DataDisplay = ({ data }) => (
   <div>{data ? data : "Loading..."}</div>
@@ -46,6 +47,7 @@ const App = () => {
         <Route path="/event-approval" element={<EventApproval />} />
         <Route path="/news" element={<NewsPage />} />
         <Route path="/*" element={<Notfound />} />
+        <Route path="/confirmation/:eventId" element={<OrderConfirmationPage />} />
 
       </Routes>
     </BrowserRouter>
