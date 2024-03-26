@@ -7,6 +7,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import EditIcon from '@mui/icons-material/Edit';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import Navbar from '../../component/Navbar';
+import { connect } from "react-redux"
 
 
 
@@ -23,17 +24,16 @@ class UserProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstName: 'Amanda',
-      lastName: 'Lee',
-      customerId: '001122',
-      email: 'amanda.lee@example.com',
-      phoneNum: '123-456-7890',
-      addressLine1: '1234 Main St',
-      addressLine2: 'Apt 101',
-      city: 'Anytown',
-      state: 'CA',
-      country: 'USA',
-      postalCode: '12345',
+      firstName: props.auth.user.firstname,
+      lastName: props.auth.user.lastname,
+      customerId: props.auth.user.customerid,
+      email: props.auth.user.email,
+      phoneNum: props.auth.user.phonenum,
+      address: props.auth.user.address,
+      city: props.auth.user.city,
+      state: props.auth.user.state,
+      country: props.auth.user.country,
+      postalCode: props.auth.user.postalCode,
       profileImage: 'path_to_customer_image.jpg', // Placeholder for the image path
       editDrawerOpen: false,
       editingField: ''
@@ -109,7 +109,7 @@ class UserProfile extends React.Component {
   }
 
   render() {
-    const { firstName, lastName, customerId, email, phoneNum, addressLine1, addressLine2, city, state, country, postalCode, profileImage } = this.state;
+    const { firstName, lastName, customerId, email, phoneNum, address, city, state, country, postalCode, profileImage } = this.state;
 
     return (
       <>
@@ -138,8 +138,8 @@ class UserProfile extends React.Component {
                 {this.renderField('Customer ID', customerId, 'customerId')}
                 {this.renderField('Email', email, 'email')}
                 {this.renderField('Phone', phoneNum, 'phoneNum')}
-                {this.renderField('Address Line 1', addressLine1, 'addressLine1')}
-                {this.renderField('Address Line 2', addressLine2, 'addressLine2')}
+                {this.renderField('Address', address, 'addressLine1')}
+
                 {this.renderField('City', city, 'city')}
                 {this.renderField('State', state, 'state')}
                 {this.renderField('Country', country, 'country')}
@@ -154,4 +154,11 @@ class UserProfile extends React.Component {
   }
 }
 
-export default UserProfile;
+const mapStateToProps = state => {
+  return { auth: state.auth }
+}
+
+export default connect(mapStateToProps)(UserProfile)
+
+
+

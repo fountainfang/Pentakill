@@ -1,17 +1,11 @@
 import React, { useState } from 'react';
-import Navbar from '../Front-Page/Navbar';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
-  Box,
-  Container,
-  Typography,
-  TextField,
-  Button,
-  Radio,
-  RadioGroup,
-  FormControlLabel,
-  FormControl,
-  FormLabel,
+  Box, Container, Typography, TextField, Button,
+  Radio, RadioGroup, FormControlLabel, FormControl,
 } from '@mui/material';
+import Navbar from '../Front-Page/Navbar';
+// Assume events is imported correctly
 
 const PurchasingPage = () => {
   const [formData, setFormData] = useState({
@@ -22,9 +16,12 @@ const PurchasingPage = () => {
     paymentOption: 'creditCard',
   });
 
+  const { eventId } = useParams(); // Correct use of useParams at the top level of the component
+  const navigate = useNavigate();
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
+    setFormData(prevData => ({
       ...prevData,
       [name]: value,
     }));
@@ -32,9 +29,9 @@ const PurchasingPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Implement submission logic here
-    console.log(formData);
-  };
+    // Navigate to the confirmation page, including the eventId in the path
+    navigate(`/confirmation/${eventId}`);
+};
 
   return (
     <>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect'; // for custom jest matchers
-import UserProfile from './UserProfile';
+import UserProfile from './Userprofile';
 
 test('renders user profile information', () => {
     // Render the component
