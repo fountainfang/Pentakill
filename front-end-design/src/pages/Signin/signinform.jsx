@@ -18,6 +18,14 @@ function Signinform(props) {
                 } else {
                     alert('Login failed! Please check your credentials.');
 
+                    const changeHandle = (e) => {
+                        const { name, value } = e.target;
+                        if (name === 'username') {
+                            setUsername(value);
+                        } else if (name === 'password') {
+                            setPassword(value);
+                        }
+                    };
 
                 }
             });
