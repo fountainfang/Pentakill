@@ -12,6 +12,8 @@ import Notfound from "./pages/NotFound/Notfound"
 import Userprofile from "./pages/userprofile/Userprofile"
 import EventApproval from './pages/EventApproval-Page/EventApproval';
 import NewsPage from './pages/News-Page/NewsPage';
+import ReviewsPage from './pages/Review-Page/ReviewsPage';
+import Info from './pages/Info-Page/Info';
 import OrderConfirmationPage from './pages/OrderFormation-Page/OrderFormation';
 
 const DataDisplay = ({ data }) => (
@@ -40,13 +42,16 @@ const App = () => {
         <Route path="/signin" element={<Signin />} />
         <Route path="/event/:eventId" element={<EventDetails />} />
         <Route path="/whats-on" element={<EventTicketingPage />} />
-        <Route path="/whats-on" element={<EventTicketingPage />} />
         <Route path="/data" element={<DataDisplay data={data} />} />
         <Route path="/create-event" element={<EventCreation />} />
-        <Route path="/userprofile" element={<Userprofile />} />
+        <Route path="/profile" element={<Userprofile />} />
         <Route path="/event-approval" element={<EventApproval />} />
         <Route path="/news" element={<NewsPage />} />
+        <Route path="/reviews" element={<ReviewsPage />} />
         <Route path="/*" element={<Notfound />} />
+        <Route path="/approve" element={<EventApproval />} />
+        <Route path="/eventcreate" element={<EventCreation />} />
+        <Route path="/info" element={<Info />} />
         <Route path="/confirmation/:eventId" element={<OrderConfirmationPage />} />
 
       </Routes>

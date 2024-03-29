@@ -1,7 +1,9 @@
 import React from 'react';
 import { Box, Typography, Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const PosterBar = () => {
+  const navigate = useNavigate();
   return (
     <Box
       sx={{
@@ -55,6 +57,7 @@ const PosterBar = () => {
         </Typography>
         {/* Buy tickets button */}
         <Button variant="contained" color="secondary"
+        onClick={() => navigate('/tickets')}
           sx={{
             fontSize: '0.8rem', // Adjust font size
             padding: '8px 12px', // Adjust padding; format is 'vertical horizontal'
