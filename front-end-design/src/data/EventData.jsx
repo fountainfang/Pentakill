@@ -32,7 +32,7 @@ export const events = {
     description: 'Explore the bustling city of New York through the eyes of The New Yorker...',
     bannerImage: '/sample_posters/banner/drama.webp',
     posterImage: '/sample_posters/small/s-2.jpg',
-    approvalStatus: 'Pending',
+    approvalStatus: 'Approved',
     category: 'Drama',
   },
   '3': {
@@ -44,7 +44,7 @@ export const events = {
     description: 'Witness the captivating tale of Don Juan unfold...',
     bannerImage: '/sample_posters/banner/drama.webp',
     posterImage: '/sample_posters/small/s-3.jpg',
-    approvalStatus: 'Pending',
+    approvalStatus: 'Approved',
     category: 'Drama',
   },
   '4': {
@@ -56,7 +56,7 @@ export const events = {
     description: 'Experience the timeless tragedy of Romeo and Juliet...',
     bannerImage: '/sample_posters/banner/drama.webp',
     posterImage: '/sample_posters/small/s-4.jpg',
-    approvalStatus: 'Pending',
+    approvalStatus: 'Approved',
     category: 'Drama',
   },
   '5': {
@@ -68,7 +68,7 @@ export const events = {
     description: 'Immerse yourself in the soulful melodies of Alton\'s Jazz...',
     bannerImage: '/sample_posters/banner/orchestra.jpeg',
     posterImage: '/sample_posters/small/s-5.jpg',
-    approvalStatus: 'Pending',
+    approvalStatus: 'Approved',
     category: 'Concert',
   },
   '6': {
@@ -80,7 +80,7 @@ export const events = {
     description: 'Get ready for an electrifying performance by Adele...',
     bannerImage: '/sample_posters/banner/concert.webp',
     posterImage: '/sample_posters/small/s-6.jpg',
-    approvalStatus: 'Pending',
+    approvalStatus: 'Approved',
     category: 'Concert',
   },
   '7': {
@@ -92,7 +92,7 @@ export const events = {
     description: 'Experience the masterful piano performance by Rachele Gensolin...',
     bannerImage: '/sample_posters/banner/orchestra.jpeg',
     posterImage: '/sample_posters/small/s-7.jpg',
-    approvalStatus: 'Pending',
+    approvalStatus: 'Approved',
     category: 'Concert',
   },
   '8': {
@@ -104,7 +104,7 @@ export const events = {
     description: 'Join us for an evening of classical music with Senio\'s Recital...',
     bannerImage: '/sample_posters/banner/orchestra.jpeg',
     posterImage: '/sample_posters/small/s-8.jpg',
-    approvalStatus: 'Pending',
+    approvalStatus: 'Approved',
     category: 'Concert',
   },
   '9': {
@@ -116,7 +116,7 @@ export const events = {
     description: 'Cheer for the Toronto Raptors as they take on their rivals...',
     bannerImage: '/sample_posters/banner/sport.jpeg',
     posterImage: '/sample_posters/small/s-9.jpg',
-    approvalStatus: 'Pending',
+    approvalStatus: 'Approved',
     category: 'Sport',
   },
   '10': {
@@ -128,7 +128,7 @@ export const events = {
     description: 'Witness the fierce rivalry between Liverpool FC and Manchester United...',
     bannerImage: '/sample_posters/banner/sport.jpeg',
     posterImage: '/sample_posters/small/s-10.jpg',
-    approvalStatus: 'Pending',
+    approvalStatus: 'Approved',
     category: 'Sport',
   },
   '11': {
@@ -140,7 +140,7 @@ export const events = {
     description: 'Don\'t miss the excitement as teams battle it out to reach 60 points first...',
     bannerImage: '/sample_posters/banner/sport.jpeg',
     posterImage: '/sample_posters/small/s-11.jpg',
-    approvalStatus: 'Pending',
+    approvalStatus: 'Approved',
     category: 'Sport',
   },
   '12': {

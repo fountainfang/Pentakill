@@ -14,6 +14,7 @@ import EventApproval from './pages/EventApproval-Page/EventApproval';
 import NewsPage from './pages/News-Page/NewsPage';
 import ReviewsPage from './pages/Review-Page/ReviewsPage';
 import Info from './pages/Info-Page/Info';
+import OrderConfirmationPage from './pages/OrderFormation-Page/OrderFormation';
 
 const DataDisplay = ({ data }) => (
   <div>{data ? data : "Loading..."}</div>
@@ -51,6 +52,7 @@ const App = () => {
         <Route path="/approve" element={<EventApproval />} />
         <Route path="/eventcreate" element={<EventCreation />} />
         <Route path="/info" element={<Info />} />
+        <Route path="/confirmation/:eventId" element={<OrderConfirmationPage />} />
 
       </Routes>
     </BrowserRouter>

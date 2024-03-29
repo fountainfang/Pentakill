@@ -46,19 +46,28 @@ public class RegServlet extends HttpServlet{
             }
 
             String jsonStr = inputStringBuilder.toString();
-            jsonStr = "{\"firstName\":\"Eric\",\"lastName\":\"Chen\",\"email\":\"abc@gmail.com\",\"phoneNum\":\"123456\",\"address\":\"Academy Way\",\"city\":\"Kelowna\",\"province\":\"British Columbia\",\"postalCode\":\"V1V3C9\",\"country\":\"Canada\",\"userId\":\"eric\",\"password\":\"123\"}";
+            //jsonStr = "{\"firstName\":\"Eric\",\"lastName\":\"Chen\",\"email\":\"abc@gmail.com\",\"phoneNum\":\"123456\",\"address\":\"Academy Way\",\"city\":\"Kelowna\",\"province\":\"British Columbia\",\"postalCode\":\"V1V3C9\",\"country\":\"Canada\",\"userId\":\"eric\",\"password\":\"123\"}";
             System.out.println("get Client "+jsonStr);
-            CustomerFactory.getInstance();
-            ICustomer aCustomer = CustomerFactory.createCustomer(jsonStr);
-
-            DBManager.getInstance().saveCustomer(aCustomer);
-
+            boolean doPost = false;
+            try {
+                CustomerFactory.getInstance();
+                ICustomer aCustomer = CustomerFactory.createCustomer(jsonStr);
+                if(DBManager.getInstance().saveCustomer(aCustomer)){
+                    doPost = true;
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            String jsonResponse = "{\"success\":\"false\", \"message\": \"" + CREATE_CUSTOMER + "\"}";
+            if(doPost) {
+                jsonResponse = "{\"success\":\"true\", \"message\": \"" + CREATE_CUSTOMER + "\"}";
+            }
 
             // Create the response JSON String and write it back to the response
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             response.setStatus(HttpServletResponse.SC_OK);
-            String jsonResponse = "{\"success\":\"true\", \"message\": \"" + CREATE_CUSTOMER + "\"}";
+            //String jsonResponse = "{\"success\":\"true\", \"message\": \"" + CREATE_CUSTOMER + "\"}";
 
             // Write the response back
             PrintWriter out = response.getWriter();
