@@ -27,13 +27,14 @@ export default class Signupform extends Component {
             email: "",
             password: "",
             passwordConfirmation: "",
+            usertype: "",
             errors: {},
             registrationStatus: ""
 
         }
     }
     onBlurCheckUserName = () => {
-        console.log("aaa")
+
         api.repeatUserName({
             username: this.state.username
         }).then(res => {
@@ -85,6 +86,7 @@ export default class Signupform extends Component {
         //     "country": fullregisterinfo.country,
         //     "userId": fullregisterinfo.username,
         //     "password": fullregisterinfo.password,
+        //     "usertype"
         // };
         // console.log(registerinfo)
         // const backendinfo = JSON.stringify(registerinfo)
@@ -103,6 +105,7 @@ export default class Signupform extends Component {
             email: this.state.email,
             password: this.state.password,
             passwordConfirmation: this.state.passwordConfirmation,
+            usertype: this.state.usertype,
 
         })
 
@@ -239,12 +242,14 @@ export default class Signupform extends Component {
     }
 
     changeHandle = (e) => {
+        console.log(e.target.value)
+
         this.setState({
             [e.target.name]: e.target.value
         });
     }
     render() {
-        const { firstname, lastname, phonenum, address, city, province, postalCode, country, username, email, password, passwordConfirmation, errors } = this.state;
+        const { firstname, lastname, phonenum, address, city, province, postalCode, country, username, email, password, passwordConfirmation, usertype, errors } = this.state;
         const registrationStatus = this.state.registrationStatus;
 
         return (
@@ -409,7 +414,6 @@ export default class Signupform extends Component {
                             onChange={this.changeHandle}
                         />
                         {errors.password ? <span style={{ color: 'red' }}>{errors.password}</span> : ""}
-
                     </div>
                     <div className="form-group">
                         <label className="control-label">PasswordConfirmation</label>
@@ -422,8 +426,13 @@ export default class Signupform extends Component {
                         />
                         {errors.passwordConfirmation ? <span style={{ color: 'red' }}>{errors.passwordConfirmation}</span> : ""}
                     </div>
-
-
+                    <div className="form-group">
+                        <select name="usertype" value={usertype} onChange={this.changeHandle}>
+                            <option value="1">Eventholder</option>
+                            <option value="2">Customer</option>
+                        </select>
+                        {errors.usertype ? <span style={{ color: 'red' }}>{errors.usertype}</span> : ""}
+                    </div>
 
 
                     <div className="form-group">

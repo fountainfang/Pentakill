@@ -28,7 +28,9 @@ export function asyncsetUserObj(data) {
                     country: res.data.country,
                     postalCode: res.data.postalCode,
                     firstname: res.data.firstname,
-                    lastname: res.data.lastname
+                    lastname: res.data.lastname,
+                    usertype: res.data.usertype
+
 
                 }))
                 localStorage.setItem("rl", JSON.stringify({
@@ -43,7 +45,8 @@ export function asyncsetUserObj(data) {
                     country: res.data.country,
                     postalCode: res.data.postalCode,
                     firstname: res.data.firstname,
-                    lastname: res.data.lastname
+                    lastname: res.data.lastname,
+                    usertype: res.data.usertype
 
                 }))
             }
