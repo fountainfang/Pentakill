@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import TheaterFrontPage from './pages/Front-Page/HomePage';
 import TicketPurchase from './pages/Purchase-Page/TicketPurchase';
 import EventDetails from './pages/EventDetail-Page/EventDetails';
@@ -29,10 +29,10 @@ const App = () => {
       .then((res) => res.json())
       .then((data) => setData(data.message))
       .catch((error) => console.error("Error fetching data:", error));
-  }, []); 
+  }, []);
 
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
         <Route path="/" element={<TheaterFrontPage />} />
         <Route path="/purchase" element={<TicketPurchase />} />
@@ -55,7 +55,7 @@ const App = () => {
         <Route path="/confirmation/:eventId" element={<OrderConfirmationPage />} />
 
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 };
 
