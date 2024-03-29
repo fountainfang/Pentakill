@@ -4,15 +4,10 @@ import Navbar from '../Front-Page/Navbar';
 import EventCard from '../Front-Page/EventCard';
 import PosterBar from './PosterBar'; // Import the PosterBar component
 import { Box, Typography, Grid, Container, Button } from '@mui/material';
+import events from './SampleEvents.jsx';
 
 // Expanded mock data
-const events = [
-  ...Array.from({ length: 12 }).flatMap((_, index) => [
-    { id: index * 3 + 1, imageUrl: 'drama_image_url', type: 'Drama', title: `Drama Event ${index + 1}`, rating: (Math.random() * (5 - 4) + 4).toFixed(1), reviews: Math.floor(Math.random() * (500 - 100) + 100), price: Math.floor(Math.random() * (100 - 30) + 30) },
-    { id: index * 3 + 2, imageUrl: 'concert_image_url', type: 'Concert', title: `Concert Event ${index + 1}`, rating: (Math.random() * (5 - 4) + 4).toFixed(1), reviews: Math.floor(Math.random() * (500 - 100) + 100), price: Math.floor(Math.random() * (100 - 30) + 30) },
-    { id: index * 3 + 3, imageUrl: 'sports_image_url', type: 'Sports', title: `Sports Event ${index + 1}`, rating: (Math.random() * (5 - 4) + 4).toFixed(1), reviews: Math.floor(Math.random() * (500 - 100) + 100), price: Math.floor(Math.random() * (100 - 30) + 30) },
-  ])
-];
+console.log(events);
 
 const EventTicketingPage = () => {
   const [filteredEvents, setFilteredEvents] = useState(events);

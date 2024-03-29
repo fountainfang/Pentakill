@@ -11,7 +11,7 @@ const EventDetails = () => {
 
   const handleBuyTicketsClick = (e) => {
     e.preventDefault();
-    navigate(`/purchase/id=${eventId}`);
+    navigate(`/purchase/${eventId}`);
   };
 
   const event = events[eventId]; // Accessing event directly from the 'events' object

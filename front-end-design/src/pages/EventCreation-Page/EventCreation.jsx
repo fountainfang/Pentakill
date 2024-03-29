@@ -3,13 +3,17 @@ import Navbar from '../Front-Page/Navbar';
 
 function EventCreation() {
     const [eventData, setEventData] = useState({
-        genre: '',
-        name: '',
-        date: '',
-        time: '',
-        location: '',
-        ticketNumbers: '',
-        ticketPrice: ''
+        eventName: '',
+        eventCategory: '',
+        eventDesc: '',
+        eventDate: '',
+        startTime: '',
+        endTime: '',
+        address: '',
+        totalTicket: 0,
+        ticketNum: 0,
+        ticketPrice: 0.0,
+        eventRating: 0,
     });
 
     //Change title of the page
@@ -50,21 +54,27 @@ function EventCreation() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const newEventId = eventsList.length + 1; // Incremental event ID
-        const newEvent = { ...eventData, id: newEventId };
-        setEventsList([...eventsList, newEvent]);
-        console.log(newEvent);
-
-        // Optionally, reset form fields after submission
-        setEventData({
-            genre: '',
-            name: '',
-            date: '',
-            time: '',
-            location: '',
-            ticketNumbers: '',
-            ticketPrice: ''
-        });
+    
+        // Assuming eventData is already structured correctly and just needs renaming
+        const eventSubmission = {
+            eventName: eventData.name, // Map from your form state to the Java class structure
+            eventCategory: eventData.genre,
+            eventDesc: '', // Add a way for users to input this, if not already done
+            eventDate: eventData.date,
+            startTime: eventData.time,
+            endTime: '', // Make sure you have a field for this or calculate it as needed
+            address: eventData.location,
+            totalTicket: parseInt(eventData.ticketNumbers, 10),
+            ticketNum: 0, // Determine how this differs from totalTicket and adjust accordingly
+            ticketPrice: parseFloat(eventData.ticketPrice),
+            eventRating: 0, // Adjust based on your form's input or logic
+        };
+    
+        const jsonPayload = JSON.stringify(eventSubmission);
+        console.log(jsonPayload); // For debugging; remove or replace with a call to your backend
+        
+        // Here you would typically make an API call to your backend to submit the JSON
+        // For example, using fetch or Axios to POST the data
     };
 
     const formStyle = {
@@ -85,6 +95,15 @@ function EventCreation() {
         flexDirection: 'column', // Stack inputs vertically under labels
         alignItems: 'flex-start', // Align to the left
     };
+
+    const dropAreaStyle = {
+    ...divStyle, // Reuse the divStyle for consistency
+    border: '2px dashed #ccc',
+    textAlign: 'center',
+    padding: '20px',
+    cursor: 'pointer',
+    backgroundColor: '#f9f9f9', // Slightly different to stand out as a drop area
+};
 
     const labelStyle = {
         marginBottom: '5px', // Space between label and input
@@ -117,9 +136,13 @@ function EventCreation() {
             <Navbar />
             <form onSubmit={handleSubmit} style={formStyle}>
                 <div style={divStyle}>
-                    <label style={labelStyle}>Event Genre:</label>
-                    <select name="genre" value={eventData.genre} onChange={handleChange} required style={inputStyle}>
-                        <option value="">Select a Genre</option>
+                    <label style={labelStyle}>Event Name:</label>
+                    <input type="text" name="eventName" value={eventData.eventName} onChange={handleChange} required style={inputStyle} />
+                </div>
+                <div style={divStyle}>
+                    <label style={labelStyle}>Event Category:</label>
+                    <select name="eventCategory" value={eventData.eventCategory} onChange={handleChange} required style={inputStyle}>
+                        <option value="">Select a Category</option>
                         <option value="Opera">Opera</option>
                         <option value="Concert">Concert</option>
                         <option value="Sports">Sports</option>
@@ -129,59 +152,74 @@ function EventCreation() {
                     </select>
                 </div>
                 <div style={divStyle}>
-                    <label style={labelStyle}>Event Name:</label>
-                    <input type="text" name="name" value={eventData.name} onChange={handleChange} required style={inputStyle} />
+                    <label style={labelStyle}>Event Description:</label>
+                    <textarea name="eventDesc" value={eventData.eventDesc} onChange={handleChange} required style={{ ...inputStyle, height: '100px' }} />
                 </div>
                 <div style={divStyle}>
                     <label style={labelStyle}>Event Date:</label>
-                    <input type="date" name="date" value={eventData.date} onChange={handleChange} required style={inputStyle} />
+                    <input type="date" name="eventDate" value={eventData.eventDate} onChange={handleChange} required style={inputStyle} />
                 </div>
                 <div style={divStyle}>
-                    <label style={labelStyle}>Event Time:</label>
-                    <input type="time" name="time" value={eventData.time} onChange={handleChange} required style={inputStyle} />
+                    <label style={labelStyle}>Start Time:</label>
+                    <input type="time" name="startTime" value={eventData.startTime} onChange={handleChange} required style={inputStyle} />
+                </div>
+                <div style={divStyle}>
+                    <label style={labelStyle}>End Time:</label>
+                    <input type="time" name="endTime" value={eventData.endTime} onChange={handleChange} required style={inputStyle} />
                 </div>
                 <div style={divStyle}>
                     <label style={labelStyle}>Event Location:</label>
-                    <input type="text" name="location" value={eventData.location} onChange={handleChange} required style={inputStyle} />
+                    <input type="text" name="address" value={eventData.address} onChange={handleChange} required style={inputStyle} />
                 </div>
                 <div style={divStyle}>
-                    <label style={labelStyle}>Event Ticket Numbers Total:</label>
+                    <label style={labelStyle}>Total Ticket Numbers:</label>
                     <input
-                        type="text"
-                        name="ticketNumbers"
-                        pattern="\d*"
-                        value={eventData.ticketNumbers}
+                        type="number"
+                        name="totalTicket"
+                        value={eventData.totalTicket}
                         onChange={handleChange}
                         required
                         style={inputStyle}
-                        onInput={(e) => e.target.value = e.target.value.replace(/[^0-9]/g, '')}
-                        title="Please enter a positive number."
+                        min="0"
                     />
                 </div>
                 <div style={divStyle}>
-                    <label style={labelStyle}>Event Ticket Price:</label>
+                    <label style={labelStyle}>Ticket Price:</label>
                     <input
-                        type="text"
+                        type="number"
                         name="ticketPrice"
-                        pattern="^\d*(\.\d{0,2})?$"
                         value={eventData.ticketPrice}
                         onChange={handleChange}
                         required
                         style={inputStyle}
-                        onInput={(e) => e.target.value = e.target.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1')}
-                        title="Please enter a valid currency amount (e.g., 10, 10.5, or 10.50)."
+                        step="0.01"
+                        min="0"
                     />
                 </div>
-                <button type="submit" style={buttonStyle}>Submit</button>
+                <div style={divStyle}>
+                    <label style={labelStyle}>Event Rating:</label>
+                    <input
+                        type="number"
+                        name="eventRating"
+                        value={eventData.eventRating}
+                        onChange={handleChange}
+                        required
+                        style={inputStyle}
+                        min="0"
+                        max="5"
+                    />
+                </div>
+    
+                <button type="submit" style={buttonStyle}>Submit Event</button>
             </form>
-            {/* display submitted events for confirmation */}
-             {eventsList.length > 0 && (
+            {/* Display submitted events for confirmation */}
+            {eventsList.length > 0 && (
                 <div style={submittedEventsStyle}>
                     <h3 style={{ textAlign: 'center' }}>Submitted Events:</h3>
                     <ul style={{ listStyleType: 'none', padding: 0 }}>
-                        {eventsList.map(event => (
-                            <li key={event.id} style={eventItemStyle}>
-                                <strong>ID:</strong> {event.id}, <strong>Name:</strong> {event.name}, <strong>Genre:</strong> {event.genre}, <strong>Date:</strong> {event.date}, <strong>Time:</strong> {event.time}, <strong>Location:</strong> {event.location}, <strong>Ticket Numbers:</strong> {event.ticketNumbers}, <strong>Ticket Price:</strong> ${event.ticketPrice}
+                        {eventsList.map((event, index) => (
+                            <li key={index} style={eventItemStyle}>
+                                <strong>ID:</strong> {event.eventId}, <strong>Name:</strong> {event.eventName}, <strong>Category:</strong> {event.eventCategory}, <strong>Description:</strong> {event.eventDesc}, <strong>Date:</strong> {event.eventDate}, <strong>Start Time:</strong> {event.startTime}, <strong>End Time:</strong> {event.endTime}, <strong>Location:</strong> {event.address}, <strong>Total Tickets:</strong> {event.totalTicket}, <strong>Ticket Price:</strong> ${event.ticketPrice}, <strong>Rating:</strong> {event.eventRating}
                             </li>
                         ))}
                     </ul>

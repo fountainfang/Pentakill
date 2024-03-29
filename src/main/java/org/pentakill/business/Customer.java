@@ -10,18 +10,18 @@ public class Customer implements ICustomer {
     private String phoneNum;
     private String address;
     private String city;
-    private String state;
+    private String province;
     private String postalCode;
     private String country;
-    private String userid;
+    private String userId;
     private String password;
 
     private ShoppingCart myCart;
-    private List<PaymentMethod> paymentMethods;
+    private List<PayMethod> payMethods;
 
     public Customer() {
     }
-    public Customer(int customerId, String firstName, String lastName, String email,String phoNum,String address,String city, String state, String postalCode, String country, String userid, String password) {
+    public Customer(int customerId, String firstName, String lastName, String email, String phoNum, String address, String city, String province, String postalCode, String country, String userId, String password) {
         setCustomerId(customerId);
         setFirstName(firstName);
         setLastName(lastName);
@@ -29,11 +29,12 @@ public class Customer implements ICustomer {
         setEmail(email);
         setAddress(address);
         setCity(city);
-        setState(state);
+        setProvince(province);
         setPostalCode(postalCode);
         setCountry(country);
-        setUserid(userid);
+        setUserId(userId);
         setPassword(password);
+        myCart = new ShoppingCart(customerId);
     }
 
 
@@ -101,12 +102,12 @@ public class Customer implements ICustomer {
     }
 
     @Override
-    public String getState() {
-        return state;
+    public String getProvince() {
+        return province;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setProvince(String province) {
+        this.province = province;
     }
 
     @Override
@@ -128,12 +129,12 @@ public class Customer implements ICustomer {
     }
 
     @Override
-    public String getUserid() {
-        return userid;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUserid(String userid) {
-        this.userid = userid;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     @Override
@@ -145,15 +146,27 @@ public class Customer implements ICustomer {
         this.password = password;
     }
 
+    public ShoppingCart getMyCart() {
+        return myCart;
+    }
+
+    public List<PayMethod> getPayMethods() {
+        return payMethods;
+    }
+
+    public boolean addPayMethod(PayMethod payMethod) {
+        return payMethods.add(payMethod);
+    }
     @Override
     public boolean saveTicketsToCart(Event event, int TicketNum){
-        return false;
+        boolean result = false;
+        myCart.addShoppingCartItem(event.getEventId(), event.getTicketPrice(), TicketNum, true);
+        return result;
     }
 
     @Override
-    public boolean placeOrder(){
-        return false;
+    public Order placeOrder(){
+        return getMyCart().placeOrder(getPayMethods());
     }
-
 
 }

@@ -1,16 +1,20 @@
 package org.pentakill.business;
 
+import java.util.List;
+
 public class Order {
     private int orderId;
     private String orderDate;
     private int customerId;
     private double totalAmount;
+    private List<OrderEvent> orderEvent;
 
-    public Order(int orderId, String orderDate, int customerId, double totalAmount) {
-        setOrderId(orderId);
-        setOrderDate(orderDate);
-        setCustomerId(customerId);
-        setTotalAmount(totalAmount);
+    public Order(int orderId, String orderDate, int customerId, double totalAmount, List<OrderEvent> orderEvent) {
+        this.orderId = orderId;
+        this.orderDate = orderDate;
+        this.customerId = customerId;
+        this.totalAmount = totalAmount;
+        this.orderEvent = orderEvent;
     }
 
     public void setOrderId(int orderId) {
@@ -43,5 +47,13 @@ public class Order {
 
     public double getTotalAmount() {
         return totalAmount;
+    }
+
+    public void setOrderEventList(List<OrderEvent> orderEvent) {
+        this.orderEvent = orderEvent;
+    }
+
+    public List<OrderEvent> getOrderEventList() {
+        return orderEvent;
     }
 }
