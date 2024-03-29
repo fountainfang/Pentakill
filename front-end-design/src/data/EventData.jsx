@@ -20,7 +20,7 @@ export const events = {
     description: 'Experience the magic of The Phantom of the Opera...',
     bannerImage: '/sample_posters/banner/opera.jpg',
     posterImage: '/sample_posters/small/s-1.jpg',
-    approvalStatus: 'Pending',
+    approvalStatus: 'Approved',
     category: 'Drama',
   },
   '2': {

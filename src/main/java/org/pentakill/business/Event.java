@@ -12,9 +12,9 @@ public class Event {
     private int totalTicket;
     private int ticketNum;
 
-    private double tickectPrice;
+    private double ticketPrice;
 
-    public Event(int eventId,String eventName,String eventDate,Date startTime,Date endTime,int totalTicket,double tickectPrice){
+    public Event(int eventId,String eventName,String eventDate,Date startTime,Date endTime,int totalTicket,double ticketPrice){
         setEventId(eventId);
         setEventName(eventName);
         setEventDate(eventDate);
@@ -22,10 +22,10 @@ public class Event {
         setEndTime(endTime);
         setTotalTicket(totalTicket);
         setTicketNum(totalTicket);
-        setTickectPrice(tickectPrice);
+        setTicketPrice(ticketPrice);
     }
-    public Event(int eventId,String eventName,String eventDate,Date startTime,Date endTime,String address,int totalTicket,int ticketNum, double tickectPrice){
-        this(eventId,eventName,eventDate,startTime,endTime,totalTicket,tickectPrice);
+    public Event(int eventId,String eventName,String eventDate,Date startTime,Date endTime,String address,int totalTicket,int ticketNum, double ticketPrice){
+        this(eventId,eventName,eventDate,startTime,endTime,totalTicket,ticketPrice);
         setAddress(address);
         setTicketNum(ticketNum);
     }
@@ -93,17 +93,17 @@ public class Event {
         this.ticketNum = ticketNum;
     }
 
-    public double getTickectPrice() {
-        return tickectPrice;
+    public double getTicketPrice() {
+        return ticketPrice;
     }
 
-    public void setTickectPrice(double tickectPrice) {
-        this.tickectPrice = tickectPrice;
+    public void setTicketPrice(double ticketPrice) {
+        this.ticketPrice = ticketPrice;
     }
 
     @Override
     public String toString(){
-        return "EventId:"+eventId+" EventDate:"+eventDate+" StartTime:"+startTime+" EndTime:"+endTime+" TotalTicket:"+totalTicket+" TickectPrice:"+tickectPrice;
+        return "EventId:"+eventId+" EventDate:"+eventDate+" StartTime:"+startTime+" EndTime:"+endTime+" TotalTicket:"+totalTicket+" TicketPrice:"+ticketPrice;
     }
 
     @Override

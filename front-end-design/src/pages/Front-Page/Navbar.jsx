@@ -45,7 +45,9 @@ const Navbar = (props) => {
         <NavBarButton onClick={() => navigate('/tickets')}>Tickets</NavBarButton>
         <NavBarButton onClick={() => navigate('/news')}>News & Interviews</NavBarButton>
         <NavBarButton onClick={() => navigate('/reviews')}>Reviews</NavBarButton>
-        <NavBarButton onClick={() => navigate('/theatres')}>Theatres</NavBarButton>
+        <NavBarButton onClick={() => navigate('/profile')}>Profile Demo</NavBarButton>
+        <NavBarButton onClick={() => navigate('/eventcreate')}>Holder Demo</NavBarButton>
+        <NavBarButton onClick={() => navigate('/approve')}>Approve Demo</NavBarButton>
         <NavBarButton onClick={() => navigate('/info')}>Info</NavBarButton>
         {
           props.auth.user.token ?
@@ -70,10 +72,6 @@ const Navbar = (props) => {
               <Button color="inherit" onClick={() => navigate('/signup')}>Sign-up</Button></>
 
         }
-
-
-
-
 
       </Toolbar>
     </AppBar>
