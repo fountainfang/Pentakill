@@ -52,13 +52,13 @@ router.post("/register", (req, res) => {
 
         //success 
 
-        const { firstname, lastname, phonenum, address, city, province, postalCode, country, username, email, password, passwordConfirmation } = req.body;
+        const { firstname, lastname, phonenum, address, city, province, postalCode, country, username, email, password, usertype, passwordConfirmation } = req.body;
         //console.log(req.body);
 
         const encryptedPassword = encryptPassword(password);
 
-        const sql = "insert into user values(null,?,?,?,?,?,?,?,?,?,?,?)";
-        const arr = [firstname, lastname, phonenum, address, city, province, postalCode, country, username, email, encryptedPassword]; // Use encrypted password
+        const sql = "insert into user values(null,?,?,?,?,?,?,?,?,?,?,?,?)";
+        const arr = [firstname, lastname, phonenum, address, city, province, postalCode, country, username, email, encryptedPassword, usertype]; // Use encrypted password
         console.log(arr);
         sqlFn(sql, arr, result => {
             console.log(result);
@@ -127,7 +127,8 @@ router.post("/login", (req, res) => {
                 postalCode: result[0].postalCode,
                 province: result[0].province,
                 country: result[0].country,
-                city: result[0].city
+                city: result[0].city,
+                usertype: result[0].usertype,
 
             })
 
