@@ -10,6 +10,7 @@ import axios from 'axios'
 
 
 
+
 export default class Signupform extends Component {
     constructor() {
         super();
@@ -31,12 +32,36 @@ export default class Signupform extends Component {
 
         }
     }
+    onBlurCheckUserName = () => {
+        console.log("aaa")
+        api.repeatUserName({
+            username: this.state.username
+        }).then(res => {
 
+            console.log(res.data)
+            if (res.data.flag) {
+                this.setState({
+                    errors: {}
+                })
+
+            } else {
+                this.setState({
+                    errors: {
+                        username: res.data.msg
+                    }
+                })
+            }
+        }).catch(error => {
+
+        })
+
+
+    }
 
 
     onSubmit = (e) => {
         e.preventDefault();
-        // console.log(this.state);
+        console.log(this.state);
         const validation = validatorInput(this.state);
         if (!validation.isValid) {
             // Set errors and return
@@ -46,41 +71,48 @@ export default class Signupform extends Component {
             });
             return;
         }
-        const fullregisterinfo = this.state
-        const registerinfo = {
-            "customerId": "",
-            "firstName": fullregisterinfo.firstname,
-            "lastName": fullregisterinfo.lastname,
-            "email": fullregisterinfo.email,
-            "phoneNum": fullregisterinfo.phonenum,
-            "address": fullregisterinfo.address,
-            "city": fullregisterinfo.city,
-            "province": fullregisterinfo.province,
-            "postalCode": fullregisterinfo.postalCode,
-            "country": fullregisterinfo.country,
-            "userId": fullregisterinfo.username,
-            "password": fullregisterinfo.password,
-        };
-        console.log(registerinfo)
-        const backendinfo = JSON.stringify(registerinfo)
+        // const fullregisterinfo = this.state
+        // const registerinfo = {
+        //     "customerId": "",
+        //     "firstName": fullregisterinfo.firstname,
+        //     "lastName": fullregisterinfo.lastname,
+        //     "email": fullregisterinfo.email,
+        //     "phoneNum": fullregisterinfo.phonenum,
+        //     "address": fullregisterinfo.address,
+        //     "city": fullregisterinfo.city,
+        //     "province": fullregisterinfo.province,
+        //     "postalCode": fullregisterinfo.postalCode,
+        //     "country": fullregisterinfo.country,
+        //     "userId": fullregisterinfo.username,
+        //     "password": fullregisterinfo.password,
+        // };
+        // console.log(registerinfo)
+        // const backendinfo = JSON.stringify(registerinfo)
 
-        axios.post('http://localhost/petp/api/register', backendinfo)
+
+        api.register({
+            firstname: this.state.firstname,
+            lastname: this.state.lastname,
+            phonenum: this.state.phonenum,
+            address: this.state.address,
+            city: this.state.city,
+            province: this.state.province,
+            postalCode: this.state.postalCode,
+            country: this.state.country,
+            username: this.state.username,
+            email: this.state.email,
+            password: this.state.password,
+            passwordConfirmation: this.state.passwordConfirmation,
+
+        })
 
             .then(res => {
-
-                console.log(this.state)
                 console.log(res.data)
-                console.log(res.data.success)
+                this.setState({
+                    errors: res.data
+                })
 
-                console.log(backendinfo)
-                // this.setState({
-                //     errors: res.data,
-                //     registrationStatus: 'success',
-
-                // })
-
-
-                if (res.data.success === "true") {
+                if (res.data.msg === "success") {
 
 
                     // Registration successful
@@ -95,6 +127,30 @@ export default class Signupform extends Component {
                         registrationStatus: 'failure',
                     });
                 }
+
+
+                // this.setState({
+                //     errors: res.data,
+                //     registrationStatus: 'success',
+
+                // })
+
+
+                // if (res.data.registerinfo==) {
+
+
+                //     // Registration successful
+                //     this.setState({
+                //         errors: {},
+                //         registrationStatus: 'success',
+                //     });
+                // } else {
+                //     // Registration failed with an error message
+                //     this.setState({
+                //         errors: res.data,
+                //         registrationStatus: 'failure',
+                //     });
+                // }
 
 
             }).catch(error => {
@@ -119,6 +175,64 @@ export default class Signupform extends Component {
                     console.error("Error setting up the request:", error.message);
                 }
             });
+
+
+
+
+
+
+
+        // axios.post('http://localhost/petp/api/register', backendinfo)
+
+        //     .then(res => {
+
+
+        //         // this.setState({
+        //         //     errors: res.data,
+        //         //     registrationStatus: 'success',
+
+        //         // })
+
+
+        //         if (res.data.success === "true") {
+
+
+        //             // Registration successful
+        //             this.setState({
+        //                 errors: {},
+        //                 registrationStatus: 'success',
+        //             });
+        //         } else {
+        //             // Registration failed with an error message
+        //             this.setState({
+        //                 errors: res.data,
+        //                 registrationStatus: 'failure',
+        //             });
+        //         }
+
+
+        //     }).catch(error => {
+
+        //         console.log("Error object:", error);
+
+        //         if (error.response) {
+        //             // 请求已经发出，但服务器返回状态码不在2xx范围内
+        //             console.error("Response data:", error.response.data);
+        //             console.error("Response status:", error.response.status);
+        //             console.error("Response headers:", error.response.headers);
+        //             this.setState({
+        //                 errors: error.response.data,
+        //                 registrationStatus: 'failure', // Set registration status to failure
+        //             });
+        //         } else if (error.request) {
+        //             // 请求已经发出，但没有收到响应
+        //             console.error("No response received:", error.request);
+
+        //         } else {
+        //             // 在设置请求时触发错误
+        //             console.error("Error setting up the request:", error.message);
+        //         }
+        //     });
 
 
 
@@ -267,6 +381,7 @@ export default class Signupform extends Component {
                             name="username"
                             value={username}
                             onChange={this.changeHandle}
+                            onBlur={this.onBlurCheckUserName}
                         />
                         {errors.username ? <span style={{ color: 'red' }}>{errors.username}</span> : ""}
 
@@ -329,7 +444,7 @@ const validatorInput = (data) => {
         errors.username = "Username can not be empty";
     }
     if (!validator.isEmail(data.email)) {
-        errors.email = "This is not a valid email";
+        errors.email = "This is not a valid ema il";
     }
 
     if (validator.isEmpty(data.password)) {

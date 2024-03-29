@@ -1,7 +1,7 @@
 // HomePage.js
 import React from 'react';
 import { Container, Grid, Box, Typography, Paper, Button } from '@mui/material';
-import Navbar from './Navbar';
+import Navbar from '../../component/Navbar';
 import EventCard from './EventCard';
 import Carousel from 'react-material-ui-carousel';
 import { ArrowForward as ArrowForwardIcon } from '@mui/icons-material';

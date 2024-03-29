@@ -22,6 +22,14 @@ app.use((err, req, res, next) => {
 });
 
 
+// app.post('/api/register', (req, res) => {
+//     console.log(req.body); // 打印 req.body 的值到控制台
+//     res.send('Request received');
+// });
+
+
+
+
 app.use("/api", router)
 
 app.listen(3300, () => {

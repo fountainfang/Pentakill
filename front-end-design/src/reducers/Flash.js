@@ -1,9 +1,9 @@
 const flashState = []
 
-export default flash = (state = flashState, action) => {
+const flash = (state = flashState, action) => {
     switch (action.type) {
         case "addFlash":
-            return[
+            return [
                 ...state,
                 action.message
             ]
@@ -14,3 +14,6 @@ export default flash = (state = flashState, action) => {
     }
 
 }
+
+
+export default flash;
