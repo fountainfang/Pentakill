@@ -1,6 +1,6 @@
 package org.pentakill.db;
-import org.pentakill.business.*;
 
+import org.pentakill.business.*;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
@@ -11,17 +11,20 @@ import java.util.List;
 
 public class DBManager {
 
-    //private String DBLINK = "jdbc:sqlserver://cosc310_sqlserver:1433;DatabaseName=events;TrustServerCertificate=True";
-    private String DBLINK = "jdbc:sqlserver://localhost:1433;DatabaseName=events;TrustServerCertificate=True";
-    private String UID = "sa";
-    //private String PWD = "310#sa#pw";
-    private String PWD = "310#sa#pw";
+    // private String DBLINK =
+    // "jdbc:sqlserver://cosc310_sqlserver:1433;DatabaseName=events;TrustServerCertificate=True";
+    private String DBLINK = "jdbc:sqlserver://localhost:3306;DatabaseName=pentakill;TrustServerCertificate=True";
+    private String UID = "root";
+    // private String PWD = "310#sa#pw";
+    private String PWD = "";
     private String DRIVER_CLASS = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     private static DBManager dbmgr;
-    protected DBManager() {}
+
+    protected DBManager() {
+    }
 
     public static DBManager getInstance() {
-        if(dbmgr == null) {
+        if (dbmgr == null) {
             dbmgr = new DBManager();
         }
         return dbmgr;
@@ -29,9 +32,9 @@ public class DBManager {
 
     protected Connection getConnection() throws SQLException {
         Connection conn = null;
-        try {	// Load driver class
+        try { // Load driver class
             Class.forName(DRIVER_CLASS);
-        } catch (java.lang.ClassNotFoundException e){
+        } catch (java.lang.ClassNotFoundException e) {
             throw new SQLException("ClassNotFoundException: " + e);
         }
         conn = DriverManager.getConnection(DBLINK, UID, PWD);
@@ -48,14 +51,15 @@ public class DBManager {
         }
     }
 
-    public boolean saveCustomer(ICustomer aCustomer){
+    public boolean saveCustomer(ICustomer aCustomer) {
         boolean result = false;
         Connection conn = null;
         PreparedStatement ps = null;
         try {
             conn = getConnection();
-            ps = conn.prepareStatement("INSERT INTO Customer ( firstname, lastname, email, phoneNum, address,city,province,postalCode,country,userId,password,isHolder) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)");
-            //ps.setInt(1, aCustomer.getCustomerId());
+            ps = conn.prepareStatement(
+                    "INSERT INTO Customer ( firstname, lastname, email, phoneNum, address,city,province,postalCode,country,userId,password,isHolder) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)");
+            // ps.setInt(1, aCustomer.getCustomerId());
             ps.setString(1, aCustomer.getFirstName());
             ps.setString(2, aCustomer.getLastName());
             ps.setString(3, aCustomer.getEmail());
@@ -67,10 +71,9 @@ public class DBManager {
             ps.setString(9, aCustomer.getCountry());
             ps.setString(10, aCustomer.getUserId());
             ps.setString(11, aCustomer.getPassword());
-            if(aCustomer instanceof EventHolder) {
+            if (aCustomer instanceof EventHolder) {
                 ps.setInt(12, 1);
-            }
-            else {
+            } else {
                 ps.setInt(12, 0);
             }
             int i = ps.executeUpdate();
@@ -80,7 +83,7 @@ public class DBManager {
             ps.close();
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             closeConnection(conn);
         }
         return result;
@@ -98,7 +101,7 @@ public class DBManager {
             ps.setString(2, password);
             rs = ps.executeQuery();
             if (rs.next()) {
-                if(rs.getInt("isHolder") == 1) {
+                if (rs.getInt("isHolder") == 1) {
                     result = new EventHolder();
                 } else {
                     result = new Customer();
@@ -126,25 +129,26 @@ public class DBManager {
         return result;
     }
 
-
-    public boolean saveShoppingCartItem(boolean isUpdated,int customerId, ShoppingCartItem item) {
+    public boolean saveShoppingCartItem(boolean isUpdated, int customerId, ShoppingCartItem item) {
         boolean result = false;
         Connection conn = null;
         PreparedStatement ps = null;
         try {
             conn = getConnection();
             int intValueforIsSelected = 0;
-            if(item.isSelected()) {
+            if (item.isSelected()) {
                 intValueforIsSelected = 1;
             }
-            if(isUpdated) {
-                ps = conn.prepareStatement("UPDATE incart SET TicketNum = ? , isSelected = ? WHERE customerId = ? AND eventId = ?");
+            if (isUpdated) {
+                ps = conn.prepareStatement(
+                        "UPDATE incart SET TicketNum = ? , isSelected = ? WHERE customerId = ? AND eventId = ?");
                 ps.setInt(1, item.getTicketNum());
                 ps.setInt(2, intValueforIsSelected);
                 ps.setInt(2, customerId);
                 ps.setInt(3, item.getEventId());
             } else {
-                ps = conn.prepareStatement("INSERT INTO incart (customerId, eventId, ticketPrice, ticketNum, isSelected) VALUES (?, ?, ?, ?, ?)");
+                ps = conn.prepareStatement(
+                        "INSERT INTO incart (customerId, eventId, ticketPrice, ticketNum, isSelected) VALUES (?, ?, ?, ?, ?)");
                 ps.setInt(1, customerId);
                 ps.setInt(2, item.getEventId());
                 ps.setDouble(3, item.getTicketPrice());
@@ -227,15 +231,16 @@ public class DBManager {
         int eventRating = 0;
         try {
             conn = getConnection();
-            ps1 = conn.prepareStatement("SELECT AVG(reviewRating) AS averageRating FROM review WHERE eventId = ? GROUP BY eventId");
+            ps1 = conn.prepareStatement(
+                    "SELECT AVG(reviewRating) AS averageRating FROM review WHERE eventId = ? GROUP BY eventId");
             ps1.setInt(1, eventId);
             ResultSet rs = ps1.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 eventRating = rs.getInt("averageRating");
             }
             rs.close();
             ps1.close();
-            if(eventRating!=0) {
+            if (eventRating != 0) {
                 ps2 = conn.prepareStatement("UPDATE Event SET eventRating = ? WHERE eventId = ?");
                 ps2.setInt(1, eventRating);
                 ps2.setInt(2, eventId);
@@ -280,7 +285,7 @@ public class DBManager {
         return result;
     }
 
-public Event getEventDetail(int eventId) {
+    public Event getEventDetail(int eventId) {
         Event result = null;
         Connection conn = null;
         PreparedStatement ps = null;
@@ -311,32 +316,34 @@ public Event getEventDetail(int eventId) {
             ps.close();
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             closeConnection(conn);
         }
         return result;
-}
+    }
 
-//table OrderSummary
-//    orderId INT IDENTITY,
-//    orderDate DATETIME,
-//    totalAmount DECIMAL(10,2),
-//    email VARCHAR(50),
-//    customerId INT,
-//table orderEvent
-//    orderId INT,
-//    eventId INT,
-//    TicketPrice DECIMAL(10,2),
-//    TicketNum INT,
-    //todo finish saveOrder and OrderDetail
-    public boolean saveOrder(int orderId, java.util.Date orderDate,double totalAmount,String email, int customerId, List<ShoppingCartItem> items ) {
+    // table OrderSummary
+    // orderId INT IDENTITY,
+    // orderDate DATETIME,
+    // totalAmount DECIMAL(10,2),
+    // email VARCHAR(50),
+    // customerId INT,
+    // table orderEvent
+    // orderId INT,
+    // eventId INT,
+    // TicketPrice DECIMAL(10,2),
+    // TicketNum INT,
+    // todo finish saveOrder and OrderDetail
+    public boolean saveOrder(int orderId, java.util.Date orderDate, double totalAmount, String email, int customerId,
+            List<ShoppingCartItem> items) {
         boolean result = false;
         Connection conn = null;
         PreparedStatement ps = null;
         boolean saveOrder, saveOrderDetail;
         try {
             conn = getConnection();
-            ps = conn.prepareStatement("INSERT INTO Ordersummary (customerId, eventId, ticketNum, totalPrice) VALUES (?, ?, ?, ?)");
+            ps = conn.prepareStatement(
+                    "INSERT INTO Ordersummary (customerId, eventId, ticketNum, totalPrice) VALUES (?, ?, ?, ?)");
             ps.setInt(1, orderId);
             ps.setDate(2, new java.sql.Date(orderDate.getTime()));
             ps.setDouble(3, totalAmount);
@@ -347,9 +354,8 @@ public Event getEventDetail(int eventId) {
                 saveOrder = true;
             }
             ps.close();
-            //todo save data to table orderEvent
+            // todo save data to table orderEvent
             ps = conn.prepareStatement("UPDATE Event SET TicketNum = TicketNum - ? WHERE EventId = ?");
-
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -359,14 +365,16 @@ public Event getEventDetail(int eventId) {
         return result;
     }
 
-    public int saveRating(int orderId, int eventId, int reviewRating, String reviewDate, int customerId, String reviewComment) {
+    public int saveRating(int orderId, int eventId, int reviewRating, String reviewDate, int customerId,
+            String reviewComment) {
         int result = 0;
         boolean saveReview = false;
         Connection conn = null;
         PreparedStatement ps = null;
         try {
             conn = getConnection();
-            ps = conn.prepareStatement("INSERT INTO review (orderId, eventId, reviewRating, reviewDate, customerId, reviewComment) VALUES (?, ?, ?, ?, ?, ?)");
+            ps = conn.prepareStatement(
+                    "INSERT INTO review (orderId, eventId, reviewRating, reviewDate, customerId, reviewComment) VALUES (?, ?, ?, ?, ?, ?)");
             ps.setInt(1, orderId);
             ps.setInt(2, eventId);
             ps.setInt(3, reviewRating);
@@ -383,10 +391,10 @@ public Event getEventDetail(int eventId) {
         } catch (SQLException e) {
             e.printStackTrace();
 
-        }finally {
+        } finally {
             closeConnection(conn);
         }
-        if(saveReview){
+        if (saveReview) {
             result = updateEventRating(eventId);
         }
         return result;

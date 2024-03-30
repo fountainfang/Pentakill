@@ -14,8 +14,7 @@ import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.util.List;
 
-public class EventServlet extends HttpServlet{
-
+public class EventServlet extends HttpServlet {
 
     private static final String QUERY_EVENT_DEATIL = "QUERY_EVENT_DEATIL";
 
@@ -44,15 +43,16 @@ public class EventServlet extends HttpServlet{
             out.print(responseMessage);
             out.flush();
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace();x§
         }
     }
+
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response){
+    public void doPost(HttpServletRequest request, HttpServletResponse response) {
         // read the JSON string from the request
         // String jsonStr = request.getParameter(JSON_STR);
         boolean hasSession = request.getSession(false) != null;
-        if(hasSession) {
+        if (hasSession) {
             StringBuilder inputStringBuilder = new StringBuilder();
             try (BufferedReader reader = request.getReader()) {
                 String line;
@@ -68,7 +68,8 @@ public class EventServlet extends HttpServlet{
             // Client will send a JSON string with the following format:
             // for queryEventDetail: {"action":"QUERY_EVENT_DEATIL","eventId":"123"}
             // The server will respond with a JSON string with the following format:
-            // for query success: {"success":"true","message":"eventId":"123","eventName":"XXX","eventDesc":"XXXX"......}
+            // for query success:
+            // {"success":"true","message":"eventId":"123","eventName":"XXX","eventDesc":"XXXX"......}
             // for query failure : {"success":"false","message":""}
             ObjectMapper objectMapper = CustomerFactory.getInstance().getObjectMapper();
             String responseMessage = "{\"success\":\"false\",\"message\":\"}";
@@ -83,7 +84,8 @@ public class EventServlet extends HttpServlet{
                         if (actionValue.equals(QUERY_EVENT_DEATIL)) {
                             Event event = DBManager.getInstance().getEventDetail(eventId);
                             if (event != null) {
-                                String eventJson = CustomerFactory.getInstance().getObjectMapper().writeValueAsString(event);
+                                String eventJson = CustomerFactory.getInstance().getObjectMapper()
+                                        .writeValueAsString(event);
                                 responseMessage = "{\"success\":\"true\", \"message\": \"" + eventJson + "\"}";
                             }
                         }
@@ -100,7 +102,7 @@ public class EventServlet extends HttpServlet{
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }else{
+        } else {
             try {
                 response.sendRedirect(request.getContextPath() + "/login.html");
             } catch (Exception e) {
@@ -108,6 +110,5 @@ public class EventServlet extends HttpServlet{
             }
         }
     }
-
 
 }

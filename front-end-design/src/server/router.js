@@ -148,6 +148,26 @@ router.post("/login", (req, res) => {
     })
 })
 
+router.put("/updateUser", (req, res) => {
+    // 解析来自前端的编辑信息
+    const { firstName, lastName, email, phonenumber, address, city, state, country, postalCode, username } = req.body;
+    console.log(req.body)
+
+    // 更新数据库中相应用户的信息
+    // 例如使用 SQL UPDATE 语句
+    const sql = "UPDATE user SET firstname=?, lastname=?, email=?, phonenumber=?, address=?, city=?, province=?, country=?, postalCode=? WHERE username=?";
+    const values = [firstName, lastName, email, phonenumber, address, city, state, country, postalCode, username];
+    sqlFn(sql, values, result => {
+        if (result.affectedRows > 0) {
+            // 更新成功
+            res.status(200).json({ success: true, message: "User information updated successfully" });
+        } else {
+            // 更新失败
+            res.status(400).json({ success: false, message: "Failed to update user information" });
+        }
+    });
+});
+
 
 
 
