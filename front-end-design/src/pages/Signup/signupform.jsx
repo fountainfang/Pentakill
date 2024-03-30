@@ -6,11 +6,6 @@ import validator from 'validator';
 import { isEmpty } from 'lodash';
 import axios from 'axios'
 
-
-
-
-
-
 export default class Signupform extends Component {
     constructor() {
         super();
@@ -428,6 +423,7 @@ export default class Signupform extends Component {
                     </div>
                     <div className="form-group">
                         <select name="usertype" value={usertype} onChange={this.changeHandle}>
+                            <option value="">Select user type</option>
                             <option value="1">Eventholder</option>
                             <option value="2">Customer</option>
                         </select>
@@ -445,8 +441,6 @@ export default class Signupform extends Component {
     }
 }
 
-
-
 const validatorInput = (data) => {
     let errors = {};
     if (validator.isEmpty(data.username)) {
@@ -462,6 +456,10 @@ const validatorInput = (data) => {
 
     if (!validator.equals(data.password, data.passwordConfirmation)) {
         errors.passwordConfirmation = "Password does not match";
+    }
+
+    if (data.usertype != 1 && data.usertype != 2) {
+        errors.usertype = "Please select a user type";
     }
 
     return {
