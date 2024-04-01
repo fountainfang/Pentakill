@@ -1,31 +1,41 @@
 package org.pentakill.business;
 
-import java.util.Date;
-
 public class Event {
     private int eventId;
     private String eventName;
+    private String eventCategory;
+    private String eventDesc;
     private String eventDate;
-    private Date startTime;
-    private Date endTime;
+    private String startTime;
+    private String endTime;
     private String address;
     private int totalTicket;
     private int ticketNum;
 
     private double ticketPrice;
 
-    public Event(int eventId,String eventName,String eventDate,Date startTime,Date endTime,int totalTicket,double ticketPrice){
+    private int eventRating;
+
+    public Event(){
+    }
+
+    public Event(int eventId, String eventName, String eventCategory, String eventDesc, String eventDate,
+                 String startTime, String endTime, int totalTicket, double ticketPrice){
         setEventId(eventId);
         setEventName(eventName);
+        setEventCategory(eventCategory);
+        setEventDesc(eventDesc);
         setEventDate(eventDate);
         setStartTime(startTime);
         setEndTime(endTime);
         setTotalTicket(totalTicket);
         setTicketNum(totalTicket);
         setTicketPrice(ticketPrice);
+        setEventRating(0);
     }
-    public Event(int eventId,String eventName,String eventDate,Date startTime,Date endTime,String address,int totalTicket,int ticketNum, double ticketPrice){
-        this(eventId,eventName,eventDate,startTime,endTime,totalTicket,ticketPrice);
+    public Event(int eventId, String eventName, String eventCategory, String eventDesc, String eventDate,
+                 String startTime, String endTime, String address, int totalTicket, int ticketNum, double ticketPrice){
+        this(eventId,eventName,eventCategory,eventDesc,eventDate,startTime,endTime,totalTicket,ticketPrice);
         setAddress(address);
         setTicketNum(ticketNum);
     }
@@ -53,19 +63,19 @@ public class Event {
         this.eventDate = eventDate;
     }
 
-    public Date getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public Date getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 
@@ -103,7 +113,7 @@ public class Event {
 
     @Override
     public String toString(){
-        return "EventId:"+eventId+" EventDate:"+eventDate+" StartTime:"+startTime+" EndTime:"+endTime+" TotalTicket:"+totalTicket+" TicketPrice:"+ticketPrice;
+        return "EventId:"+eventId+" EventName:"+eventName+" EventCategory:"+eventCategory+" EventDate:"+eventDate+" StartTime:"+startTime+" EndTime:"+endTime+" TotalTicket:"+totalTicket+" TicketPrice:"+ticketPrice;
     }
 
     @Override
@@ -114,5 +124,29 @@ public class Event {
             result= e.toString().equals(this.toString());
         }
         return result;
+    }
+
+    public String getEventCategory() {
+        return eventCategory;
+    }
+
+    public void setEventCategory(String eventCategory) {
+        this.eventCategory = eventCategory;
+    }
+
+    public int getEventRating() {
+        return eventRating;
+    }
+
+    public void setEventRating(int eventRating) {
+        this.eventRating = eventRating;
+    }
+
+    public String getEventDesc() {
+        return eventDesc;
+    }
+
+    public void setEventDesc(String eventDesc) {
+        this.eventDesc = eventDesc;
     }
 }
