@@ -1,22 +1,11 @@
-// Navbar.js
 import React from 'react';
-import { Link } from "react-router-dom"
-import { connect } from "react-redux"
-
-import { useNavigate } from 'react-router-dom';
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Button,
-  TextField,
-  InputAdornment,
-} from '@mui/material';
+import { Link, useNavigate } from "react-router-dom";
+import { connect } from "react-redux";
+import { AppBar, Toolbar, Typography, Button, TextField, InputAdornment } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import websiteIcon from './website-logo.png'; // Adjust the path as needed
 import { bindActionCreators } from 'redux';
-import * as authActions from "../../action/auth"
-
+import * as authActions from "../../action/auth";
 
 const NavBarButton = ({ children, ...props }) => (
   <Button color="inherit" sx={{ marginRight: 2 }} {...props}>
@@ -30,8 +19,10 @@ const Navbar = (props) => {
   const logoutHandle = () => {
     props.authActions.logOut();
     navigate('/');
-    localStorage.removeItem("rl")
+    localStorage.removeItem("rl");
   }
+
+  const { user } = props.auth; // Destructure user from props.auth
 
   return (
     <AppBar position="static" sx={{ backgroundColor: '#000', color: '#FFF' }}>
@@ -46,17 +37,28 @@ const Navbar = (props) => {
         <NavBarButton onClick={() => navigate('/news')}>News & Interviews</NavBarButton>
         <NavBarButton onClick={() => navigate('/reviews')}>Reviews</NavBarButton>
         <NavBarButton onClick={() => navigate('/profile')}>Profile Demo</NavBarButton>
-        <NavBarButton onClick={() => navigate('/eventcreate')}>Holder Demo</NavBarButton>
-        <NavBarButton onClick={() => navigate('/approve')}>Approve Demo</NavBarButton>
+
+        {user.token && user.usertype === 1 && (
+          <NavBarButton onClick={() => navigate('/eventcreate')}>Holder Demo</NavBarButton>
+        )}
+
+        {user.token && user.usertype === 0 && (
+          <>
+
+            <NavBarButton onClick={() => navigate('/approve')}>Approve Demo</NavBarButton>
+          </>
+        )}
+
         <NavBarButton onClick={() => navigate('/info')}>Info</NavBarButton>
-        {
-          props.auth.user.token ?
-            <>
-              <Link to="/userprofile">{props.auth.user.nick}</Link>
-              <Button color="inherit" onClick={() => logoutHandle(props)}>Log out</Button>
-            </>
-            :
-            <>   <TextField
+
+        {user.token ? (
+          <>
+            <Link to="/">{user.nick}</Link>
+            <Button color="inherit" onClick={logoutHandle}>Log out</Button>
+          </>
+        ) : (
+          <>
+            <TextField
               variant="outlined"
               size="small"
               sx={{ backgroundColor: '#FFF', borderRadius: 1, marginRight: 2 }}
@@ -68,23 +70,21 @@ const Navbar = (props) => {
                 ),
               }}
             />
-              <Button color="inherit" onClick={() => navigate('/signin')}>Login</Button>
-              <Button color="inherit" onClick={() => navigate('/signup')}>Sign-up</Button></>
-
-        }
-
+            <Button color="inherit" onClick={() => navigate('/signin')}>Login</Button>
+            <Button color="inherit" onClick={() => navigate('/signup')}>Sign-up</Button>
+          </>
+        )}
       </Toolbar>
     </AppBar>
   );
 };
 
-//export default Navbar;
-const mapStateToProps = state => {
-  return { auth: state.auth }
-}
+const mapStateToProps = state => ({
+  auth: state.auth
+});
 
-const mapDispatchToProps = dispatch => {
-  return { authActions: bindActionCreators(authActions, dispatch) }
-}
+const mapDispatchToProps = dispatch => ({
+  authActions: bindActionCreators(authActions, dispatch)
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Navbar)
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

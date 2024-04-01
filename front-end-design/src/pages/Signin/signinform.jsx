@@ -14,7 +14,7 @@ function Signinform(props) {
                 console.log(res.data);
                 console.log(res.data.status);
                 if (res.data.status === 200) {
-                    navigate('/userprofile', { state: { userData: res.data } });
+                    navigate('/profile', { state: { userData: res.data } });
                 } else {
                     alert('Login failed! Please check your credentials.');
 
