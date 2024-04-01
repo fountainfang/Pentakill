@@ -26,7 +26,7 @@ public class CustomerFactory {
         Customer aCustomer = null;
         boolean isEventHolder = false;
         try {
-            //assume the input jsonStr is like {"action":"login","userId":"user1","password":"password1","eventHolder":"1"} or {"action":"login","userId":"user1","password":"password1","eventHolder":"true"}
+            //assume the input jsonStr is like {"action":"login","userId":"user1","password":"password1","eventHolder":"1"} or {"action":"login","userid":"user1","password":"password1","eventHolder":"true"}
             String eventHolderValue = null;
             String newJsonStr = null;
             JsonNode rootNode = objectMapper.readTree(jsonStr);
