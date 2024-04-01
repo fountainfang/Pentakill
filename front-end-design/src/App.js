@@ -22,6 +22,7 @@ const DataDisplay = ({ data }) => (
 
 const App = () => {
   const [data, setData] = useState(null); // State to store fetched data
+  
 
   useEffect(() => {
 
