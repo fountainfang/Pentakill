@@ -5,7 +5,7 @@ const isEmpty = require("lodash/isEmpty");
 const sqlFn = require("./config");
 const url = require("url");
 const jwt = require("jsonwebtoken");
-const key = require("./secretkey")
+const key = require("./secretkey");
 
 
 // encrypt password
@@ -100,6 +100,7 @@ router.get("/repeat/username", (req, res) => {
 })
 
 
+// login
 router.post("/login", (req, res) => {
     const username = req.body.username;
     const encryptedPassword = encryptPassword(req.body.password);
@@ -147,6 +148,24 @@ router.post("/login", (req, res) => {
 
     })
 })
+router.post("/createEvent", (req, res) => {
+    const { eventId, userId, eventName, eventCategory, eventDesc, eventDate, startTime, endTime, address, totalTicket, ticketPrice, profileImage, bannerImage, rating, approvalStatus } = req.body;
+    const sql = "INSERT INTO event (eventId, userId, eventName, eventCategory, eventDesc, eventDate, startTime, endTime, address, totalTicket, ticketPrice, profileImage, bannerImage, rating, approvalStatus) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    const arr = [0, 0, eventName, eventCategory, eventDesc, eventDate, startTime, endTime, address, totalTicket, ticketPrice, profileImage, bannerImage, 0, "pending"];
+    sqlFn(sql, arr, (error, result) => {
+        if (error) {
+            // Log the error for debugging purposes
+            console.error(error);
+            return res.status(500).send({ msg: "fail", error: "An error occurred" });
+        }
+        if (result.affectedRows > 0) {
+            res.status(200).send({ msg: "success" });
+        } else {
+            // Assuming failure here means no rows were affected
+            res.status(400).send({ msg: "fail" });
+        }
+    });
+});
 
 router.put("/updateUser", (req, res) => {
     // 解析来自前端的编辑信息
@@ -168,7 +187,40 @@ router.put("/updateUser", (req, res) => {
     });
 });
 
+router.post("/updateStatus", (req, res) => {
+    const { eventId, approvalStatus } = req.body; // Destructure eventId and approvalStatus from the request body
 
+    // Validation (optional, but recommended)
+    if (!eventId || validator.isEmpty(approvalStatus)) {
+        return res.status(400).send({ msg: "Missing eventId or approvalStatus" });
+    }
 
+    const sql = "UPDATE event SET approvalStatus = ? WHERE eventId = ?";
+    const arr = [approvalStatus, eventId];
+
+    sqlFn(sql, arr, (error, result) => {
+        if (error) {
+            console.error(error); // Log the error for debugging
+            return res.status(500).send({ msg: "Internal server error" });
+        }
+
+        if (result.affectedRows > 0) {
+            res.status(200).send({ msg: "Event status updated successfully" });
+        } else {
+            res.status(404).send({ msg: "Event not found" });
+        }
+    });
+});
+
+router.get("/getEvents", (req, res) => {
+    const sql = "SELECT * FROM event"; // Fetch all events
+    sqlFn(sql, [], (error, result) => {
+        if (error) {
+            console.error("Error fetching events:", error);
+            return res.status(500).send({ message: "Error fetching events", error: error.message }); // Send specific error message
+        }
+        res.json(result); // Send the list of all events as JSON
+    });
+});
 
 module.exports = router;

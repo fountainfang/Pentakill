@@ -6,11 +6,6 @@ import validator from 'validator';
 import { isEmpty } from 'lodash';
 import axios from 'axios'
 
-
-
-
-
-
 export default class Signupform extends Component {
     constructor() {
         super();
@@ -437,6 +432,7 @@ export default class Signupform extends Component {
                     <div className="form-group">
                         <select name="usertype" value={usertype} onChange={this.changeHandle}>
                             <option>Please select a user type</option>
+
                             <option value="1">Eventholder</option>
                             <option value="2">Customer</option>
                         </select>
@@ -453,8 +449,6 @@ export default class Signupform extends Component {
         )
     }
 }
-
-
 
 const validatorInput = (data) => {
     let errors = {};
@@ -475,6 +469,10 @@ const validatorInput = (data) => {
     if (data.usertype != 1 && data.usertype != 2) {
 
         errors.usertype = "please select a usertype";
+    }
+
+    if (data.usertype != 1 && data.usertype != 2) {
+        errors.usertype = "Please select a user type";
     }
 
     return {

@@ -1,8 +1,12 @@
-import React, { useState, useEffect} from 'react';
-import Navbar from '../Front-Page/Navbar';
+import React, { Component } from 'react';
+import api from '../../api'; // Adjust the path as necessary
+import Navbar from '../Front-Page/Navbar'; // Adjust the path as necessary
+import { useState, useEffect } from 'react';
 
 function EventCreation() {
     const [eventData, setEventData] = useState({
+        eventId: 0,
+        userId: 0, // Assuming a user ID of 1 for now
         eventName: '',
         eventCategory: '',
         eventDesc: '',
@@ -11,9 +15,11 @@ function EventCreation() {
         endTime: '',
         address: '',
         totalTicket: 0,
-        ticketNum: 0,
         ticketPrice: 0.0,
-        eventRating: 0,
+        profileImage: '', // New field
+        bannerImage: '', // New field
+        rating: 0,
+        approvalStatus:'Pending',
     });
 
     //Change title of the page
@@ -54,28 +60,36 @@ function EventCreation() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-    
-        // Assuming eventData is already structured correctly and just needs renaming
-        const eventSubmission = {
-            eventName: eventData.name, // Map from your form state to the Java class structure
-            eventCategory: eventData.genre,
-            eventDesc: '', // Add a way for users to input this, if not already done
-            eventDate: eventData.date,
-            startTime: eventData.time,
-            endTime: '', // Make sure you have a field for this or calculate it as needed
-            address: eventData.location,
-            totalTicket: parseInt(eventData.ticketNumbers, 10),
-            ticketNum: 0, // Determine how this differs from totalTicket and adjust accordingly
-            ticketPrice: parseFloat(eventData.ticketPrice),
-            eventRating: 0, // Adjust based on your form's input or logic
-        };
-    
-        const jsonPayload = JSON.stringify(eventSubmission);
-        console.log(jsonPayload); // For debugging; remove or replace with a call to your backend
         
-        // Here you would typically make an API call to your backend to submit the JSON
-        // For example, using fetch or Axios to POST the data
+        // Correctly structured data to match backend expectations
+        const eventSubmission = {
+            userId: 1, // Assuming a user ID of 1 for now
+            eventName: eventData.eventName,
+            eventCategory: eventData.eventCategory,
+            eventDesc: eventData.eventDesc,
+            eventDate: eventData.eventDate,
+            startTime: eventData.startTime,
+            endTime: eventData.endTime,
+            address: eventData.address,
+            totalTicket: parseInt(eventData.totalTicket, 10),
+            ticketPrice: parseFloat(eventData.ticketPrice),
+            profileImage: eventData.profileImage, // Placeholder for now
+            bannerImage: eventData.bannerImage, // Placeholder for now
+        };
+        
+        // Using api.createEvent to submit the data
+        api.createEvent(eventSubmission)
+           .then(response => {
+               console.log("Event submission successful:", response.data);
+               // Handle successful submission here, e.g., displaying a success message
+               // Optionally reset the form or redirect the user
+           })
+           .catch(error => {
+               console.error("Event submission error:", error);
+               // Handle errors here, e.g., displaying error messages to the user
+           });
     };
+    
 
     const formStyle = {
         display: 'flex',
@@ -197,16 +211,25 @@ function EventCreation() {
                     />
                 </div>
                 <div style={divStyle}>
-                    <label style={labelStyle}>Event Rating:</label>
-                    <input
-                        type="number"
-                        name="eventRating"
-                        value={eventData.eventRating}
-                        onChange={handleChange}
-                        required
-                        style={inputStyle}
-                        min="0"
-                        max="5"
+                    <label style={labelStyle}>Profile Image URL:</label>
+                    <input 
+                        type="text" 
+                        name="profileImage" 
+                        value={eventData.profileImage} 
+                        onChange={handleChange} 
+                        required 
+                        style={inputStyle} 
+                    />
+                </div>
+                <div style={divStyle}>
+                    <label style={labelStyle}>Banner Image URL:</label>
+                    <input 
+                        type="text" 
+                        name="bannerImage" 
+                        value={eventData.bannerImage} 
+                        onChange={handleChange} 
+                        required 
+                        style={inputStyle} 
                     />
                 </div>
     
