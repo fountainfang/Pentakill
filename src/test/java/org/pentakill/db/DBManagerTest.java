@@ -78,7 +78,7 @@ public class DBManagerTest {
         when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
         when(mockResultSet.next()).thenReturn(true); // Simulate finding a user
         // Mocking ResultSet to return expected values
-        when(mockResultSet.getInt("customerId")).thenReturn(2);
+        when(mockResultSet.getInt("customerId")).thenReturn(1);
         when(mockResultSet.getString("firstname")).thenReturn("John");
         when(mockResultSet.getString("lastname")).thenReturn("Doe");
         when(mockResultSet.getString("email")).thenReturn("john.doe@example.com");
@@ -204,7 +204,7 @@ public class DBManagerTest {
         when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
         when(mockPreparedStatement.executeUpdate()).thenReturn(1);
 
-        dbManager.deleteShoppingCartItem(1, 1);
+        dbManager.removeShoppingCartItem(1, 1);
 
         verify(mockPreparedStatement, times(1)).executeUpdate();
     }

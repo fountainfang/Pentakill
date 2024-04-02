@@ -12,10 +12,11 @@ import java.util.List;
 public class DBManager {
 
     //private String DBLINK = "jdbc:sqlserver://cosc310_sqlserver:1433;DatabaseName=events;TrustServerCertificate=True";
-    private String DBLINK = "jdbc:sqlserver://localhost:1433;DatabaseName=events;TrustServerCertificate=True";
+    private String DBLINK = "jdbc:sqlserver://127.0.0.1:1433;DatabaseName=events;TrustServerCertificate=True";
     private String UID = "sa";
-    //private String PWD = "310#sa#pw";
     private String PWD = "310#sa#pw";
+    //private String UID = "ctx";
+    //private String PWD = "ctx123";
     private String DRIVER_CLASS = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     private static DBManager dbmgr;
     protected DBManager() {}
@@ -126,6 +127,33 @@ public class DBManager {
         return result;
     }
 
+    public ShoppingCart getShoppingCart(int customerId) {
+        ShoppingCart result = null;
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = getConnection();
+            ps = conn.prepareStatement("SELECT * FROM incart WHERE customerId = ?");
+            ps.setInt(1, customerId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                if (result == null) {
+                    result = new ShoppingCart(customerId);
+                }
+                int eventId = rs.getInt("eventId");
+                double ticketPrice = rs.getDouble("ticketPrice");
+                int ticketNum = rs.getInt("ticketNum");
+                boolean isSelected = rs.getBoolean("isSelected");
+                result.addShoppingCartItem(eventId,ticketPrice,ticketNum,isSelected);
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 
     public boolean saveShoppingCartItem(boolean isUpdated,int customerId, ShoppingCartItem item) {
         boolean result = false;
@@ -164,7 +192,7 @@ public class DBManager {
         return result;
     }
 
-    public boolean deleteShoppingCartItem(int customerId, int eventId) {
+    public boolean removeShoppingCartItem(int customerId, int eventId) {
         boolean result = false;
         Connection conn = null;
         PreparedStatement ps = null;
@@ -316,6 +344,8 @@ public Event getEventDetail(int eventId) {
         }
         return result;
 }
+
+
 
 //table OrderSummary
 //    orderId INT IDENTITY,

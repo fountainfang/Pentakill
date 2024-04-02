@@ -62,7 +62,7 @@ public class CustomerTest {
     }
 
     @Test
-    public void testSetState() {
+    public void testSetProvince() {
         customer.setProvince("AB");
         assertEquals("AB", customer.getProvince());
     }

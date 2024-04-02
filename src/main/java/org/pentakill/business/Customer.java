@@ -146,8 +146,12 @@ public class Customer implements ICustomer {
         this.password = password;
     }
 
-    public ShoppingCart getMyCart() {
+    public ShoppingCart getShoppingCart() {
         return myCart;
+    }
+
+    public void setShoppingCart(ShoppingCart myCart) {
+        this.myCart = myCart;
     }
 
     public List<PayMethod> getPayMethods() {
@@ -166,7 +170,7 @@ public class Customer implements ICustomer {
 
     @Override
     public Order placeOrder(){
-        return getMyCart().placeOrder(getPayMethods());
+        return getShoppingCart().placeOrder(getPayMethods());
     }
 
 }

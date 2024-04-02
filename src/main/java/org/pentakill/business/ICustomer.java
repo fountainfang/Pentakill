@@ -1,31 +1,31 @@
 package org.pentakill.business;
 
 public interface ICustomer {
-    int getCustomerId();
+    public int getCustomerId();
 
-    String getFirstName();
+    public String getFirstName();
 
-    String getLastName();
+    public String getLastName();
 
-    String getEmail();
+    public String getEmail();
 
-    String getPhoneNum();
+    public String getPhoneNum();
 
-    String getAddress();
+    public String getAddress();
 
-    String getCity();
+    public String getCity();
 
-    String getState();
+    public String getProvince();
 
-    String getPostalCode();
+    public String getPostalCode();
 
-    String getCountry();
+    public String getCountry();
 
-    String getUserid();
+    public String getUserId();
 
-    String getPassword();
+    public String getPassword();
 
-    boolean saveTicketsToCart(Event event, int TicketNum);
+    public boolean saveTicketsToCart(Event event, int TicketNum);
 
-    boolean placeOrder();
+    public Order placeOrder();
 }

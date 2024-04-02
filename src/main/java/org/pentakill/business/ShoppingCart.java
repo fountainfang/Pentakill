@@ -35,7 +35,7 @@ public class ShoppingCart {
 
         }
         //When you run unit test, you need to comment out the below line and uncomment the next line "result = true"
-        //result = DBManager.getInstance().saveShoppingCartItem(inCart,customerId,newCartItem);
+        result = DBManager.getInstance().saveShoppingCartItem(inCart,customerId,newCartItem);
         result = true;
         updateTotalAmount();
         return result;
@@ -67,17 +67,35 @@ public class ShoppingCart {
         setTotalAmount(amount);
     }
 
-    public boolean itemChangeSelectedStatus(int eventId, double ticketPrice, int newTicketNum, boolean selectedStatus){
+    public boolean itemChangeStatus(int eventId, double ticketPrice, int newTicketNum, boolean selectedStatus){
         boolean result = false;
         for(ShoppingCartItem item: shoppingCartItems){
             if(item.getEventId() == eventId){
+                item.setTicketPrice(ticketPrice);
                 item.setTicketNum( newTicketNum);
                 item.setSelected(selectedStatus);
+                result = DBManager.getInstance().saveShoppingCartItem(true,customerId,item);
                 break;
             }
         }
-        //result = DBManager.getInstance().saveShoppingCartItem(true,customerId,eventId,ticketPrice,newTicketNum,selectedStatus);
         updateTotalAmount();
+        return result;
+    }
+
+    public boolean removeShoppingCartItem(int eventId){
+        boolean result = false;
+        ShoppingCartItem itemToRemove = null;
+        for(ShoppingCartItem item: shoppingCartItems){
+            if(item.getEventId() == eventId){
+                itemToRemove = item;
+                break;
+            }
+        }
+        if(itemToRemove != null){
+            shoppingCartItems.remove(itemToRemove);
+            result = DBManager.getInstance().removeShoppingCartItem(customerId,eventId);
+            updateTotalAmount();
+        }
         return result;
     }
 
