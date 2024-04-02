@@ -53,13 +53,13 @@ public class ShoppingCartTest {
         shoppingCart.addShoppingCartItem(2, 10.0, 1, true);
         shoppingCart.addShoppingCartItem(3, 10.0, 1, true);
         assertEquals(30, shoppingCart.getTotalAmount());
-        shoppingCart.itemChangeSelectedStatus(2, 10.0, 2, true);
+        shoppingCart.itemChangeStatus(2, 10.0, 2, true);
         assertEquals(40, shoppingCart.getTotalAmount());
-        shoppingCart.itemChangeSelectedStatus(1, 10.0,1,false);
+        shoppingCart.itemChangeStatus(1, 10.0, 1, false);
         assertEquals(30, shoppingCart.getTotalAmount());
-        shoppingCart.itemChangeSelectedStatus(2, 10.0,2,false);
+        shoppingCart.itemChangeStatus(2, 10.0, 2, false);
         assertEquals(10, shoppingCart.getTotalAmount());
-        shoppingCart.itemChangeSelectedStatus(3, 10.0,1,false);
+        shoppingCart.itemChangeStatus(3, 10.0, 1, false);
         assertEquals(0, shoppingCart.getTotalAmount());
     }
 
