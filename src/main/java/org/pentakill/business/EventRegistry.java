@@ -1,6 +1,9 @@
 package org.pentakill.business;
 
 import java.sql.Date;
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,32 +72,41 @@ public class EventRegistry {
         return eventsList.contains(event);
     }
 
-    public boolean checkTimeOverlap(Event event){
+    public boolean checkTimeOverlap(Event event) {
         boolean result = false;
         if(!eventsList.isEmpty()) {
-            for (Event e : eventsList) {
-                if (e.getEventDate().equals(event.getEventDate())) {
-                    //e:10:00-12:00  event:10:00-12:00
-                    if (e.getStartTime().equals(event.getStartTime()) || e.getEndTime().equals(event.getEndTime())) {
-                        result = true;
-                        break;
-                    }
-                    //e:10:00-12:00  event:09:00-13:00
-                    else if (e.getStartTime().after(event.getStartTime()) && e.getEndTime().before(event.getEndTime()) ) {
-                        result = true;
-                        break;
-                    }
-                    //e:10:00-12:00  event:09:00-11:00
-                    else if (e.getStartTime().after(event.getStartTime()) && e.getStartTime().before(event.getEndTime()) ) {
-                        result = true;
-                        break;
-                    }
-                    //e:10:00-12:00  event:10:30-11:30 or event:10:30-12:30
-                    else if (e.getStartTime().before(event.getStartTime()) && e.getEndTime().after(event.getStartTime())) {
-                        result = true;
-                        break;
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+                Time eventStartTime = new Time(sdf.parse(event.getStartTime()).getTime());
+                Time eventEndTime = new Time(sdf.parse(event.getEndTime()).getTime());
+                for (Event e : eventsList) {
+                    Time eStartTime = new Time(sdf.parse(e.getStartTime()).getTime());
+                    Time eEndTime = new Time(sdf.parse(e.getEndTime()).getTime());
+                    if (e.getEventDate().equals(event.getEventDate())) {
+                        //e:10:00-12:00  event:10:00-12:00
+                        if (eStartTime.equals(eventStartTime) || eEndTime.equals(eventEndTime)) {
+                            result = true;
+                            break;
+                        }
+                        //e:10:00-12:00  event:09:00-13:00
+                        else if (eStartTime.after(eventStartTime) && eEndTime.before(eventEndTime) ) {
+                            result = true;
+                            break;
+                        }
+                        //e:10:00-12:00  event:09:00-11:00
+                        else if (eStartTime.after(eventStartTime) && eStartTime.before(eventEndTime) ) {
+                            result = true;
+                            break;
+                        }
+                        //e:10:00-12:00  event:10:30-11:30 or event:10:30-12:30
+                        else if (eStartTime.before(eventStartTime) && eEndTime.after(eventStartTime)) {
+                            result = true;
+                            break;
+                        }
                     }
                 }
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
             }
         }
         return result;
