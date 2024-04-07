@@ -149,20 +149,22 @@ router.post("/login", (req, res) => {
     })
 })
 router.post("/createEvent", (req, res) => {
-    const { eventId, userId, eventName, eventCategory, eventDesc, eventDate, startTime, endTime, address, totalTicket, ticketPrice, profileImage, bannerImage, rating, approvalStatus } = req.body;
-    const sql = "INSERT INTO event (eventId, userId, eventName, eventCategory, eventDesc, eventDate, startTime, endTime, address, totalTicket, ticketPrice, profileImage, bannerImage, rating, approvalStatus) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    const arr = [0, 0, eventName, eventCategory, eventDesc, eventDate, startTime, endTime, address, totalTicket, ticketPrice, profileImage, bannerImage, 0, "pending"];
-    sqlFn(sql, arr, (error, result) => {
-        if (error) {
-            // Log the error for debugging purposes
-            console.error(error);
-            return res.status(500).send({ msg: "fail", error: "An error occurred" });
-        }
+    const { userId, eventName, eventCategory, eventDesc, eventDate, startTime, endTime, address, totalTicket, ticketPrice, profileImage, bannerImage, rating, approvalStatus } = req.body;
+    console.log(userId)
+    const sql = "INSERT INTO event (userId, eventName, eventCategory, eventDesc, eventDate, startTime, endTime, address, totalTicket, ticketPrice, profileImage, bannerImage, rating, approvalStatus) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    const arr = [ userId, eventName, eventCategory, eventDesc, eventDate, startTime, endTime, address, totalTicket, ticketPrice, profileImage, bannerImage, 0, "pending"];
+    console.log(req.body)
+    sqlFn(sql, arr, result => {
+        console.log(result)
+
+        console.log(result.affectedRows)
         if (result.affectedRows > 0) {
             res.status(200).send({ msg: "success" });
+            console.log("success")
         } else {
             // Assuming failure here means no rows were affected
             res.status(400).send({ msg: "fail" });
+            console.log("fail")
         }
     });
 });
@@ -220,6 +222,27 @@ router.get("/getEvents", (req, res) => {
             return res.status(500).send({ message: "Error fetching events", error: error.message }); // Send specific error message
         }
         res.json(result); // Send the list of all events as JSON
+    });
+});
+
+router.post("/createOrder", (req, res) => {
+    const { eventId, orderDate, ticketPrice, customerId } = req.body;
+    console.log(userId)
+    const sql = "INSERT INTO order (eventId, orderDate, ticketPrice, customerId) VALUES (?, ?, ?, ?)";
+    const arr = [eventId, orderDate, ticketPrice, customerId];
+    console.log(req.body)
+    sqlFn(sql, arr, result => {
+        console.log(result)
+
+        console.log(result.affectedRows)
+        if (result.affectedRows > 0) {
+            res.status(200).send({ msg: "success" });
+            console.log("success")
+        } else {
+            // Assuming failure here means no rows were affected
+            res.status(400).send({ msg: "fail" });
+            console.log("fail")
+        }
     });
 });
 
