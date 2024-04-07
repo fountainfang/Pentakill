@@ -1,0 +1,49 @@
+name: Inactivity Management
+
+on:
+  schedule:
+    - cron: '0 10 * * *' # Runs daily at UTC 10:00
+
+jobs:
+  manage-inactive-issues:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Close inactive issues
+      uses: actions/github-script@v5
+      with:
+        script: |
+          const {data: issues} = await github.rest.issues.listForRepo({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            state: 'open',
+            labels: 'Development' // Specify the label 'Development' for filtering, if needed
+          });
+
+          const closingComment = 'This issue has been automatically closed due to inactivity.'; // Customize your message
+          const inactiveThreshold = 30; // days
+
+          for (const issue of issues) {
+            const lastUpdated = new Date(issue.updated_at);
+            const today = new Date();
+            const daysInactive = Math.ceil((today - lastUpdated) / (1000 * 60 * 60 * 24));
+
+            if (daysInactive > inactiveThreshold) {
+              // Comment before closing
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body: closingComment
+              });
+
+              // Close issue
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                state: 'closed'
+              });
+
+              console.log(`Issue #${issue.number} closed due to inactivity.`);
+            }
+          }
