@@ -1,0 +1,35 @@
+name: Issue Management Automation
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  label-and-assign:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Automatically Label, Sort, and Assign Issues
+      uses: actions/github-script@v5
+      with:
+        script: |
+          const issueNumber = context.issue.number;
+          const labelsToAdd = ['Development']; 
+          const issueCreator = context.payload.issue.user.login;
+
+          // Add labels
+          github.rest.issues.addLabels({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: issueNumber,
+            labels: labelsToAdd
+          });
+
+          // Assign issue
+          github.rest.issues.addAssignees({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: issueNumber,
+            assignees: [issueCreator]
+          });
+
+          console.log(`Issue #${issueNumber} labeled and assigned.`);
