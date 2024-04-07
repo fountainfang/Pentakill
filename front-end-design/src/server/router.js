@@ -198,11 +198,8 @@ router.post("/updateStatus", (req, res) => {
     const sql = "UPDATE event SET approvalStatus = ? WHERE eventId = ?";
     const arr = [approvalStatus, eventId];
 
-    sqlFn(sql, arr, (error, result) => {
-        if (error) {
-            console.error(error); // Log the error for debugging
-            return res.status(500).send({ msg: "Internal server error" });
-        }
+    sqlFn(sql, arr, (result) => {
+
 
         if (result.affectedRows > 0) {
             res.status(200).send({ msg: "Event status updated successfully" });
