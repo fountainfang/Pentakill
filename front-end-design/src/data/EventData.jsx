@@ -156,3 +156,8 @@ export const events = {
     category: 'Sport',
   },
 };
+
+
+
+
+// export const events = localStorage.getItem('eventsData')

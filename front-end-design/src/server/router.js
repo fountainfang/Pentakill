@@ -213,14 +213,37 @@ router.post("/updateStatus", (req, res) => {
 });
 
 router.get("/getEvents", (req, res) => {
-    const sql = "SELECT * FROM event"; // Fetch all events
-    sqlFn(sql, [], (error, result) => {
-        if (error) {
-            console.error("Error fetching events:", error);
-            return res.status(500).send({ message: "Error fetching events", error: error.message }); // Send specific error message
-        }
+    const sql = "SELECT * FROM Event"; // Fetch all events
+    sqlFn(sql, [], result => {
+
+
         res.json(result); // Send the list of all events as JSON
     });
 });
 
+
+
+
+// router.get("/repeat/username", (req, res) => {
+//     const username = url.parse(req.url, true).query.username;
+//     const sql = "select * from user where username=?";
+//     const arr = [username]
+
+//     sqlFn(sql, arr, result => {
+//         if (result.length) {
+//             res.send({
+//                 status: 200,
+//                 msg: "username repeated",
+//                 flag: false
+//             })
+//         } else {
+//             res.send({
+//                 status: 200,
+//                 msg: "not repeated",
+//                 flag: true
+//             })
+//         }
+//     })
+
+// })
 module.exports = router;

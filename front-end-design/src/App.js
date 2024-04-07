@@ -15,6 +15,7 @@ import NewsPage from './pages/News-Page/NewsPage';
 import ReviewsPage from './pages/Review-Page/ReviewsPage';
 import Info from './pages/Info-Page/Info';
 import OrderConfirmationPage from './pages/OrderFormation-Page/OrderFormation';
+import api from './api';
 
 const DataDisplay = ({ data }) => (
   <div>{data ? data : "Loading..."}</div>
@@ -22,14 +23,19 @@ const DataDisplay = ({ data }) => (
 
 const App = () => {
   const [data, setData] = useState(null); // State to store fetched data
-  
+
 
   useEffect(() => {
 
-    fetch("/api")
-      .then((res) => res.json())
-      .then((data) => setData(data.message))
-      .catch((error) => console.error("Error fetching data:", error));
+    api.getEvents({}).then(response => {
+      console.log(response.data)
+      const events = [response.data]
+      const jsonData = JSON.stringify(events);
+      localStorage.setItem('eventsData', jsonData);
+      console.log(jsonData)
+      const eventDataJSON = localStorage.getItem('eventsData');
+    })
+
   }, []);
 
   return (

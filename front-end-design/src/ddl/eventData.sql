@@ -12,5 +12,3 @@ VALUES (0, 0, 'TAYLOR SWIFT CONCERT', 'Concert', 'Join us for an unforgettable n
 (10, 0, 'LFC vs MANCHESTER UNITED', 'Sport', 'Witness the fierce rivalry between Liverpool FC and Manchester United...', '2025-01-05', '17:00', '20:00', 'Anfield, Liverpool, UK', 54000, 250, '/sample_posters/small/s-10.jpg', '/sample_posters/banner/sport.jpeg', 4.8, 'Approved'),
 (11, 0, 'FIRST TEAM TO 60 WINS', 'Sport', 'Don\'t miss the excitement as teams battle it out to reach 60 points first...', '2025-02-20', '15:00', '18:00', 'Barclays Center, Brooklyn, NY', 18000, 100, '/sample_posters/small/s-11.jpg', '/sample_posters/banner/sport.jpeg', 4.4, 'Approved'),
 (12, 0, 'MANCHESTER UNITED vs WOLVERHAMPTON', 'Sport', 'Catch the action-packed match between Manchester United and Wolverhampton...', '2025-03-15', '16:30', '19:30', 'Old Trafford, Manchester, UK', 76000, 95, '/sample_posters/small/s-12.jpg', '/sample_posters/banner/sport.jpeg', null, 'Pending');
-
-
