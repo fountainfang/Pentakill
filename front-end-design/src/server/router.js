@@ -149,20 +149,22 @@ router.post("/login", (req, res) => {
     })
 })
 router.post("/createEvent", (req, res) => {
-    const { eventId, userId, eventName, eventCategory, eventDesc, eventDate, startTime, endTime, address, totalTicket, ticketPrice, profileImage, bannerImage, rating, approvalStatus } = req.body;
-    const sql = "INSERT INTO event (eventId, userId, eventName, eventCategory, eventDesc, eventDate, startTime, endTime, address, totalTicket, ticketPrice, profileImage, bannerImage, rating, approvalStatus) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    const arr = [0, 0, eventName, eventCategory, eventDesc, eventDate, startTime, endTime, address, totalTicket, ticketPrice, profileImage, bannerImage, 0, "pending"];
-    sqlFn(sql, arr, (error, result) => {
-        if (error) {
-            // Log the error for debugging purposes
-            console.error(error);
-            return res.status(500).send({ msg: "fail", error: "An error occurred" });
-        }
+    const { userId, eventName, eventCategory, eventDesc, eventDate, startTime, endTime, address, totalTicket, ticketPrice, profileImage, bannerImage, rating, approvalStatus } = req.body;
+    console.log(userId)
+    const sql = "INSERT INTO event (userId, eventName, eventCategory, eventDesc, eventDate, startTime, endTime, address, totalTicket, ticketPrice, profileImage, bannerImage, rating, approvalStatus) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    const arr = [ userId, eventName, eventCategory, eventDesc, eventDate, startTime, endTime, address, totalTicket, ticketPrice, profileImage, bannerImage, 0, "pending"];
+    console.log(req.body)
+    sqlFn(sql, arr, result => {
+        console.log(result)
+
+        console.log(result.affectedRows)
         if (result.affectedRows > 0) {
             res.status(200).send({ msg: "success" });
+            console.log("success")
         } else {
             // Assuming failure here means no rows were affected
             res.status(400).send({ msg: "fail" });
+            console.log("fail")
         }
     });
 });
@@ -219,28 +221,26 @@ router.get("/getEvents", (req, res) => {
 });
 
 
+router.post("/createOrder", (req, res) => {
+    const { eventId, orderDate, ticketPrice, customerId } = req.body;
+    console.log(userId)
+    const sql = "INSERT INTO order (eventId, orderDate, ticketPrice, customerId) VALUES (?, ?, ?, ?)";
+    const arr = [eventId, orderDate, ticketPrice, customerId];
+    console.log(req.body)
+    sqlFn(sql, arr, result => {
+        console.log(result)
+
+        console.log(result.affectedRows)
+        if (result.affectedRows > 0) {
+            res.status(200).send({ msg: "success" });
+            console.log("success")
+        } else {
+            // Assuming failure here means no rows were affected
+            res.status(400).send({ msg: "fail" });
+            console.log("fail")
+        }
+    });
+});
 
 
-// router.get("/repeat/username", (req, res) => {
-//     const username = url.parse(req.url, true).query.username;
-//     const sql = "select * from user where username=?";
-//     const arr = [username]
-
-//     sqlFn(sql, arr, result => {
-//         if (result.length) {
-//             res.send({
-//                 status: 200,
-//                 msg: "username repeated",
-//                 flag: false
-//             })
-//         } else {
-//             res.send({
-//                 status: 200,
-//                 msg: "not repeated",
-//                 flag: true
-//             })
-//         }
-//     })
-
-// })
 module.exports = router;

@@ -32,9 +32,7 @@ const api = {
     getEvents() {
         return axios.get(base.baseUrl + base.getEvents);
     },
-    updateUser(params) {
-        return axios.put(base.baseUrl + base.updateUser, params);
-    }
+
 
 };
 
