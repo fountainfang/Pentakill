@@ -1,5 +1,9 @@
 {
   "dependencies": {
-    "@reduxjs/toolkit": "^2.2.2"
+    "@reduxjs/toolkit": "^2.2.2",
+    "@solana/pay": "^0.2.5",
+    "@solana/spl-token": "^0.4.3",
+    "@solana/web3.js": "^1.91.4",
+    "bignumber.js": "^9.1.2"
   }
 }
