@@ -223,4 +223,13 @@ router.get("/getEvents", (req, res) => {
     });
 });
 
+router.get("/getOrder", (req, res) => {
+    const sql = "SELECT * FROM order"; // Fetch all order
+    sqlFn(sql, [], (result) => {
+        
+        res.json(result);
+    });
+
+});
+
 module.exports = router;
