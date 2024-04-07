@@ -60,10 +60,13 @@ function EventCreation() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        const userinfo=localStorage.getItem("rl")
+        console.log(userinfo)
+        console.log(JSON.parse(userinfo).customerid)
         
         // Correctly structured data to match backend expectations
         const eventSubmission = {
-            userId: 1, // Assuming a user ID of 1 for now
+            userId: JSON.parse(userinfo).customerid, // Assuming a user ID of 1 for now
             eventName: eventData.eventName,
             eventCategory: eventData.eventCategory,
             eventDesc: eventData.eventDesc,
@@ -76,16 +79,19 @@ function EventCreation() {
             profileImage: eventData.profileImage, // Placeholder for now
             bannerImage: eventData.bannerImage, // Placeholder for now
         };
+        console.log(eventSubmission)
         
         // Using api.createEvent to submit the data
         api.createEvent(eventSubmission)
            .then(response => {
+            console.log(response)
+
                console.log("Event submission successful:", response.data);
                // Handle successful submission here, e.g., displaying a success message
                // Optionally reset the form or redirect the user
            })
            .catch(error => {
-               console.error("Event submission error:", error);
+               console.log("Event submission error:", error);
                // Handle errors here, e.g., displaying error messages to the user
            });
     };
