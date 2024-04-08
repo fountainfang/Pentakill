@@ -4,15 +4,16 @@ import styles from './EventDetails.css';
 import Navbar from '../Front-Page/Navbar';
 import PurchasingPage from '../Purchasing-Page/PurchasingPage';
 
+
 const EventDetails = () => {
   const { eventId } = useParams();
   const eventIdInt = parseInt(eventId, 10);
   const eventDataJSON = localStorage.getItem('eventsData');
   const eventData = JSON.parse(eventDataJSON);
+  const loggedIn = localStorage.getItem('rl'); 
 
   const events = eventData[0];
   const event = events.filter(event => event.eventId === eventIdInt);
-  const ticketPrice = event[0].ticketPrice;
   const profileImage = event[0].profileImage;
   const bannerImage = event[0].bannerImage;
   const eventDesc = event[0].eventDesc;
@@ -65,7 +66,7 @@ const EventDetails = () => {
             </div>
           </div>
           <div className="right-content">
-            {approvalStatus === 'Approved' && (
+          { loggedIn && approvalStatus === 'Approved' && (
               <button type="button" className="buy-ticket-button" onClick={handleBuyTicketsClick}>
                 Buy Ticket
               </button>
@@ -84,4 +85,6 @@ const EventDetails = () => {
   );
 };
 
-export default EventDetails;
+
+
+export default (EventDetails);
