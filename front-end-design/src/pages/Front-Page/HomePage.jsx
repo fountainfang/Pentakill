@@ -58,39 +58,91 @@ api.getEvents({}).then(response => {
 })
 
 
+// })
+// 从localStorage中获取存储的JSON字符串
+const eventDataJSON = localStorage.getItem('eventsData');
+const eventData = JSON.parse(eventDataJSON);
 
 
 
-// Sample events data (12 sample events)
+
+const events = eventData[0];
+
+const approvedEvents = events.filter(event => event.approvalStatus === "Approved");
+
 const eventsByType = {
-  Drama: Array.from({ length: 4 }, (_, index) => ({
-    id: index + 1,
-    title: `Drama Event ${index + 1}`,
-    type: 'Drama',
-    rating: 4.8, // Static rating for the example
-    reviews: 200, // Static reviews for the example
-    price: 30, // Static price for the example
-    imageUrl: `sample_posters/small/s-${index + 1}.jpg`, // Path should be from public folder
-  })),
-  Concert: Array.from({ length: 4 }, (_, index) => ({
-    id: index + 5,
-    title: `Concert Event ${index + 5}`,
-    type: 'Concert',
-    rating: 4.7,
-    reviews: 350,
-    price: 45,
-    imageUrl: `sample_posters/small/s-${index + 5}.jpg`,
-  })),
-  Sports: Array.from({ length: 4 }, (_, index) => ({
-    id: index + 9,
-    title: `Sports Event ${index + 9}`,
-    type: 'Sports',
-    rating: 4.9,
-    reviews: 150,
-    price: 25,
-    imageUrl: `sample_posters/small/s-${index + 9}.jpg`,
-  })),
+  Drama: [],
+  Concert: [],
+  Sports: []
 };
+approvedEvents.forEach(event => {
+  const { eventCategory } = event;
+
+  // Push the event into the corresponding category array
+  if (eventCategory === 'Drama' && eventsByType.Drama.length < 4) {
+    eventsByType.Drama.push({
+      id: event.eventId,
+      title: event.eventName,
+      type: eventCategory,
+      rating: event.rating,
+      reviews: event.reviews,
+      price: event.ticketPrice,
+      imageUrl: event.profileImage
+    });
+  } else if (eventCategory === 'Concert' && eventsByType.Concert.length < 4) {
+    eventsByType.Concert.push({
+      id: event.eventId,
+      title: event.eventName,
+      type: eventCategory,
+      rating: event.rating,
+      reviews: event.reviews,
+      price: event.ticketPrice,
+      imageUrl: event.profileImage
+    });
+  } else if (eventCategory === 'Sport' && eventsByType.Sports.length < 4) {
+    eventsByType.Sports.push({
+      id: event.eventId,
+      title: event.eventName,
+      type: eventCategory,
+      rating: event.rating,
+      reviews: event.reviews,
+      price: event.ticketPrice,
+      imageUrl: event.profileImage
+    });
+  }
+});
+
+
+
+// const eventsByType = {
+//   Drama: Array.from({ length: 4 }, (_, index) => ({
+//     id: index + 1,
+//     title: `Drama Event ${index + 1}`,
+//     type: 'Drama',
+//     rating: 4.8, // Static rating for the example
+//     reviews: 200, // Static reviews for the example
+//     price: 30, // Static price for the example
+//     imageUrl: `sample_posters/small/s-${index + 1}.jpg`, // Path should be from public folder
+//   })),
+//   Concert: Array.from({ length: 4 }, (_, index) => ({
+//     id: index + 5,
+//     title: `Concert Event ${index + 5}`,
+//     type: 'Concert',
+//     rating: 4.7,
+//     reviews: 350,
+//     price: 45,
+//     imageUrl: `sample_posters/small/s-${index + 5}.jpg`,
+//   })),
+//   Sports: Array.from({ length: 4 }, (_, index) => ({
+//     id: index + 9,
+//     title: `Sports Event ${index + 9}`,
+//     type: 'Sports',
+//     rating: 4.9,
+//     reviews: 150,
+//     price: 25,
+//     imageUrl: `sample_posters/small/s-${index + 9}.jpg`,
+//   })),
+// };
 
 const HomePage = () => {
   return (
