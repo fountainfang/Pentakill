@@ -18,22 +18,30 @@ const PurchasingPage = () => {
   });
 
   const { eventId } = useParams(); // Correct use of useParams at the top level of the component
+
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prevData => ({
-      ...prevData,
+      prevData,
       [name]: value,
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const eventIdInt = parseInt(eventId, 10);
+    const eventDataJSON = localStorage.getItem('eventsData');
+    const eventData = JSON.parse(eventDataJSON);
+  
+    const events = eventData[0];
+    const event = events.filter(event => event.eventId === eventIdInt);
+    const ticketPrice = event[0].ticketPrice;
     const userinfo=localStorage.getItem("rl")
     const customerId = JSON.parse(userinfo).customerid;
-    const eventId = JSON.parse(userinfo).customerid;
-    const ticketPrice = localStorage.getItem('ticketPrice');
+
     const orderDate = new Date().toISOString();
 
     if (!customerId || !eventId) {
@@ -42,7 +50,7 @@ const PurchasingPage = () => {
     }
 
     const orderData = {
-      eventId,
+      eventIdInt,
       orderDate,
       ticketPrice,
       customerId,

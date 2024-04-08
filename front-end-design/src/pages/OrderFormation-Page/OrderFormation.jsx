@@ -10,7 +10,6 @@ import FeedbackIcon from '@mui/icons-material/Feedback';
 import ShareIcon from '@mui/icons-material/Share';
 import Confetti from 'react-confetti';
 // Event data for demonstration
-import { events } from '../../data/EventData';
 
 // Styling for the timer and its container using Material-UI's styled component
 const StyledBox = styled(Box)({
@@ -42,8 +41,20 @@ const OrderConfirmationPage = () => {
   let { eventId } = useParams();
   const navigate = useNavigate();
 
-  // Retrieving event details from a mock data source based on the eventId
-  const event = events[eventId];
+  const eventIdInt = parseInt(eventId, 10);
+  const eventDataJSON = localStorage.getItem('eventsData');
+  const eventData = JSON.parse(eventDataJSON);
+
+  const events = eventData[0];
+  const event = events.filter(event => event.eventId === eventIdInt);
+  const date = event[0].eventDate;
+  const time = event[0].startTime;
+
+  const formattedDate = new Date(date).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
 
   // State hooks for managing countdown timer and confetti display
   const [showConfetti, setShowConfetti] = useState(true);
@@ -111,7 +122,7 @@ const OrderConfirmationPage = () => {
       <Container component="main" maxWidth="lg">
         {showConfetti && <Confetti width={window.innerWidth} height={window.innerHeight} />}
         <Typography variant="h3" gutterBottom sx={{ textAlign: 'center', mt: 4 }}>
-          {event.title} - Order Confirmed!
+          {event[0].eventName} - Order Confirmed!
         </Typography>
         <Grid item xs={12} md={6}>
           <TimerWrapper>
@@ -124,18 +135,19 @@ const OrderConfirmationPage = () => {
         <Grid container spacing={4} alignItems="center">
           <Grid item xs={12} md={6}>
           <img
-              src={event.posterImage}
+              src={event[0].profileImage}
               alt="Event Poster"
               style={{ width: '450px', height: '600px', borderRadius: '8px', objectFit: 'fill' }}
             />
           </Grid>
           
+          
           <Grid item xs={12} md={6}>
             <Typography sx={{ mt: 2, textAlign: 'center' }}>
-              <LocationOnIcon /> {event.location}
+              <LocationOnIcon /> {event[0].address}
             </Typography>
             <Typography sx={{ mt: 2, textAlign: 'center' }}>
-              <strong>Date and Time:</strong> {new Date(event.date + 'T' + event.time).toLocaleString()}
+              <strong>Date and Time:</strong> {(formattedDate + " " + time)}
             </Typography>
             <Box sx={{ mt: 4, textAlign: 'center' }}>
               <iframe
