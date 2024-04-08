@@ -16,6 +16,7 @@ import ReviewsPage from './pages/Review-Page/ReviewsPage';
 import Info from './pages/Info-Page/Info';
 import OrderConfirmationPage from './pages/OrderFormation-Page/OrderFormation';
 import api from './api';
+import Orders from './pages/OrderPage/order';
 
 const DataDisplay = ({ data }) => (
 
@@ -63,6 +64,7 @@ const App = () => {
         <Route path="/eventcreate" element={<EventCreation />} />
         <Route path="/info" element={<Info />} />
         <Route path="/confirmation/:eventId" element={<OrderConfirmationPage />} />
+        <Route path="/tickets" element={<Orders />} />
 
         <Route path="/" element={<TheaterFrontPage />} />
         <Route path="/whats-on" element={<EventTicketingPage />} />
