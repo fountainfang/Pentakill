@@ -339,7 +339,7 @@
 const eventDataJSON = localStorage.getItem('eventsData');
 const eventData = JSON.parse(eventDataJSON);
 
-
+console.log(eventDataJSON)
 
 const events = eventData[0];
 

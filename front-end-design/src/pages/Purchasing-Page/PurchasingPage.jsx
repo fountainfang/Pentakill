@@ -30,7 +30,7 @@ const PurchasingPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const userinfo = localStorage.getItem("rl")
+    const userinfo=localStorage.getItem("rl")
     const customerId = JSON.parse(userinfo).customerid;
     const eventId = JSON.parse(userinfo).customerid;
     const ticketPrice = localStorage.getItem('ticketPrice');
@@ -49,7 +49,7 @@ const PurchasingPage = () => {
     }
 
     navigate(`/confirmation/${eventId}`);
-  };
+};
 
   return (
     <>

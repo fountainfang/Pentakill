@@ -212,7 +212,7 @@ router.post("/updateStatus", (req, res) => {
 });
 
 router.get("/getEvents", (req, res) => {
-    const sql = "SELECT * FROM Event"; // Fetch all events
+    const sql = "SELECT * FROM event"; // Fetch all events
     sqlFn(sql, [], result => {
 
 
