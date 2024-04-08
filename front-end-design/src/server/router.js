@@ -223,8 +223,8 @@ router.get("/getEvents", (req, res) => {
 
 router.post("/createOrder", (req, res) => {
     const { eventId, orderDate, ticketPrice, customerId } = req.body;
-    console.log(userId)
-    const sql = "INSERT INTO order (eventId, orderDate, ticketPrice, customerId) VALUES (?, ?, ?, ?)";
+    console.log(customerId)
+    const sql = "INSERT INTO `order` (eventId, orderDate, ticketPrice, customerId) VALUES (?, ?, ?, ?)";
     const arr = [eventId, orderDate, ticketPrice, customerId];
     console.log(req.body)
     sqlFn(sql, arr, result => {

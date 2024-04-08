@@ -43,18 +43,26 @@ const PurchasingPage = () => {
     const customerId = JSON.parse(userinfo).customerid;
 
     const orderDate = new Date().toISOString();
+    console.log(orderDate);
 
     if (!customerId || !eventId) {
       console.log('User ID or Event ID missing');
       return
     }
 
-    const orderData = {
-      eventIdInt,
-      orderDate,
-      ticketPrice,
-      customerId,
-    }
+    api.createOrder ({
+      eventId: eventIdInt,
+      orderDate: orderDate,
+      ticketPrice: ticketPrice,
+      customerId: customerId,
+      // eventIdInt,
+      // orderDate,
+      // ticketPrice,
+      // customerId,
+    }).then((response) => {
+      console.log(response);
+    }).catch((error) => {
+      console.log(error);});
 
     navigate(`/confirmation/${eventId}`);
 };
