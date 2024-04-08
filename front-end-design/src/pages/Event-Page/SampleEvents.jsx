@@ -342,7 +342,9 @@ const eventData = JSON.parse(eventDataJSON);
 console.log(eventDataJSON)
 
 const events = eventData[0];
+const approvedEvents = events.filter(event => event.approvalStatus === "Approved");
+
 
 console.log(events)
 
-export default events
+export default approvedEvents
