@@ -33,7 +33,6 @@ const Navbar = (props) => {
         </Typography>
         <NavBarButton onClick={() => navigate('/')}>Home</NavBarButton>
         <NavBarButton onClick={() => navigate('/whats-on')}>What's On</NavBarButton>
-      
         <NavBarButton onClick={() => navigate('/news')}>News & Interviews</NavBarButton>
         <NavBarButton onClick={() => navigate('/reviews')}>Reviews</NavBarButton>
         
@@ -41,6 +40,7 @@ const Navbar = (props) => {
 
         <NavBarButton onClick={() => navigate('/profile')}>Edit Profile</NavBarButton>
         {user.token && user.usertype === 2 && (
+
           <>     <NavBarButton onClick={() => navigate('/tickets')}>My Order</NavBarButton></>
           
 

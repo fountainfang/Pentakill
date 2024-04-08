@@ -35,22 +35,32 @@ const PurchasingPage = () => {
     const eventIdInt = parseInt(eventId, 10);
     const eventDataJSON = localStorage.getItem('eventsData');
     const eventData = JSON.parse(eventDataJSON);
-  
+
     const events = eventData[0];
     const event = events.filter(event => event.eventId === eventIdInt);
     const ticketPrice = event[0].ticketPrice;
-    const userinfo=localStorage.getItem("rl")
+    const userinfo = localStorage.getItem("rl")
     const customerId = JSON.parse(userinfo).customerid;
 
     const orderDate = new Date().toISOString();
-    console.log(orderDate);
+
+    api.getOrder({
+
+      customerId: customerId,
+
+    }).then((response) => {
+      console.log(response);
+    }).catch((error) => {
+      console.log(error);
+    });
+    //  console.log(orderDate);
 
     if (!customerId || !eventId) {
       console.log('User ID or Event ID missing');
       return
     }
 
-    api.createOrder ({
+    api.createOrder({
       eventId: eventIdInt,
       orderDate: orderDate,
       ticketPrice: ticketPrice,
@@ -62,10 +72,17 @@ const PurchasingPage = () => {
     }).then((response) => {
       console.log(response);
     }).catch((error) => {
-      console.log(error);});
+      console.log(error);
+    });
+
+    console.log(customerId)
+
+
 
     navigate(`/confirmation/${eventId}`);
-};
+
+
+  };
 
   return (
     <>
