@@ -5,6 +5,7 @@ import {
   Radio, RadioGroup, FormControlLabel, FormControl,
 } from '@mui/material';
 import Navbar from '../Front-Page/Navbar';
+import api from '../../api';
 // Assume events is imported correctly
 
 const PurchasingPage = () => {
@@ -27,11 +28,28 @@ const PurchasingPage = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Navigate to the confirmation page, including the eventId in the path
+    const userinfo = localStorage.getItem("rl")
+    const customerId = JSON.parse(userinfo).customerid;
+    const eventId = JSON.parse(userinfo).customerid;
+    const ticketPrice = localStorage.getItem('ticketPrice');
+    const orderDate = new Date().toISOString();
+
+    if (!customerId || !eventId) {
+      console.log('User ID or Event ID missing');
+      return
+    }
+
+    const orderData = {
+      eventId,
+      orderDate,
+      ticketPrice,
+      customerId,
+    }
+
     navigate(`/confirmation/${eventId}`);
-};
+  };
 
   return (
     <>
