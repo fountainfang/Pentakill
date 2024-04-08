@@ -339,12 +339,12 @@
 const eventDataJSON = localStorage.getItem('eventsData');
 const eventData = JSON.parse(eventDataJSON);
 
-console.log(eventDataJSON)
+//console.log(eventDataJSON)
 
 const events = eventData[0];
 const approvedEvents = events.filter(event => event.approvalStatus === "Approved");
 
 
-console.log(events)
+//console.log(events)
 
 export default approvedEvents

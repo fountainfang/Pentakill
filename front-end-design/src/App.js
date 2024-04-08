@@ -20,7 +20,7 @@ import api from './api';
 const DataDisplay = ({ data }) => (
 
   <div>{data ? data : "Loading..."}</div>
-  
+
 );
 
 
@@ -36,7 +36,7 @@ const App = () => {
         const events = [response.data];
         const jsonData = JSON.stringify(events);
         localStorage.setItem('eventsData', jsonData);
-        console.log(jsonData);
+        //console.log(jsonData);
       })
       .catch(error => console.error("Failed to fetch events:", error));
   }, []);
@@ -44,8 +44,8 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        
-        
+
+
         <Route path="/purchase" element={<TicketPurchase />} />
         <Route path="/purchase/:eventId" element={<PurchasingPage />} />
         <Route path="/login" element={<Signin />} />
