@@ -19,7 +19,7 @@ function EventCreation() {
         profileImage: '', // New field
         bannerImage: '', // New field
         rating: 0,
-        approvalStatus:'Pending',
+        approvalStatus: 'Pending',
     });
 
     //Change title of the page
@@ -60,10 +60,10 @@ function EventCreation() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const userinfo=localStorage.getItem("rl")
+        const userinfo = localStorage.getItem("rl")
         console.log(userinfo)
         console.log(JSON.parse(userinfo).customerid)
-        
+
         // Correctly structured data to match backend expectations
         const eventSubmission = {
             userId: JSON.parse(userinfo).customerid, // Assuming a user ID of 1 for now
@@ -80,22 +80,26 @@ function EventCreation() {
             bannerImage: eventData.bannerImage, // Placeholder for now
         };
         console.log(eventSubmission)
-        
+
         // Using api.createEvent to submit the data
         api.createEvent(eventSubmission)
-           .then(response => {
-            console.log(response)
+            .then(response => {
+                console.log(response)
 
-               console.log("Event submission successful:", response.data);
-               // Handle successful submission here, e.g., displaying a success message
-               // Optionally reset the form or redirect the user
-           })
-           .catch(error => {
-               console.log("Event submission error:", error);
-               // Handle errors here, e.g., displaying error messages to the user
-           });
+                console.log("Event submission successful:", response.data);
+                alert('Event submission successful!');
+
+                // Handle successful submission here, e.g., displaying a success message
+                // Optionally reset the form or redirect the user
+            })
+            .catch(error => {
+                console.log("Event submission error:", error);
+                // Handle errors here, e.g., displaying error messages to the user
+                alert('Event creation failed. Please try again later.');
+
+            });
     };
-    
+
 
     const formStyle = {
         display: 'flex',
@@ -117,13 +121,13 @@ function EventCreation() {
     };
 
     const dropAreaStyle = {
-    ...divStyle, // Reuse the divStyle for consistency
-    border: '2px dashed #ccc',
-    textAlign: 'center',
-    padding: '20px',
-    cursor: 'pointer',
-    backgroundColor: '#f9f9f9', // Slightly different to stand out as a drop area
-};
+        ...divStyle, // Reuse the divStyle for consistency
+        border: '2px dashed #ccc',
+        textAlign: 'center',
+        padding: '20px',
+        cursor: 'pointer',
+        backgroundColor: '#f9f9f9', // Slightly different to stand out as a drop area
+    };
 
     const labelStyle = {
         marginBottom: '5px', // Space between label and input
@@ -218,27 +222,27 @@ function EventCreation() {
                 </div>
                 <div style={divStyle}>
                     <label style={labelStyle}>Profile Image URL:</label>
-                    <input 
-                        type="text" 
-                        name="profileImage" 
-                        value={eventData.profileImage} 
-                        onChange={handleChange} 
-                        required 
-                        style={inputStyle} 
+                    <input
+                        type="text"
+                        name="profileImage"
+                        value={eventData.profileImage}
+                        onChange={handleChange}
+                        required
+                        style={inputStyle}
                     />
                 </div>
                 <div style={divStyle}>
                     <label style={labelStyle}>Banner Image URL:</label>
-                    <input 
-                        type="text" 
-                        name="bannerImage" 
-                        value={eventData.bannerImage} 
-                        onChange={handleChange} 
-                        required 
-                        style={inputStyle} 
+                    <input
+                        type="text"
+                        name="bannerImage"
+                        value={eventData.bannerImage}
+                        onChange={handleChange}
+                        required
+                        style={inputStyle}
                     />
                 </div>
-    
+
                 <button type="submit" style={buttonStyle}>Submit Event</button>
             </form>
             {/* Display submitted events for confirmation */}

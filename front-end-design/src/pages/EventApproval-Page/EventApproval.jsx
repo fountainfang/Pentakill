@@ -36,7 +36,8 @@ const EventApproval = () => {
         api.updateStatus({ eventId, approvalStatus: newStatus })
             .then(response => {
                 console.log("Update Status Response:", response);
-                if (response && response.data && response.data.success) {
+                console.log(response.data.msg)
+                if (response && response.data && response.data.msg === "Event status updated successfully") {
                     alert(`The status of event ID ${eventId} is now "${newStatus}".`);
                     fetchEvents(); // Refresh the lists of events
                 } else {
