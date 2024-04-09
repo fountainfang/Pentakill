@@ -134,14 +134,14 @@ const OrderConfirmationPage = () => {
         </Grid>
         <Grid container spacing={4} alignItems="center">
           <Grid item xs={12} md={6}>
-          <img
+            <img
               src={event[0].profileImage}
               alt="Event Poster"
               style={{ width: '450px', height: '600px', borderRadius: '8px', objectFit: 'fill' }}
             />
           </Grid>
-          
-          
+
+
           <Grid item xs={12} md={6}>
             <Typography sx={{ mt: 2, textAlign: 'center' }}>
               <LocationOnIcon /> {event[0].address}
