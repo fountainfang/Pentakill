@@ -48,8 +48,8 @@ const api = {
         return axios.put(base.baseUrl + base.updateUser, params);
     },
 
-    getOrder(){
-        return axios.get(base.baseUrl + base.getOrder);
+    getOrder(params) {
+        return axios.get(base.baseUrl + base.getOrder, { params })
     }
 
 };

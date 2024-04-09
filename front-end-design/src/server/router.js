@@ -224,12 +224,17 @@ router.get("/getEvents", (req, res) => {
 });
 
 router.get("/getOrder", (req, res) => {
-    const sql = "SELECT * FROM order"; // Fetch all order
-    sqlFn(sql, [], (result) => {
-        
-        res.json(result);
-    });
 
+    const { customerId } = req.query;
+
+    const sql = "SELECT * FROM `order` WHERE customerId = ?  ";
+    const arr = [customerId]
+
+    sqlFn(sql, arr, result => {
+
+
+        res.json(result); // Send the list of all events as JSON
+    });
 });
 
 module.exports = router;
