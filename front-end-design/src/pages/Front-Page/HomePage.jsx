@@ -34,7 +34,7 @@ api.getEvents({}).then(response => {
   const events = [response.data]
   const jsonData = JSON.stringify(events);
   localStorage.setItem('eventsData', jsonData);
-  //console.log(jsonData)
+  console.log(jsonData)
   const eventDataJSON = localStorage.getItem('eventsData');
 
   // 检查localStorage中是否有存储的数据
