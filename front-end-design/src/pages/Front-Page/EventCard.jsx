@@ -34,7 +34,7 @@ const EventCard = ({ event }) => {
             {rating}
           </Typography>
           <Typography variant="body2" color="text.secondary" component="span">
-            ({ })
+
           </Typography>
         </Box>
         <Typography gutterBottom variant="h6" component="div" sx={{ fontWeight: 'medium', mt: 1 }}>

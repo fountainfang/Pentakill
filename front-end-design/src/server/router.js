@@ -152,7 +152,7 @@ router.post("/createEvent", (req, res) => {
     const { userId, eventName, eventCategory, eventDesc, eventDate, startTime, endTime, address, totalTicket, ticketPrice, profileImage, bannerImage, rating, approvalStatus } = req.body;
     console.log(userId)
     const sql = "INSERT INTO event (userId, eventName, eventCategory, eventDesc, eventDate, startTime, endTime, address, totalTicket, ticketPrice, profileImage, bannerImage, rating, approvalStatus) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    const arr = [ userId, eventName, eventCategory, eventDesc, eventDate, startTime, endTime, address, totalTicket, ticketPrice, profileImage, bannerImage, 0, "pending"];
+    const arr = [userId, eventName, eventCategory, eventDesc, eventDate, startTime, endTime, address, totalTicket, ticketPrice, profileImage, bannerImage, 0, "pending"];
     console.log(req.body)
     sqlFn(sql, arr, result => {
         console.log(result)
@@ -215,31 +215,21 @@ router.get("/getEvents", (req, res) => {
     const sql = "SELECT * FROM event"; // Fetch all events
     sqlFn(sql, [], result => {
 
+
         res.json(result); // Send the list of all events as JSON
     });
 });
 
-router.get("/getUserEvents", (req, res) => {
-    const {userId}= req.query;
-    console.log(req.query);
-    const sql = "SELECT * FROM event WHERE userId = ?";
-    const arr = [userId];
-    sqlFn(sql, arr, result => {
-        console.log(result)
-        res.json(result);
-    });
-});
 
 router.post("/createOrder", (req, res) => {
     const { eventId, orderDate, ticketPrice, customerId } = req.body;
-    console.log(customerId)
+
     const sql = "INSERT INTO `order` (eventId, orderDate, ticketPrice, customerId) VALUES (?, ?, ?, ?)";
     const arr = [eventId, orderDate, ticketPrice, customerId];
-    console.log(req.body)
-    sqlFn(sql, arr, result => {
-        console.log(result)
 
-        console.log(result.affectedRows)
+    sqlFn(sql, arr, result => {
+        // console.log(sql)
+
         if (result.affectedRows > 0) {
             res.status(200).send({ msg: "success" });
             console.log("success")
@@ -255,6 +245,8 @@ router.get("/getOrder", (req, res) => {
 
     const { customerId } = req.query;
 
+
+
     const sql = "SELECT * FROM `order` WHERE customerId = ?  ";
     const arr = [customerId]
 
@@ -262,6 +254,26 @@ router.get("/getOrder", (req, res) => {
 
 
         res.json(result); // Send the list of all events as JSON
+    });
+});
+
+router.put("/updateEvent", (req, res) => {
+    // 解析来自前端的编辑信息
+    const { eventName, eventCategory, eventDesc, eventDate, startTime, endTime, address, totalTicket, ticketPrice, eventId } = req.body;
+    console.log(req.body)
+
+    // 更新数据库中相应用户的信息
+    // 例如使用 SQL UPDATE 语句
+    const sql = "UPDATE Event SET eventName=?, eventCategory=?, eventDesc=?, eventDate=?, startTime=?, endTime=?,address=?, totalTicket=?, ticketPrice=? WHERE eventId=?";
+    const values = [eventName, eventCategory, eventDesc, eventDate, startTime, endTime, address, totalTicket, ticketPrice, eventId];
+    sqlFn(sql, values, result => {
+        if (result.affectedRows > 0) {
+            // 更新成功
+            res.status(200).json({ success: true, message: "User information updated successfully" });
+        } else {
+            // 更新失败
+            res.status(400).json({ success: false, message: "Failed to update user information" });
+        }
     });
 });
 
