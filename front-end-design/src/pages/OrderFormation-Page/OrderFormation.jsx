@@ -50,18 +50,11 @@ const OrderConfirmationPage = () => {
   const date = event[0].eventDate;
   const time = event[0].startTime;
 
-  console.log(date)
-  console.log(time)
-
   const formattedDate = new Date(date).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
   });
-
-  const dateObj = new Date(date);
-  const datePart = dateObj.toISOString().split('T')[0];
-  const eventDateTimeString = `${datePart}T${time}Z`
 
   // State hooks for managing countdown timer and confetti display
   const [showConfetti, setShowConfetti] = useState(true);
@@ -84,8 +77,8 @@ const OrderConfirmationPage = () => {
 
     const calculateTimeLeft = () => {
       const now = new Date();
-      const eventDateTime = new Date(eventDateTimeString);
-      const difference = eventDateTime - now;
+      const eventDate = new Date(event.date + 'T' + event.time);
+      const difference = eventDate - now;
 
       let timeLeft = {};
 
@@ -141,14 +134,14 @@ const OrderConfirmationPage = () => {
         </Grid>
         <Grid container spacing={4} alignItems="center">
           <Grid item xs={12} md={6}>
-          <img
+            <img
               src={event[0].profileImage}
               alt="Event Poster"
               style={{ width: '450px', height: '600px', borderRadius: '8px', objectFit: 'fill' }}
             />
           </Grid>
-          
-          
+
+
           <Grid item xs={12} md={6}>
             <Typography sx={{ mt: 2, textAlign: 'center' }}>
               <LocationOnIcon /> {event[0].address}
