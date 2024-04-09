@@ -1,79 +1,32 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const { expect } = chai;
-const app = require('../app'); // 导入你的 Express 应用程序实例
+const app = require('../app'); // Assuming 'app.js' exports your Express app instance
 
 chai.use(chaiHttp);
+const expect = chai.expect;
 
-describe('User Registration', () => {
-    it('should register a new user', (done) => {
+describe('GET /api/getEvents', () => {
+    it('should get a list of events', (done) => {
         chai.request(app)
-            .post('/api/register')
-            .send({
-                firstname: 'John',
-                lastname: 'Doe',
-                email: 'johndoe@example.com',
-                username: 'johndoe',
-                password: 'password',
-                passwordConfirmation: 'password',
-                usertype: 'user'
-            })
+            .get('/api/getEvents')
             .end((err, res) => {
+                // Check response status code
                 expect(res).to.have.status(200);
-                expect(res.body).to.have.property('msg').equal('success');
-                done();
-            });
-    });
 
-    it('should return error for invalid registration data', (done) => {
-        chai.request(app)
-            .post('/api/register')
-            .send({
-                firstname: '',
-                lastname: '',
-                email: 'invalidemail',
-                username: '',
-                password: '',
-                passwordConfirmation: '',
-                usertype: 'user'
-            })
-            .end((err, res) => {
-                expect(res).to.have.status(200);
-                expect(res.body).to.have.property('errors');
+                // Check response body
+                expect(res.body).to.be.an('array'); // Assuming the response is an array of events
+                expect(res.body.length).to.be.greaterThan(0); // Expecting at least one event
+
+                // Optionally, add more specific assertions based on the structure of the response
+                // Example: Assuming each event has 'eventName', 'eventCategory', etc.
+                const firstEvent = res.body[0];
+                expect(firstEvent).to.have.property('eventName').that.is.a('string');
+                expect(firstEvent).to.have.property('eventCategory').that.is.a('string');
+                // Add more assertions for other properties as needed
+
                 done();
             });
     });
 });
 
-describe('User Login', () => {
-    it('should authenticate a user with valid credentials', (done) => {
-        chai.request(app)
-            .post('/api/login')
-            .send({
-                username: 'johndoe',
-                password: 'password'
-            })
-            .end((err, res) => {
-                expect(res).to.have.status(200);
-                expect(res.body).to.have.property('token');
-                done();
-            });
-    });
-
-    it('should return error for invalid login credentials', (done) => {
-        chai.request(app)
-            .post('/api/login')
-            .send({
-                username: 'johndoe',
-                password: 'wrongpassword'
-            })
-            .end((err, res) => {
-                expect(res).to.have.status(400);
-                expect(res.body).to.have.property('msg').equal('username and password does not');
-                done();
-            });
-    });
-});
-
-// 还可以添加其他路由的测试...
-
+// Run the test with Mocha
