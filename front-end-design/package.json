@@ -61,8 +61,6 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.2.1",
-    "chai": "^5.1.0",
-    "mocha": "^10.4.0",
     "webpack-dev-server": "^5.0.2"
   }
 }

@@ -16,14 +16,11 @@ import ReviewsPage from './pages/Review-Page/ReviewsPage';
 import Info from './pages/Info-Page/Info';
 import OrderConfirmationPage from './pages/OrderFormation-Page/OrderFormation';
 import api from './api';
-import Orders from './pages/OrderPage/order';
-import Modify from './pages/EventUpdatePage/Eventupdate'
-import Update from './pages/EventUpdatePage/Updatedetail'
 
 const DataDisplay = ({ data }) => (
 
   <div>{data ? data : "Loading..."}</div>
-
+  
 );
 
 
@@ -39,7 +36,7 @@ const App = () => {
         const events = [response.data];
         const jsonData = JSON.stringify(events);
         localStorage.setItem('eventsData', jsonData);
-        //console.log(jsonData);
+        console.log(jsonData);
       })
       .catch(error => console.error("Failed to fetch events:", error));
   }, []);
@@ -47,8 +44,8 @@ const App = () => {
   return (
     <Router>
       <Routes>
-
-
+        
+        
         <Route path="/purchase" element={<TicketPurchase />} />
         <Route path="/purchase/:eventId" element={<PurchasingPage />} />
         <Route path="/login" element={<Signin />} />
@@ -66,10 +63,6 @@ const App = () => {
         <Route path="/eventcreate" element={<EventCreation />} />
         <Route path="/info" element={<Info />} />
         <Route path="/confirmation/:eventId" element={<OrderConfirmationPage />} />
-        <Route path="/tickets" element={<Orders />} />
-        <Route path="/eventupdate" element={<Modify />} />
-        <Route path="/event-update/:eventId" element={<Update />} />
-
 
         <Route path="/" element={<TheaterFrontPage />} />
         <Route path="/whats-on" element={<EventTicketingPage />} />
