@@ -1,30 +1,57 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../Front-Page/Navbar';
+import api from '../../api';
 
-// Multiple sample order data
-const sampleOrders = [
-  {
-    orderId: 12345,
-    eventId: 678,
-    orderDate: new Date('2024-04-08T12:30:00'),
-    ticketPrice: 150.00,
-    customerId: 78910,
-    eventName: "Name1",
-    profileImage: "/sample_posters/small/s-1.jpg"
-  },
-  {
-    orderId: 12346,
-    eventId: 679,
-    orderDate: new Date('2024-04-09T15:45:00'),
-    ticketPrice: 165.00,
-    customerId: 78911,
-    eventName: "Name2",
-    profileImage: "/sample_posters/small/s-2.jpg"
-  }
-];
-
-// Order component
 const Order = () => {
+  const [sampleOrders, setSampleOrders] = useState([]); // 使用 useState 来存储订单数据
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const userinfo = localStorage.getItem("rl");
+        const customerId = JSON.parse(userinfo).customerid;
+
+        const response = await api.getOrder({ customerId });
+
+        const orders = response.data;
+
+        console.log("Orders successfully fetched:", orders);
+        const eventsInfo = JSON.parse(localStorage.getItem("eventsData"));
+        console.log(eventsInfo[0])
+
+        const ordersWithDetails = orders.map((order) => {
+          const eventInfo = eventsInfo[0].find(event => event.eventId === order.eventId);
+
+          if (eventInfo) {
+            // 如果找到对应的事件信息，则添加到订单中
+            return {
+              ...order,
+              eventName: eventInfo.eventName,
+              profileImage: eventInfo.profileImage
+            };
+          } else {
+            // 如果未找到对应的事件信息，则默认值
+            return {
+              ...order,
+              eventName: 'Unknown Event',
+              profileImage: '/default_profile_image.jpg' // 未知事件的默认图片
+            };
+          }
+        });
+
+
+
+        // 将获取到的订单数据存储到 sampleOrders 中
+        setSampleOrders(ordersWithDetails);
+      } catch (error) {
+        console.log("Error fetching orders:", error);
+      }
+    };
+
+    // 调用 fetchOrders 函数来获取订单数据
+    fetchOrders();
+  }, []); // 使用空数组作为 useEffect 的依赖项，确保只在组件挂载时调用一次
+
   const headerStyle = {
     backgroundColor: 'rgba(26, 0, 26, 0.9)',
     color: 'white',
@@ -87,7 +114,7 @@ const Order = () => {
             <img src={order.profileImage} alt={`${order.eventName}`} style={imageStyle} />
             <div style={detailStyle}>
               <p><strong>Order ID:</strong> #{order.orderId}</p>
-              <p><strong>Order Date:</strong> {order.orderDate.toLocaleDateString()}</p>
+              <p><strong>Order Date:</strong> {new Date(order.orderDate).toLocaleDateString()}</p>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
               <div style={detailStyle}>
@@ -95,7 +122,7 @@ const Order = () => {
                 <p>Qty: 1</p>
               </div>
               <div>
-                <p><strong>${order.ticketPrice.toFixed(2)}</strong></p>
+                <p><strong>${order.TicketPrice}</strong></p>
               </div>
             </div>
             <div style={{ borderTop: '1px solid #ccc', padding: '1rem 0' }}>
@@ -103,7 +130,7 @@ const Order = () => {
                 <p>Taxes</p><p>$4.13</p>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem', fontWeight: 'bold' }}>
-                <p>TOTAL</p><p>${(order.ticketPrice + 4.13 + 5).toFixed(2)}</p>
+                <p>TOTAL</p><p>${(order.TicketPrice + 4.13 + 5)}</p>
               </div>
             </div>
           </div>

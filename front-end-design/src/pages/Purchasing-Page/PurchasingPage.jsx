@@ -44,15 +44,7 @@ const PurchasingPage = () => {
 
     const orderDate = new Date().toISOString();
 
-    api.getOrder({
 
-      customerId: customerId,
-
-    }).then((response) => {
-      console.log(response);
-    }).catch((error) => {
-      console.log(error);
-    });
     //  console.log(orderDate);
 
     if (!customerId || !eventId) {
