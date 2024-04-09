@@ -35,21 +35,23 @@ const Navbar = (props) => {
         <NavBarButton onClick={() => navigate('/whats-on')}>What's On</NavBarButton>
         <NavBarButton onClick={() => navigate('/news')}>News & Interviews</NavBarButton>
         <NavBarButton onClick={() => navigate('/reviews')}>Reviews</NavBarButton>
-        
+
 
 
         <NavBarButton onClick={() => navigate('/profile')}>Edit Profile</NavBarButton>
         {user.token && user.usertype === 2 && (
 
           <>     <NavBarButton onClick={() => navigate('/tickets')}>My Order</NavBarButton></>
-          
+
 
         )}
 
 
         {user.token && user.usertype === 1 && (
-          <>   <NavBarButton onClick={() => navigate('/eventcreate')}>Create Event</NavBarButton></>
-          
+          <>   <NavBarButton onClick={() => navigate('/eventcreate')}>Create Event</NavBarButton>
+            <NavBarButton onClick={() => navigate('/eventupdate')}>Update Event</NavBarButton>
+          </>
+
 
         )}
 
