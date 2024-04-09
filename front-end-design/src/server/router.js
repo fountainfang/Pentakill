@@ -220,6 +220,16 @@ router.get("/getEvents", (req, res) => {
     });
 });
 
+router.get("/getUserEvents", (req, res) => {
+    const {userId}= req.query;
+    console.log(req.query);
+    const sql = "SELECT * FROM event WHERE userId = ?";
+    const arr = [userId];
+    sqlFn(sql, arr, result => {
+        console.log(result)
+        res.json(result);
+    });
+});
 
 router.post("/createOrder", (req, res) => {
     const { eventId, orderDate, ticketPrice, customerId } = req.body;
