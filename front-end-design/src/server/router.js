@@ -215,11 +215,20 @@ router.get("/getEvents", (req, res) => {
     const sql = "SELECT * FROM event"; // Fetch all events
     sqlFn(sql, [], result => {
 
-
         res.json(result); // Send the list of all events as JSON
     });
 });
 
+router.get("/getUserEvents", (req, res) => {
+    const {userId}= req.query;
+    console.log(req.query);
+    const sql = "SELECT * FROM event WHERE userId = ?";
+    const arr = [userId];
+    sqlFn(sql, arr, result => {
+        console.log(result)
+        res.json(result);
+    });
+});
 
 router.post("/createOrder", (req, res) => {
     const { eventId, orderDate, ticketPrice, customerId } = req.body;
@@ -239,6 +248,20 @@ router.post("/createOrder", (req, res) => {
             res.status(400).send({ msg: "fail" });
             console.log("fail")
         }
+    });
+});
+
+router.get("/getOrder", (req, res) => {
+
+    const { customerId } = req.query;
+
+    const sql = "SELECT * FROM `order` WHERE customerId = ?  ";
+    const arr = [customerId]
+
+    sqlFn(sql, arr, result => {
+
+
+        res.json(result); // Send the list of all events as JSON
     });
 });
 
