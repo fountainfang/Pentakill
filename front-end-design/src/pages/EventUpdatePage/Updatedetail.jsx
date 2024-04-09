@@ -21,7 +21,6 @@ function Updatedetail() {
         rating: 0,
         approvalStatus: 'Pending',
     });
-
     //Change title of the page
 
     useEffect(() => {
