@@ -257,5 +257,25 @@ router.get("/getOrder", (req, res) => {
     });
 });
 
+router.put("/updateEvent", (req, res) => {
+    // 解析来自前端的编辑信息
+    const { eventName, eventCategory, eventDesc, eventDate, startTime, endTime, address, totalTicket, ticketPrice, eventId } = req.body;
+    console.log(req.body)
+
+    // 更新数据库中相应用户的信息
+    // 例如使用 SQL UPDATE 语句
+    const sql = "UPDATE Event SET eventName=?, eventCategory=?, eventDesc=?, eventDate=?, startTime=?, endTime=?,address=?, totalTicket=?, ticketPrice=? WHERE eventId=?";
+    const values = [eventName, eventCategory, eventDesc, eventDate, startTime, endTime, address, totalTicket, ticketPrice, eventId];
+    sqlFn(sql, values, result => {
+        if (result.affectedRows > 0) {
+            // 更新成功
+            res.status(200).json({ success: true, message: "User information updated successfully" });
+        } else {
+            // 更新失败
+            res.status(400).json({ success: false, message: "Failed to update user information" });
+        }
+    });
+});
+
 
 module.exports = router;
