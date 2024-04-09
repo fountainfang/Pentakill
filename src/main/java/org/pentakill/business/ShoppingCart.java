@@ -57,6 +57,10 @@ public class ShoppingCart {
         this.customerId = customerId;
     }
 
+    public List<ShoppingCartItem> getShoppingCartItems() {
+        return shoppingCartItems;
+    }
+
     public void updateTotalAmount(){
         double amount = 0;
         for(ShoppingCartItem item: shoppingCartItems){
@@ -99,10 +103,18 @@ public class ShoppingCart {
         return result;
     }
 
-    public Order placeOrder(List<PayMethod> payMethods) {
-        // todo Logic to convert shopping cart to an order using the specified payment method
-        // Verify payment details, process payment, finalize order details
-        return new Order();
+    public boolean clearShoppingCart() {
+        boolean result = false;
+        ArrayList<ShoppingCartItem> newList = new ArrayList<ShoppingCartItem>();
+        for (ShoppingCartItem item : shoppingCartItems) {
+            if (!item.isSelected()) {
+                newList.add(item);
+            }else {
+                result = DBManager.getInstance().removeShoppingCartItem(customerId, item.getEventId());
+            }
+        }
+        shoppingCartItems = newList;
+        updateTotalAmount();
+        return result;
     }
-
 }

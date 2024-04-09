@@ -39,6 +39,6 @@ jobs:
     # Install React dependencies and run tests
     - name: Install dependencies and run React tests
       run: |
-        cd path/to/your/react/app # Update this to the path of your React app
+        cd path/to/your/react/app # Update this to the path of the react app
         npm install
         npm test

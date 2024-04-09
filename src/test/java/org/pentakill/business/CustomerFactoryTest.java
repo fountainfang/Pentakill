@@ -28,7 +28,7 @@ public class CustomerFactoryTest {
         //assume the input jsonStr from front-end is like {"customerId":123,"firstName":"FIRSTNAME","lastName":"LASTNAME","email":"abc@gmail.com","phoneNum":"12345678",
         // "city":"kelowna","state":"BC","postalCode":"V1V3C9","country":"Canada","userid":"user1","password":"password1"}
         String jsonStr = "{\"customerId\":123,\"firstName\":\"FIRSTNAME\",\"lastName\":\"LASTNAME\",\"email\":\"abc@gmail.com\",\"phoneNum\":\"12345678\","+
-        "\"city\":\"kelowna\",\"state\":\"BC\",\"postalCode\":\"V1V3C9\",\"country\":\"Canada\",\"userid\":\"user1\",\"password\":\"password1\"}";
+        "\"city\":\"kelowna\",\"province\":\"BC\",\"postalCode\":\"V1V3C9\",\"country\":\"Canada\",\"userId\":\"user1\",\"password\":\"password1\"}";
         ICustomer customer = customerFactory.createCustomer(jsonStr);
         assertTrue(customer instanceof Customer);
     }
@@ -38,7 +38,7 @@ public class CustomerFactoryTest {
         //assume the input jsonStr from front-end is like {"customerId":123,"firstName":"FIRSTNAME","lastName":"LASTNAME","email":"abc@gmail.com","phoneNum":"12345678",
         // "city":"kelowna","state":"BC","postalCode":"V1V3C9","country":"Canada","userid":"user1","password":"password1","eventHolder":"1"}
         String jsonStr = "{\"customerId\":123,\"firstName\":\"FIRSTNAME\",\"lastName\":\"LASTNAME\",\"email\":\"abc@gmail.com\",\"phoneNum\":\"12345678\","+
-        "\"city\":\"kelowna\",\"state\":\"BC\",\"postalCode\":\"V1V3C9\",\"country\":\"Canada\",\"userid\":\"user1\",\"password\":\"password1\",\"eventHolder\":\"1\"}";
+        "\"city\":\"kelowna\",\"province\":\"BC\",\"postalCode\":\"V1V3C9\",\"country\":\"Canada\",\"userId\":\"user1\",\"password\":\"password1\",\"eventHolder\":\"1\"}";
         ICustomer eventHolder = customerFactory.createCustomer(jsonStr);
         assertTrue(eventHolder instanceof EventHolder);
     }

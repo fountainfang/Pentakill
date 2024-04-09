@@ -4,6 +4,7 @@ import org.pentakill.business.*;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ public class DBManager {
         return dbmgr;
     }
 
-    protected Connection getConnection() throws SQLException {
+    public Connection getConnection() throws SQLException {
         Connection conn = null;
         try {	// Load driver class
             Class.forName(DRIVER_CLASS);
@@ -169,8 +170,8 @@ public class DBManager {
                 ps = conn.prepareStatement("UPDATE incart SET TicketNum = ? , isSelected = ? WHERE customerId = ? AND eventId = ?");
                 ps.setInt(1, item.getTicketNum());
                 ps.setInt(2, intValueforIsSelected);
-                ps.setInt(2, customerId);
-                ps.setInt(3, item.getEventId());
+                ps.setInt(3, customerId);
+                ps.setInt(4, item.getEventId());
             } else {
                 ps = conn.prepareStatement("INSERT INTO incart (customerId, eventId, ticketPrice, ticketNum, isSelected) VALUES (?, ?, ?, ?, ?)");
                 ps.setInt(1, customerId);
@@ -221,26 +222,48 @@ public class DBManager {
         try {
             conn = getConnection();
             ps = conn.prepareStatement(
-                    "INSERT INTO Event (eventId, eventName, eventDesc,eventDate, startTime,endTime,address, totalTicket,ticketNum, ticketPrice) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            ps.setInt(1, event.getEventId());
-            ps.setString(2, event.getEventName());
+                    "INSERT INTO Event (eventName,eventCategory,eventDesc,eventDate, startTime,endTime,address, totalTicket,ticketNum, ticketPrice) VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            ps.setString(1, event.getEventName());
+            ps.setString(2, event.getEventCategory());
             ps.setString(3, event.getEventDesc());
             ps.setString(4, event.getEventDate());
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
             Time startTime = new Time(sdf.parse(event.getStartTime()).getTime());
             Time endTime = new Time(sdf.parse(event.getEndTime()).getTime());
-            ps.setTime(4, startTime);
-            ps.setTime(5, endTime);
-            ps.setString(6, event.getAddress());
-            ps.setInt(7, event.getTotalTicket());
-            ps.setInt(8, event.getTicketNum());
-            ps.setDouble(9, event.getTicketPrice());
+            ps.setTime(5, startTime);
+            ps.setTime(6, endTime);
+            ps.setString(7, event.getAddress());
+            ps.setInt(8, event.getTotalTicket());
+            ps.setInt(9, event.getTicketNum());
+            ps.setDouble(10, event.getTicketPrice());
             int i = ps.executeUpdate();
             if (i == 1) {
                 result = true;
             }
             ps.close();
         } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeConnection(conn);
+        }
+        return result;
+    }
+
+    public boolean updateEventTicketNum(int eventId, int ticketNum) {
+        boolean result = false;
+        Connection conn = null;
+        PreparedStatement ps = null;
+        try {
+            conn = getConnection();
+            ps = conn.prepareStatement("UPDATE Event SET ticketNum += -? WHERE eventId = ?");
+            ps.setInt(1, ticketNum);
+            ps.setInt(2, eventId);
+            int i = ps.executeUpdate();
+            if (i == 1) {
+                result = true;
+            }
+            ps.close();
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             closeConnection(conn);
@@ -294,6 +317,7 @@ public class DBManager {
                 Event event = new Event();
                 event.setEventId(rs.getInt("EventId"));
                 event.setEventName(rs.getString("EventName"));
+                event.setEventCategory(rs.getString("EventCategory"));
                 event.setTicketPrice(rs.getDouble("TicketPrice"));
                 event.setEventRating(rs.getInt("EventRating"));
                 result.add(event);
@@ -334,6 +358,7 @@ public Event getEventDetail(int eventId) {
                 result.setTotalTicket(rs.getInt("TotalTicket"));
                 result.setTicketNum(rs.getInt("TicketNum"));
                 result.setTicketPrice(rs.getDouble("TicketPrice"));
+                result.setEventRating(rs.getInt("EventRating"));
             }
             rs.close();
             ps.close();
@@ -345,43 +370,108 @@ public Event getEventDetail(int eventId) {
         return result;
 }
 
-
-
-//table OrderSummary
-//    orderId INT IDENTITY,
-//    orderDate DATETIME,
-//    totalAmount DECIMAL(10,2),
-//    email VARCHAR(50),
-//    customerId INT,
-//table orderEvent
-//    orderId INT,
-//    eventId INT,
-//    TicketPrice DECIMAL(10,2),
-//    TicketNum INT,
-    //todo finish saveOrder and OrderDetail
-    public boolean saveOrder(int orderId, java.util.Date orderDate,double totalAmount,String email, int customerId, List<ShoppingCartItem> items ) {
-        boolean result = false;
+    public List<PayMethod> getPayMethods(int customerId) {
+        List<PayMethod> result = null;
         Connection conn = null;
         PreparedStatement ps = null;
-        boolean saveOrder, saveOrderDetail;
+        ResultSet rs = null;
         try {
             conn = getConnection();
-            ps = conn.prepareStatement("INSERT INTO Ordersummary (customerId, eventId, ticketNum, totalPrice) VALUES (?, ?, ?, ?)");
-            ps.setInt(1, orderId);
-            ps.setDate(2, new java.sql.Date(orderDate.getTime()));
-            ps.setDouble(3, totalAmount);
-            ps.setString(4, email);
-            ps.setInt(5, customerId);
-            int i = ps.executeUpdate();
-            if (i == 1) {
-                saveOrder = true;
+            ps = conn.prepareStatement("SELECT * FROM PayMethod WHERE customerId = ?");
+            ps.setInt(1, customerId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                PayMethod payMethod = null;
+                int payMethodId = rs.getInt("payMethodId");
+                String payeeName = rs.getString("payeeName");
+                String payMethodType = rs.getString("payMethodType");
+                String payMethodNumber = rs.getString("payMethodNumber");
+                String expireDate = rs.getString("expireDate");
+                payMethod = new CreditCard(payMethodId, customerId,payeeName, payMethodNumber, payMethodType, expireDate);
+                if (result == null) {
+                    result = new ArrayList<PayMethod>();
+                }
+                result.add(payMethod);
             }
+            rs.close();
             ps.close();
-            //todo save data to table orderEvent
-            ps = conn.prepareStatement("UPDATE Event SET TicketNum = TicketNum - ? WHERE EventId = ?");
-
-
         } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeConnection(conn);
+        }
+        return result;
+    }
+
+//table OrderSummary
+//    orderId     INT IDENTITY PRIMARY KEY,
+//    orderDate   DATETIME  NOT NULL UNIQUE,
+//    totalAmount DECIMAL(10, 2)  NOT NULL UNIQUE,
+//    email       VARCHAR(20) NOT NULL UNIQUE,
+//    phonenum    VARCHAR(20) NOT NULL UNIQUE,
+//    customerId  INT 	NOT NULL UNIQUE,
+//    payMethodId INT		NOT NULL UNIQUE,
+//table orderEvent
+//    orderId     INT		NOT NULL UNIQUE,
+//    eventId     INT		NOT NULL UNIQUE,
+//    TicketPrice DECIMAL(10, 2) NOT NULL UNIQUE,
+//    TicketNum   INT	NOT NULL UNIQUE,
+//    PRIMARY KEY (orderId, eventId),
+    public Order saveOrder(Customer customer, String orderDate,double totalAmount,PayMethod payMethod, List<ShoppingCartItem> events ) {
+        Order result = null;
+        List<OrderEvent> orderEvents = null;
+        Connection conn = null;
+        PreparedStatement ps = null;
+        boolean saveOrder = false;
+        boolean saveOrderDetail = false;
+        try {
+            conn = getConnection();
+            ps = conn.prepareStatement("INSERT INTO Ordersummary (orderDate,totalAmount,email,phonenum, customerId, payMethodId) VALUES (?,?,?, ?, ?, ?)",Statement.RETURN_GENERATED_KEYS);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+            LocalDate localDate = LocalDate.parse(orderDate, formatter);
+            ps.setDate(1, Date.valueOf(localDate));
+            ps.setDouble(2, totalAmount);
+            ps.setString(3, customer.getEmail());
+            ps.setString(4, customer.getPhoneNum());
+            ps.setInt(5, customer.getCustomerId());
+            ps.setInt(6, payMethod.getPayMethodId());
+            int affectedRows  = ps.executeUpdate();
+            if (affectedRows  == 1) {
+                ResultSet generatedKeys = ps.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    int orderId = generatedKeys.getInt(1);
+                    saveOrder = true;
+                    result = new Order(orderId, orderDate, totalAmount, customer.getEmail(), customer.getPhoneNum(), null,customer.getCustomerId(), payMethod.getPayMethodId());
+                    generatedKeys.close();
+                    ps.close();
+                    ps = conn.prepareStatement("INSERT INTO orderEvent (orderId, eventId, TicketPrice, TicketNum) VALUES (?, ?, ?, ?)");
+                    for (ShoppingCartItem item : events) {
+                        ps.setInt(1, orderId);
+                        ps.setInt(2, item.getEventId());
+                        ps.setDouble(3, item.getTicketPrice());
+                        ps.setInt(4, item.getTicketNum());
+                        int i = ps.executeUpdate();
+                        if (i != 1) {
+                            saveOrderDetail = false;
+                            break;
+                        }else {
+                            updateEventTicketNum(item.getEventId(),item.getTicketNum());
+                            if(orderEvents == null) {
+                                orderEvents = new ArrayList<OrderEvent>();
+                            }
+                            OrderEvent orderEvent = new OrderEvent(orderId, item.getEventId(), item.getTicketPrice(), item.getTicketNum());
+                            orderEvents.add(orderEvent);
+                            saveOrderDetail = true;
+                        }
+                    }
+                    ps.close();
+
+                }
+            }
+            if(orderEvents!= null) {
+                result.setOrderEvents(orderEvents);
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             closeConnection(conn);
