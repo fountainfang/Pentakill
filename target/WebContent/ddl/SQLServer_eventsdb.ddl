@@ -1,102 +1,112 @@
-CREATE DATABASE orders;
-USE orders;
+DROP
+DATABASE IF EXISTS events;
 
-CREATE TABLE customer (
-    customerId      INT IDENTITY,
-    firstName       VARCHAR(40),
-    lastName        VARCHAR(40),
-    email           VARCHAR(50),
-    phonenum        VARCHAR(20),
-    address         VARCHAR(50),
-    city            VARCHAR(40),
-    state           VARCHAR(20),
-    postalCode      VARCHAR(20),
-    country         VARCHAR(40),
-    userid          VARCHAR(20),
-    password        VARCHAR(30),
-    isHolder        BIT,
-    PRIMARY KEY (customerId)
+DROP TABLE IF EXISTS review;
+DROP TABLE IF EXISTS payMethod;
+DROP TABLE IF EXISTS orderevent;
+DROP TABLE IF EXISTS ordersummary;
+DROP TABLE IF EXISTS incart;
+DROP TABLE IF EXISTS event;
+DROP TABLE IF EXISTS category;
+DROP TABLE IF EXISTS customer;
+
+CREATE
+DATABASE events;
+USE
+events;
+
+CREATE TABLE customer
+(
+    customerId INT IDENTITY PRIMARY KEY,
+    firstName  VARCHAR(40),
+    lastName   VARCHAR(40),
+    email      VARCHAR(50) NOT NULL UNIQUE,
+    phonenum   VARCHAR(20) NOT NULL UNIQUE,
+    address    VARCHAR(50),
+    city       VARCHAR(40),
+    province   VARCHAR(20),
+    postalCode VARCHAR(20),
+    country    VARCHAR(40),
+    userId     VARCHAR(20) NOT NULL UNIQUE,
+    password   VARCHAR(30),
+    isHolder   BIT,
+    UNIQUE (firstName, lastName) -- Composite unique constraint
 );
+CREATE INDEX idx_customer_userId ON customer (userId);
 
-CREATE TABLE paymentmethod (
-paymentMethodId INT IDENTITY,
-paymentType VARCHAR(20),
-paymentNumber VARCHAR(30),
-paymentExpiryDate DATE,
-customerId INT,
-PRIMARY KEY (paymentMethodId),
-FOREIGN KEY (customerId) REFERENCES customer(customerid)
-ON UPDATE CASCADE ON DELETE CASCADE
-);
 
-CREATE TABLE ordersummary (
-orderId INT IDENTITY,
-orderDate DATETIME,
-totalAmount DECIMAL(10,2),
-email VARCHAR(50),
-customerId INT,
-PRIMARY KEY (orderId),
-FOREIGN KEY (customerId) REFERENCES customer(customerid)
-ON UPDATE CASCADE ON DELETE CASCADE
-);
 
-CREATE TABLE event (
-    eventId         INT IDENTITY,
-    EventName       VARCHAR(255) NOT NULL,
-    EventDate       DATE NOT NULL,
-    StartTime       DATE NOT NULL,
-    EndTime         DATE NOT NULL,
-    Address         VARCHAR(255) NOT NULL,
-    TotalTicket     INT,
-    TicketNum       INT,
-    TicketPrice     DECIMAL(10,2),
+CREATE TABLE event
+(
+    eventId       INT IDENTITY ,
+    eventName     VARCHAR(255) NOT NULL UNIQUE,
+    eventCategory VARCHAR(50),
+    eventDesc     VARCHAR(2048),
+    eventDate     VARCHAR(10)  NOT NULL,
+    startTime     TIME         NOT NULL,
+    endTime       TIME         NOT NULL,
+    address       VARCHAR(255) NOT NULL,
+    totalTicket   INT,
+    ticketNum     INT,
+    ticketPrice   DECIMAL(10, 2),
+    eventRating   INT,
     PRIMARY KEY (eventId)
 );
 
-CREATE TABLE orderevent (
-orderId INT,
-eventId INT,
-ticketQuantity INT,
-price DECIMAL(10,2),
-PRIMARY KEY (orderId, eventId),
-FOREIGN KEY (orderId) REFERENCES ordersummary(orderId)
-ON UPDATE CASCADE ON DELETE NO ACTION,
-FOREIGN KEY (eventId) REFERENCES product(eventId)
-ON UPDATE CASCADE ON DELETE NO ACTION
+
+CREATE TABLE incart
+(
+    customerId  INT,
+    eventId     INT,
+    ticketPrice DECIMAL(10, 2),
+    ticketNum   INT,
+    isSelected  BIT,
+    PRIMARY KEY (CustomerId, eventId)
 );
 
-CREATE TABLE incart (
-customerId INT,
-eventId INT,
-quantity INT,
-price DECIMAL(10,2),
-isSelected BIT,
-PRIMARY KEY (customerId, eventId),
-FOREIGN KEY (customerId) REFERENCES customer(customerId)
-ON UPDATE CASCADE ON DELETE NO ACTION,
-FOREIGN KEY (eventId) REFERENCES product(eventId)
-ON UPDATE CASCADE ON DELETE NO ACTION
+
+CREATE TABLE ordersummary
+(
+    orderId     INT IDENTITY ,
+    orderDate   DATETIME  NOT NULL ,
+    totalAmount DECIMAL(10, 2)  NOT NULL ,
+    email       VARCHAR(20) NOT NULL ,
+	phonenum    VARCHAR(20) NOT NULL ,
+    customerId  INT 	NOT NULL ,
+	payMethodId INT		NOT NULL ,
+    PRIMARY KEY (orderId)
 );
 
-CREATE TABLE ticketinventory (
-eventId INT,
-quantity INT,
-price DECIMAL(10,2),
-PRIMARY KEY (eventId, warehouseId),
-FOREIGN KEY (eventId) REFERENCES product(eventId)
-ON UPDATE CASCADE ON DELETE NO ACTION
+CREATE TABLE orderevent
+(
+    orderId     INT		NOT NULL ,
+    eventId     INT		NOT NULL ,
+    TicketPrice DECIMAL(10, 2) NOT NULL ,
+    TicketNum   INT	NOT NULL ,
+    PRIMARY KEY (orderId, eventId),
 );
 
-CREATE TABLE review (
-reviewId INT IDENTITY,
-reviewRating INT,
-reviewDate DATETIME,
-customerId INT,
-eventId INT,
-reviewComment VARCHAR(1000),
-PRIMARY KEY (reviewId),
-FOREIGN KEY (customerId) REFERENCES customer(customerId)
-ON UPDATE CASCADE ON DELETE CASCADE,
-FOREIGN KEY (eventId) REFERENCES product(eventId)
-ON UPDATE CASCADE ON DELETE CASCADE
+CREATE TABLE payMethod
+(
+    payMethodId         INT IDENTITY PRIMARY KEY,
+	customerId          INT,
+	payeeName			VARCHAR(20),	
+    payMethodType       VARCHAR(20),
+    payMethodNumber     VARCHAR(30),
+    expireDate DATE,
+	UNIQUE (customerId, payMethodType) -- Composite unique constraint
+);
+
+
+CREATE TABLE review
+(
+    reviewId      INT IDENTITY,
+    orderId       INT,
+    eventId       INT,
+    reviewRating  INT,
+    reviewDate    DATETIME,
+    customerId    INT,
+    reviewComment VARCHAR(1000),
+    PRIMARY KEY (reviewId),
+    UNIQUE (orderId, eventId) -- Composite unique constraint
 );

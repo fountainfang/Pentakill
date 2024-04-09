@@ -1,7 +1,17 @@
 package org.pentakill.business;
 import org.junit.jupiter.api.*;
+import org.pentakill.db.DBManager;
+
 import static org.junit.jupiter.api.Assertions.*;
 public class ShoppingCartTest {
+
+    @AfterEach
+    public void clearTestData() {
+        DBManager.getInstance().removeShoppingCartItem(1,1);
+        DBManager.getInstance().removeShoppingCartItem(1,2);
+        DBManager.getInstance().removeShoppingCartItem(1,3);
+        System.out.println("Clear data after testing ShoppingCart class");
+    }
 
     @Test
     public void testShoppingCart() {

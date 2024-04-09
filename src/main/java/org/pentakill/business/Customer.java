@@ -168,9 +168,4 @@ public class Customer implements ICustomer {
         return result;
     }
 
-    @Override
-    public Order placeOrder(){
-        return getShoppingCart().placeOrder(getPayMethods());
-    }
-
 }

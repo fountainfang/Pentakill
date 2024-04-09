@@ -1,29 +1,359 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="petp-classes" />
+    </artifacts-to-build>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="07b7e87a-923c-4052-bb6d-9b63086d7671" name="Changes" comment="" />
+    <list default="true" id="07b7e87a-923c-4052-bb6d-9b63086d7671" name="Changes" comment="CI/CD Devlopment&#10;add github actions &#10;pom.xml renewed">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/pentakill/business/CreditCard.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/pentakill/business/PayMethod.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/pentakill/business/PayPal.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/pentakill/business/ShoppingCartItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/pentakill/web/BaseServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/pentakill/web/CartServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/pentakill/business/CreditCardTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/pentakill/business/OrderEventTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/pentakill/business/OrderTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/pentakill/business/RatingTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/inactivity_management.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/inactivity_management.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/pullrequest _management.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/pullrequest _management.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/pentakill/business/Admin.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/pentakill/business/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/pentakill/business/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/pentakill/business/ICustomer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/pentakill/business/ICustomer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/pentakill/business/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/pentakill/business/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/pentakill/business/OrderEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/pentakill/business/OrderEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/pentakill/business/PaymentMethod.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/pentakill/business/Rating.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/pentakill/business/Rating.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/pentakill/business/ShoppingCart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/pentakill/business/ShoppingCart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/pentakill/db/DBManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/pentakill/db/DBManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/pentakill/web/EventServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/pentakill/web/EventServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/pentakill/web/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/pentakill/web/LoginServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/pentakill/web/OrderServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/pentakill/web/OrderServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/pentakill/web/RatingServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/pentakill/web/RatingServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/pentakill/web/RegServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/pentakill/web/RegServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/main.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/pentakill/business/AdminTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/pentakill/business/CustomerFactoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/pentakill/business/CustomerFactoryTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/pentakill/business/EventHolderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/pentakill/business/EventHolderTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/pentakill/business/EventRegistryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/pentakill/business/EventRegistryTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/pentakill/business/EventTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/pentakill/business/EventTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/pentakill/business/ShoppingCartTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/pentakill/business/ShoppingCartTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/pentakill/business/TestCustomer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/pentakill/business/TestCustomerFactory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/pentakill/business/TestEvent.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/pentakill/business/TestEventHolder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/pentakill/business/TestEventRegistry.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/pentakill/business/TestOrder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/pentakill/business/TestOrderEvent.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/pentakill/business/TestPaymentMethod.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/pentakill/business/TestRating.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/pentakill/db/DBManagerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/pentakill/db/DBManagerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/pentakill/web/RegServletTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/pentakill/web/RegServletTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/test.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/WebContent/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/WebContent/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/WebContent/ddl/SQLServer_eventsdb.ddl" beforeDir="false" afterPath="$PROJECT_DIR$/target/WebContent/ddl/SQLServer_eventsdb.ddl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/WebContent/ddl/SQLServer_orderdb.ddl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/pentakill/business/Admin.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/pentakill/business/Customer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/pentakill/business/Customer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/pentakill/business/CustomerFactory.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/pentakill/business/CustomerFactory.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/pentakill/business/Event.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/pentakill/business/Event.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/pentakill/business/EventHolder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/pentakill/business/EventHolder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/pentakill/business/EventRegistry.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/pentakill/business/EventRegistry.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/pentakill/business/ICustomer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/pentakill/business/ICustomer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/pentakill/business/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/pentakill/business/Order.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/pentakill/business/OrderEvent.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/pentakill/business/OrderEvent.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/pentakill/business/PaymentMethod.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/pentakill/business/Rating.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/pentakill/business/Rating.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/pentakill/business/ShoppingCart.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/pentakill/business/ShoppingCart.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/pentakill/db/DBManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/pentakill/db/DBManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/pentakill/web/EventServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/pentakill/web/EventServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/pentakill/web/LoginServlet$LoginInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/pentakill/web/LoginServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/pentakill/web/LoginServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/pentakill/web/OrderServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/pentakill/web/OrderServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/pentakill/web/RegServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/pentakill/web/RegServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/org/pentakill/business/AdminTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/org/pentakill/business/CustomerFactoryTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/org/pentakill/business/CustomerFactoryTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/org/pentakill/business/CustomerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/org/pentakill/business/CustomerTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/org/pentakill/business/EventHolderTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/org/pentakill/business/EventHolderTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/org/pentakill/business/EventRegistryTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/org/pentakill/business/EventRegistryTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/org/pentakill/business/EventTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/org/pentakill/business/EventTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/org/pentakill/business/ShoppingCartTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/org/pentakill/business/ShoppingCartTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/org/pentakill/business/TestCustomer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/org/pentakill/business/TestCustomerFactory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/org/pentakill/business/TestEvent.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/org/pentakill/business/TestEventHolder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/org/pentakill/business/TestEventRegistry.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/org/pentakill/business/TestOrder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/org/pentakill/business/TestOrderEvent.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/org/pentakill/business/TestPaymentMethod.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/org/pentakill/business/TestRating.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/org/pentakill/db/DBManagerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/org/pentakill/db/DBManagerTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/org/pentakill/web/RegServletTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/org/pentakill/web/RegServletTest.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="Eric-Week14-cicd-github-action" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="LogFilters">
+    <option name="FILTER_ERRORS" value="false" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="true" />
+    <option name="FILTER_DEBUG" value="true" />
+    <option name="CUSTOM_FILTER" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/package.json" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
   <component name="ProjectId" id="2dZ1D8Ouu2lOToQFWdmakjlMnMF" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "JUnit.CustomerTest.executor": "Run",
+    "JUnit.DBManagerTest.executor": "Run",
+    "JUnit.DBManagerTest.saveEventShouldExecuteUpdateWhenEventIsValid.executor": "Run",
+    "JUnit.OrderTest.executor": "Run",
+    "JUnit.RatingTest.executor": "Run",
+    "JUnit.RegServletTest.executor": "Run",
+    "JUnit.RegServletTest.testDoPostFail.executor": "Run",
+    "JUnit.RegServletTest.testDoPostSuccess.executor": "Run",
+    "JUnit.ShoppingCartTest.executor": "Run",
+    "JUnit.java in team-Pentakill.executor": "Run",
+    "JUnit.pentakill in team-Pentakill.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true"
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Tomcat Server.Tomcat 1.executor": "Run",
+    "git-widget-placeholder": "Eric-week14-after-sit-modify-dbmanager-and-servlet",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.4402299",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RunManager" selected="JUnit.pentakill in team-Pentakill">
+    <configuration name="DBManagerTest.saveEventShouldExecuteUpdateWhenEventIsValid" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="team-Pentakill" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.pentakill.db.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.pentakill.db" />
+      <option name="MAIN_CLASS_NAME" value="org.pentakill.db.DBManagerTest" />
+      <option name="METHOD_NAME" value="saveEventShouldExecuteUpdateWhenEventIsValid" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RegServletTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="team-Pentakill" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.pentakill.web.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.pentakill.web" />
+      <option name="MAIN_CLASS_NAME" value="org.pentakill.web.RegServletTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RegServletTest.testDoPostFail" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="team-Pentakill" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.pentakill.web.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.pentakill.web" />
+      <option name="MAIN_CLASS_NAME" value="org.pentakill.web.RegServletTest" />
+      <option name="METHOD_NAME" value="testDoPostFail" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RegServletTest.testDoPostSuccess" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="team-Pentakill" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.pentakill.web.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.pentakill.web" />
+      <option name="MAIN_CLASS_NAME" value="org.pentakill.web.RegServletTest" />
+      <option name="METHOD_NAME" value="testDoPostSuccess" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="pentakill in team-Pentakill" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="team-Pentakill" />
+      <option name="TEST_OBJECT" value="directory" />
+      <dir value="$PROJECT_DIR$/src/test/java/org/pentakill" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Tomcat 1" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.86" ALTERNATIVE_JRE_ENABLED="true" ALTERNATIVE_JRE_PATH="D:\java\jdk17">
+      <option name="OPEN_IN_BROWSER_URL" value="http://localhost/petp/" />
+      <option name="BROWSER_ID" value="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" />
+      <option name="UPDATING_POLICY" value="restart-server" />
+      <deployment>
+        <artifact name="petp-classes">
+          <settings>
+            <option name="CONTEXT_PATH" value="/petp" />
+          </settings>
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="af35e53d-515a-4ee0-800d-95a0d0abc6b2" />
+        <option name="DEPLOY_TOMCAT_APPS" value="true" />
+        <option name="HTTP_PORT" value="80" />
+        <option name="JNDI_PORT" value="11099" />
+      </server-settings>
+      <log_file alias="Tomcat Localhost Access Log" path="%IDEA_RUN:CATALINA_BASE%/logs/localhost_access_log.*" />
+      <predefined_log_file enabled="true" id="Tomcat" />
+      <predefined_log_file enabled="true" id="Tomcat Catalina" />
+      <predefined_log_file id="Tomcat Manager" />
+      <predefined_log_file id="Tomcat Host Manager" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="7386" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Profile">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="petp-classes" />
+        </option>
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="JUnit.DBManagerTest.saveEventShouldExecuteUpdateWhenEventIsValid" />
+      <item itemvalue="JUnit.RegServletTest" />
+      <item itemvalue="JUnit.RegServletTest.testDoPostFail" />
+      <item itemvalue="JUnit.RegServletTest.testDoPostSuccess" />
+      <item itemvalue="JUnit.pentakill in team-Pentakill" />
+      <item itemvalue="Tomcat Server.Tomcat 1" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.pentakill in team-Pentakill" />
+        <item itemvalue="JUnit.RegServletTest" />
+        <item itemvalue="JUnit.RegServletTest.testDoPostFail" />
+        <item itemvalue="JUnit.RegServletTest.testDoPostSuccess" />
+        <item itemvalue="JUnit.DBManagerTest.saveEventShouldExecuteUpdateWhenEventIsValid" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-17.0.10-corretto-17.0.10-4caba194b151-5cd809f4" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -32,7 +362,103 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1710200663922</updated>
+      <workItem from="1712285075482" duration="3336000" />
+      <workItem from="1712446932009" duration="564000" />
+      <workItem from="1712447516652" duration="10446000" />
+      <workItem from="1712613340185" duration="1198000" />
+      <workItem from="1712640513238" duration="5650000" />
     </task>
+    <task id="LOCAL-00001" summary="Create RatingServlet.java and update some other business class modification (CustomerFactory, Event, EventRegistry)">
+      <option name="closed" value="true" />
+      <created>1711961733865</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1711961733865</updated>
+    </task>
+    <task id="LOCAL-00002" summary="modified Customer, DBManager and ShoppingCart (add unit tests)">
+      <option name="closed" value="true" />
+      <created>1712031365777</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1712031365777</updated>
+    </task>
+    <task id="LOCAL-00003" summary="CI/CD Devlopment&#10;add github actions &#10;pom.xml renewed">
+      <option name="closed" value="true" />
+      <created>1712448162139</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1712448162139</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Create RatingServlet.java and update some other business class modification (CustomerFactory, Event, EventRegistry)" />
+    <MESSAGE value="modified Customer, DBManager and ShoppingCart (add unit tests)" />
+    <MESSAGE value="CI/CD Devlopment&#10;add github actions &#10;pom.xml renewed" />
+    <option name="LAST_COMMIT_MESSAGE" value="CI/CD Devlopment&#10;add github actions &#10;pom.xml renewed" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/pentakill/web/RegServlet.java</url>
+          <line>20</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/pentakill/web/LoginServlet.java</url>
+          <line>21</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/pentakill/db/DBManager.java</url>
+          <line>91</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/pentakill/db/DBManager.java</url>
+          <line>131</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/pentakill/web/EventServlet.java</url>
+          <line>52</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/pentakill/web/CartServlet.java</url>
+          <line>57</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/org/pentakill/web/RegServletTest.java</url>
+          <line>93</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/org/pentakill/web/RegServletTest.java</url>
+          <line>133</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

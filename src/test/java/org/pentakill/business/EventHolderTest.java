@@ -7,10 +7,12 @@ import static org.junit.jupiter.api.Assertions.*;
 public class EventHolderTest {
 
     static EventHolder eventHolder;
+    static Event event;
     @BeforeEach
     public void init() {
         eventHolder = new EventHolder(1, "Tom", "Chen", "abc@gmail.com", "123456", "AAA Way", "kelowna", "BC", "V1V3C9", "CA",
                                    "Tom", "123");
+        event = new Event(1, "Event1", "","","2021-12-01", "10:00:00","12:00:00", 100, 10.0);
         EventRegistry.getInstance().clearAll();
     }
 
@@ -32,7 +34,6 @@ public class EventHolderTest {
     @Test
     public void testEventList(){
         assertEquals(0, eventHolder.getEventList().size());
-        Event event = new Event(1, "Event1", "2021-12-01", null, null, 100, 10.0);
         ArrayList<Event> newList = new ArrayList<>();
         newList.add(event);
         eventHolder.setEventList(newList);
@@ -41,14 +42,12 @@ public class EventHolderTest {
 
     @Test
     public void testIssueNewEvent(){
-        Event event = new Event(1, "Event1", "2021-12-01", null, null, 100, 10.0);
         assertTrue(eventHolder.issueNewEvent(event));
         assertFalse(eventHolder.issueNewEvent(event));
     }
 
     @Test
     public void testCancelEvent(){
-        Event event = new Event(1, "Event1", "2021-12-01", null, null, 100, 10.0);
         eventHolder.issueNewEvent(event);
         assertTrue(eventHolder.cancelEvent(event));
         assertFalse(eventHolder.cancelEvent(event));

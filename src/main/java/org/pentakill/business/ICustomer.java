@@ -27,5 +27,5 @@ public interface ICustomer {
 
     public boolean saveTicketsToCart(Event event, int TicketNum);
 
-    public Order placeOrder();
+
 }

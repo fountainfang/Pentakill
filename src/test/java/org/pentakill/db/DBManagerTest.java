@@ -212,7 +212,7 @@ public class DBManagerTest {
     @Test
     public void saveEventShouldExecuteUpdateWhenEventIsValid() throws Exception {
         Event event = mock(Event.class);
-        when(event.getEventId()).thenReturn(1);
+        //when(event.getEventId()).thenReturn(1);
         when(event.getEventName()).thenReturn("Event");
         when(event.getEventDate()).thenReturn("2022-12-31");
         when(event.getStartTime()).thenReturn("10:00:00");

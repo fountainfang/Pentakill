@@ -12,7 +12,7 @@ jobs:
       uses: actions/github-script@v5
       with:
         script: |
-          const {data: issues} = await github.rest.issues.listForRepo({
+          const {data: issues} = await github.rest.issues.listForRepo({ // List all open issues
             owner: context.repo.owner,
             repo: context.repo.repo,
             state: 'open',
@@ -23,9 +23,9 @@ jobs:
           const inactiveThreshold = 30; // days
 
           for (const issue of issues) {
-            const lastUpdated = new Date(issue.updated_at);
-            const today = new Date();
-            const daysInactive = Math.ceil((today - lastUpdated) / (1000 * 60 * 60 * 24));
+            const lastUpdated = new Date(issue.updated_at); // Convert the last updated date to a Date object
+            const today = new Date(); 
+            const daysInactive = Math.ceil((today - lastUpdated) / (1000 * 60 * 60 * 24)); // Calculate the number of days since the last update
 
             if (daysInactive > inactiveThreshold) {
               // Comment before closing
