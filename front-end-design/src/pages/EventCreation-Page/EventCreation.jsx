@@ -220,7 +220,7 @@ function EventCreation() {
                         min="0"
                     />
                 </div>
-                <div style={divStyle}>
+                {/* <div style={divStyle}>
                     <label style={labelStyle}>Profile Image URL:</label>
                     <input
                         type="text"
@@ -241,7 +241,7 @@ function EventCreation() {
                         required
                         style={inputStyle}
                     />
-                </div>
+                </div> */}
 
                 <button type="submit" style={buttonStyle}>Submit Event</button>
             </form>

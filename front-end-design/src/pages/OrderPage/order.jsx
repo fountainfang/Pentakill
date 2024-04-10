@@ -100,6 +100,7 @@ const Order = () => {
     objectFit: 'cover',
     border: '3px solid white',
   };
+  
 
   return (
     <>
@@ -122,15 +123,15 @@ const Order = () => {
                 <p>Qty: 1</p>
               </div>
               <div>
-                <p><strong>${order.TicketPrice}</strong></p>
+                <p><strong>${order.ticketPrice}</strong></p>
               </div>
             </div>
             <div style={{ borderTop: '1px solid #ccc', padding: '1rem 0' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
-                <p>Taxes</p><p>$4.13</p>
+                <p>Taxes</p><p>${(order.ticketPrice*0.12).toFixed(2)}</p>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem', fontWeight: 'bold' }}>
-                <p>TOTAL</p><p>${(order.TicketPrice + 4.13 + 5)}</p>
+                <p>TOTAL</p><p>${(order.ticketPrice*1.12).toFixed(2)}</p>
               </div>
             </div>
           </div>

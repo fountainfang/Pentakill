@@ -152,7 +152,7 @@ router.post("/createEvent", (req, res) => {
     const { userId, eventName, eventCategory, eventDesc, eventDate, startTime, endTime, address, totalTicket, ticketPrice, profileImage, bannerImage, rating, approvalStatus } = req.body;
     console.log(userId)
     const sql = "INSERT INTO event (userId, eventName, eventCategory, eventDesc, eventDate, startTime, endTime, address, totalTicket, ticketPrice, profileImage, bannerImage, rating, approvalStatus) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    const arr = [userId, eventName, eventCategory, eventDesc, eventDate, startTime, endTime, address, totalTicket, ticketPrice, profileImage, bannerImage, 0, "pending"];
+    const arr = [userId, eventName, eventCategory, eventDesc, eventDate, startTime, endTime, address, totalTicket, ticketPrice, "/sample_posters/small/default.jpg", "/sample_posters/banner/drama.webp", 0, "pending"];
     console.log(req.body)
     sqlFn(sql, arr, result => {
         console.log(result)
