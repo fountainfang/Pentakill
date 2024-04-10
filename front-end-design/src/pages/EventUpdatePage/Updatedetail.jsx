@@ -2,11 +2,25 @@ import React, { Component } from 'react';
 import api from '../../api'; // Adjust the path as necessary
 import Navbar from '../Front-Page/Navbar'; // Adjust the path as necessary
 import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+
+
+const userinfo = localStorage.getItem("rl");
+const userId = JSON.parse(userinfo).customerid
+
+
+console.log(userId)
+
+
 
 function Updatedetail() {
+
+    const Id = useParams();
+
+    const id = parseInt(Id.eventId);
     const [eventData, setEventData] = useState({
-        eventId: 0,
-        userId: 0, // Assuming a user ID of 1 for now
+        eventId: useParams(),
+        userId: userId, // Assuming a user ID of 1 for now
         eventName: '',
         eventCategory: '',
         eventDesc: '',
@@ -21,11 +35,32 @@ function Updatedetail() {
         rating: 0,
         approvalStatus: 'Pending',
     });
+    console.log(userId)
 
     //Change title of the page
 
     useEffect(() => {
-        document.title = "New Event";
+
+        document.title = "Edit Event";
+        const storedEventData = localStorage.getItem(`eventsData`);
+        const eventDataArr = JSON.parse(storedEventData)[0]
+
+        const event = eventDataArr.find(event => event.eventId === id);
+        console.log(event)
+
+        const isoDate = event.eventDate;
+        const dateObject = new Date(isoDate);
+        const year = dateObject.getFullYear();
+        const month = String(dateObject.getMonth() + 1).padStart(2, '0');
+        const day = String(dateObject.getDate()).padStart(2, '0');
+        const formattedDate = `${year}-${month}-${day}`;
+        event.eventDate = formattedDate;
+
+        setEventData(event);
+
+
+
+
     }, []);
 
     // An array to hold a list of evenets
@@ -61,12 +96,12 @@ function Updatedetail() {
     const handleSubmit = (e) => {
         e.preventDefault();
         const userinfo = localStorage.getItem("rl")
-        console.log(userinfo)
+        //console.log(userinfo)
         console.log(JSON.parse(userinfo).customerid)
 
         // Correctly structured data to match backend expectations
         const eventSubmission = {
-            userId: JSON.parse(userinfo).customerid, // Assuming a user ID of 1 for now
+
             eventName: eventData.eventName,
             eventCategory: eventData.eventCategory,
             eventDesc: eventData.eventDesc,
@@ -76,8 +111,8 @@ function Updatedetail() {
             address: eventData.address,
             totalTicket: parseInt(eventData.totalTicket, 10),
             ticketPrice: parseFloat(eventData.ticketPrice),
-            profileImage: eventData.profileImage, // Placeholder for now
-            bannerImage: eventData.bannerImage, // Placeholder for now
+            eventId: eventData.eventId,
+
         };
         console.log(eventSubmission)
 
@@ -221,7 +256,7 @@ function Updatedetail() {
                     />
                 </div>
 
-                <button type="submit" style={buttonStyle}>Update Event</button>
+                <button type="submit" style={buttonStyle} >Update Event</button>
             </form>
             {/* Display submitted events for confirmation */}
             {eventsList.length > 0 && (

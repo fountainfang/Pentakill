@@ -8,11 +8,11 @@ const base = {
     createEvent: "/api/createEvent",
     updateStatus: "/api/updateStatus",
     getEvents: "/api/getEvents",
-    getUserEvents:"/api/getUserEvents",
+    getUserEvents: "/api/getUserEvents",
     updateUser: "/api/updateUser",
     createOrder: "/api/createOrder",
     getOrder: "/api/getOrder",
-    updateEvent:"/api/updateEvent",
+    updateEvent: "/api/updateEvent",
 };
 
 const api = {
@@ -37,7 +37,7 @@ const api = {
         return axios.get(base.baseUrl + base.getEvents);
     },
     getUserEvents(params) {
-        return axios.get(base.baseUrl + base.getUserEvents,  {params} );
+        return axios.get(base.baseUrl + base.getUserEvents, { params });
     },
     createOrder(params) {
         return axios.post(base.baseUrl + base.createOrder, params);
@@ -45,9 +45,11 @@ const api = {
     getOrder(params) {
         return axios.get(base.baseUrl + base.getOrder, { params })
     },
-    updateEvent(params){
-        return axios.get(base.baseUrl + base.getOrder, { params })
-
+    updateEvent(params) {
+        return axios.post(base.baseUrl + base.updateEvent, params)
+    },
+    updateUser(params) {
+        return axios.post(base.baseUrl + base.updateUser, params)
     }
 
 };

@@ -2,7 +2,7 @@ import React from 'react';
 import Navbar from '../Front-Page/Navbar';
 import news from './SampleNews.jsx';
 
-console.log(news);
+//console.log(news);
 const NewsPage = () => {
   const contentStyle = {
     maxWidth: '1300px',
@@ -15,18 +15,18 @@ const NewsPage = () => {
     fontWeight: '700',
     textAlign: 'center',
     margin: '2rem 0',
-    color: '#FFF', 
+    color: '#FFF',
   };
   const headerStyle2 = {
     fontWeight: '500',
     textAlign: 'center',
-    margin: '2rem 0', 
-    color: '#FFF', 
+    margin: '2rem 0',
+    color: '#FFF',
   }
 
   const blackBarStyle = {
     background: '#7f5b60',
-    padding: '4rem 2rem', 
+    padding: '4rem 2rem',
     marginBottom: '2rem',
   };
 
@@ -90,19 +90,19 @@ const NewsPage = () => {
         <Navbar />
       </div>
       {/* This div wraps everything and allows for the black bar to span the full width */}
-      <div style={{margin: '0', padding: '0'}}>
+      <div style={{ margin: '0', padding: '0' }}>
         <div style={blackBarStyle}>
-          <div style={{maxWidth: '1200px', margin: 'auto'}}>
+          <div style={{ maxWidth: '1200px', margin: 'auto' }}>
             <h1 style={headerStyle}>News, stories, interviews and more</h1>
-            <p style={{...headerStyle2, margin: '0'}}>Get a fascinating glimpse behind the scenes with our exclusive interviews...</p>
+            <p style={{ ...headerStyle2, margin: '0' }}>Get a fascinating glimpse behind the scenes with our exclusive interviews...</p>
           </div>
         </div>
         <div style={contentStyle}>
           {news.map(item => (
             <div key={item.id} style={{ ...newsCardStyle, ...hoverEffect }}
-                onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.02)'}
-                onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
-                onClick={() => {/* handle click event, navigation for example */}}>
+              onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.02)'}
+              onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+              onClick={() => {/* handle click event, navigation for example */ }}>
               <img src={item.imageSrc} alt={item.title} style={newsImageStyle} />
               <div style={newsContentStyle}>
                 <h3 style={titleStyle}>{item.title}</h3>
