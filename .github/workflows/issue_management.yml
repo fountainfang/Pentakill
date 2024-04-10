@@ -13,7 +13,7 @@ jobs:
       with:
         script: |
           const issueNumber = context.issue.number;
-          const labelsToAdd = ['Development']; 
+          const labelsToAdd = ['Develpoment']; 
           const issueCreator = context.payload.issue.user.login;
 
           // Add labels
