@@ -2,7 +2,8 @@ name: Inactivity Management
 
 on:
   schedule:
-    - cron: '0 10 * * *' # Runs daily at UTC 10:00
+    - cron: '* * * * *' 
+    # Runs daily at UTC 10:00
 
 jobs:
   manage-inactive-issues:
