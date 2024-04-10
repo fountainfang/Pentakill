@@ -4,12 +4,14 @@ import Navbar from '../Front-Page/Navbar'; // Adjust the path as necessary
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-
+let userId;
 const userinfo = localStorage.getItem("rl");
-const userId = JSON.parse(userinfo).customerid
 
+if (userinfo) {
 
-console.log(userId)
+    userId = JSON.parse(userinfo).customerid
+}
+
 
 
 
@@ -35,7 +37,7 @@ function Updatedetail() {
         rating: 0,
         approvalStatus: 'Pending',
     });
-    console.log(userId)
+
 
     //Change title of the page
 

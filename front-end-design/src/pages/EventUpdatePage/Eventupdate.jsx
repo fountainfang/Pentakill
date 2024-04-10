@@ -3,9 +3,14 @@ import Navbar from '../Front-Page/Navbar';
 import { useNavigate } from 'react-router-dom';
 
 
-
+let userId;
 const userinfo = localStorage.getItem("rl");
-const userId = JSON.parse(userinfo).customerid
+
+if (userinfo) {
+  userId = JSON.parse(userinfo).customerid
+}
+
+
 const storedEventData = localStorage.getItem(`eventsData`);
 const eventDataArr = JSON.parse(storedEventData)[0]
 console.log(eventDataArr)
@@ -15,6 +20,9 @@ console.log(filteredEvents)
 const sampleEvents =
   filteredEvents
   ;
+
+
+
 
 const Eventupdate = () => {
 
