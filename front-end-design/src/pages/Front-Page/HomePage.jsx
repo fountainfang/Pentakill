@@ -30,7 +30,7 @@ const carouselItems = [
 ];
 
 api.getEvents({}).then(response => {
-  console.log(response.data)
+  //console.log(response.data)
   const events = [response.data]
   const jsonData = JSON.stringify(events);
   localStorage.setItem('eventsData', jsonData);
@@ -41,15 +41,15 @@ api.getEvents({}).then(response => {
   if (eventDataJSON) {
     // 解析JSON字符串为JavaScript对象
     const eventData = JSON.parse(eventDataJSON);
-    console.log(eventData)
-    console.log(eventData[0][1])
+    //console.log(eventData)
+    //console.log(eventData[0][1])
 
 
 
     // 遍历对象
     eventData.forEach(event => {
       // 在这里对每个事件对象执行操作，例如打印或处理数据
-      console.log(event);
+      //   console.log(event);
     });
   } else {
     console.log('No data found in localStorage.');

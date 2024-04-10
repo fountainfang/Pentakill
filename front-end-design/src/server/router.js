@@ -169,7 +169,7 @@ router.post("/createEvent", (req, res) => {
     });
 });
 
-router.put("/updateUser", (req, res) => {
+router.post("/updateUser", (req, res) => {
     // 解析来自前端的编辑信息
     const { firstName, lastName, email, phonenumber, address, city, state, country, postalCode, username } = req.body;
     console.log(req.body)
@@ -221,7 +221,7 @@ router.get("/getEvents", (req, res) => {
 });
 
 router.get("/getUserEvents", (req, res) => {
-    const {userId}= req.query;
+    const { userId } = req.query;
     console.log(req.query);
     const sql = "SELECT * FROM event WHERE userId = ?";
     const arr = [userId];
@@ -267,7 +267,7 @@ router.get("/getOrder", (req, res) => {
     });
 });
 
-router.put("/updateEvent", (req, res) => {
+router.post("/updateEvent", (req, res) => {
     // 解析来自前端的编辑信息
     const { eventName, eventCategory, eventDesc, eventDate, startTime, endTime, address, totalTicket, ticketPrice, eventId } = req.body;
     console.log(req.body)
@@ -277,6 +277,8 @@ router.put("/updateEvent", (req, res) => {
     const sql = "UPDATE Event SET eventName=?, eventCategory=?, eventDesc=?, eventDate=?, startTime=?, endTime=?,address=?, totalTicket=?, ticketPrice=? WHERE eventId=?";
     const values = [eventName, eventCategory, eventDesc, eventDate, startTime, endTime, address, totalTicket, ticketPrice, eventId];
     sqlFn(sql, values, result => {
+        console.log(result)
+
         if (result.affectedRows > 0) {
             // 更新成功
             res.status(200).json({ success: true, message: "User information updated successfully" });

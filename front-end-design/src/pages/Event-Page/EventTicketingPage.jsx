@@ -7,7 +7,7 @@ import { Box, Typography, Grid, Container, Button } from '@mui/material';
 import events from './SampleEvents.jsx';
 
 // Expanded mock data
-console.log(events);
+//console.log(events);
 const EventTicketingPage = () => {
   const [filteredEvents, setFilteredEvents] = useState(events);
   const location = useLocation();

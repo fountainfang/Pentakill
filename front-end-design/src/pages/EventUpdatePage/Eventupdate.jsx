@@ -2,26 +2,23 @@ import React, { useState } from 'react';
 import Navbar from '../Front-Page/Navbar';
 import { useNavigate } from 'react-router-dom';
 
-const sampleEvents = [
-  {
-    eventId: 101,
-    userId: 78910,
-    eventName: "Name1",
-    eventCategory: "Drama",
-    eventDesc: "Description of the event goes here. It's a detailed description about what attendees can expect.",
-    profileImage: "/sample_posters/small/s-1.jpg"
-  },
-  {
-    eventId: 102,
-    userId: 78911,
-    eventName: "Name2",
-    eventCategory: "Comedy",
-    eventDesc: "Description of the event goes here. This comedy event promises laughter and fun times.",
-    profileImage: "/sample_posters/small/s-2.jpg"
-  }
-];
+
+
+const userinfo = localStorage.getItem("rl");
+const userId = JSON.parse(userinfo).customerid
+const storedEventData = localStorage.getItem(`eventsData`);
+const eventDataArr = JSON.parse(storedEventData)[0]
+console.log(eventDataArr)
+const filteredEvents = eventDataArr.filter(event => event.userId === userId);
+console.log(filteredEvents)
+
+const sampleEvents =
+  filteredEvents
+  ;
 
 const Eventupdate = () => {
+
+
   const navigate = useNavigate();
   const [hoveredEventId, setHoveredEventId] = useState(null);
 

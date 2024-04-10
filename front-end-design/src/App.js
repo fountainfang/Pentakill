@@ -35,7 +35,7 @@ const App = () => {
   useEffect(() => {
     api.getEvents({})
       .then(response => {
-        console.log(response.data);
+        // console.log(response.data);
         const events = [response.data];
         const jsonData = JSON.stringify(events);
         localStorage.setItem('eventsData', jsonData);
