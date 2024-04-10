@@ -38,10 +38,11 @@ const Navbar = (props) => {
 
 
 
-        <NavBarButton onClick={() => navigate('/profile')}>Edit Profile</NavBarButton>
+
         {user.token && user.usertype === 2 && (
 
-          <>     <NavBarButton onClick={() => navigate('/tickets')}>My Order</NavBarButton></>
+          <>     <NavBarButton onClick={() => navigate('/tickets')}>My Order</NavBarButton>
+            <NavBarButton onClick={() => navigate('/profile')}>Edit Profile</NavBarButton></>
 
 
         )}
@@ -50,6 +51,7 @@ const Navbar = (props) => {
         {user.token && user.usertype === 1 && (
           <>   <NavBarButton onClick={() => navigate('/eventcreate')}>Create Event</NavBarButton>
             <NavBarButton onClick={() => navigate('/eventupdate')}>Update Event</NavBarButton>
+            <NavBarButton onClick={() => navigate('/profile')}>Edit Profile</NavBarButton>
           </>
 
 
@@ -58,6 +60,7 @@ const Navbar = (props) => {
         {user.token && user.usertype === 0 && (
           <>
             <NavBarButton onClick={() => navigate('/approve')}>Event Approval</NavBarButton>
+            <NavBarButton onClick={() => navigate('/profile')}>Edit Profile</NavBarButton>
           </>
         )}
 
@@ -70,18 +73,7 @@ const Navbar = (props) => {
           </>
         ) : (
           <>
-            <TextField
-              variant="outlined"
-              size="small"
-              sx={{ backgroundColor: '#FFF', borderRadius: 1, marginRight: 2 }}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SearchIcon />
-                  </InputAdornment>
-                ),
-              }}
-            />
+
             <Button color="inherit" onClick={() => navigate('/signin')}>Login</Button>
             <Button color="inherit" onClick={() => navigate('/signup')}>Sign-up</Button>
           </>
