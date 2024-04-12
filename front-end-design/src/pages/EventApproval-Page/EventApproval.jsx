@@ -1,113 +1,79 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../Front-Page/Navbar';
-import { events as eventsData } from '../../data/EventData';
+import api from '../../api'; // Adjust this import path to match your project structure
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
-
-
 
 const EventApproval = () => {
     const navigate = useNavigate();
-    const [events, setEvents] = useState(Object.values(eventsData));
+    const [events, setEvents] = useState([]);
+    const [approvedEvents, setApprovedEvents] = useState([]);
+    const [rejectedEvents, setRejectedEvents] = useState([]);
 
     useEffect(() => {
         document.title = "Event Approval";
+        fetchEvents();
     }, []);
 
-    const handleStatusChange = (id, newStatus, evt) => {
-        evt.stopPropagation(); // Prevent click event when click button
-        const updatedEvents = events.map(event => {
-            if (event.id === id) {
-                return { ...event, approvalStatus: newStatus };
-            }
-            return event;
-        });
-        setEvents(updatedEvents);
-        alert(`The status of "${updatedEvents.find(e => e.id === id).title}" is now "${newStatus}".`);
+    const fetchEvents = () => {
+        api.getEvents()
+            .then(response => {
+                console.log("API Response:", response);
+                if (response && response.data) {
+                    // Assuming the response.data directly contains the array of events
+                    setEvents(response.data);
+                    setApprovedEvents(response.data.filter(event => event.approvalStatus === 'Approved'));
+                    setRejectedEvents(response.data.filter(event => event.approvalStatus === 'Rejected'));
+                } else {
+                    console.error('Unexpected response structure:', response);
+                }
+            })
+            .catch(error => {
+                console.error("Failed to fetch events:", error);
+            });
     };
 
-    // Enhanced styles for clearer visibility and better alignment
-    const cardStyle = {
-        display: 'flex',
-        justifyContent: 'start',
-        alignItems: 'center',
-        background: '#fff',
-        borderRadius: '8px',
-        boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-        margin: '20px 0',
-        padding: '20px',
-        width: '90%', // Make the box longer
-        maxWidth: '800px', // Increase maximum width for larger display
+    const handleStatusChange = (eventId, newStatus) => {
+        api.updateStatus({ eventId, approvalStatus: newStatus })
+            .then(response => {
+                console.log("Update Status Response:", response);
+                console.log(response.data.msg)
+                if (response && response.data && response.data.msg === "Event status updated successfully") {
+                    alert(`The status of event ID ${eventId} is now "${newStatus}".`);
+                    fetchEvents(); // Refresh the lists of events
+                } else {
+                    console.error('Failed to update event status:', response);
+                }
+            }).catch(error => {
+                console.error("Failed to update status:", error);
+            });
     };
 
-    const imageStyle = {
-        height: '240px', // Increase picture size for better visibility
-        width: '160px', // Adjust width accordingly
-        objectFit: 'cover',
-        marginRight: '20px',
-        borderRadius: '4px',
-    };
-
-    const detailsStyle = {
-        flex: '1',
-        marginRight: '20px', // Ensure adequate spacing
-    };
-
-    const buttonStyle = {
-        padding: '10px 20px', // Adjust for more content space
-        border: '2px solid', // Make border thicker for visibility
-        borderRadius: '4px', // Rounded edges
-        cursor: 'pointer',
-        margin: '0 10px', // Increase margin for better separation
-        fontWeight: 'bold',
-        transition: '0.3s ease background-color',
-        fontSize: '16px', // Increase font size for better readability
-    };
-
-    const approveButtonStyle = {
-        ...buttonStyle,
-        backgroundColor: 'white', // White background
-        color: 'green', // Green text
-        borderColor: 'green', // Green border
-    };
-
-    const rejectButtonStyle = {
-        ...buttonStyle,
-        backgroundColor: 'red', // Red background
-        color: 'white', // White text
-        borderColor: 'darkred', // Dark red border for contrast
-    };
+    // Function to render each event card
+    const renderEventCard = (event) => (
+        <div key={event.eventId} style={{ display: 'flex', justifyContent: 'start', alignItems: 'center', background: '#fff', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)', margin: '20px 0', padding: '20px', width: '90%', maxWidth: '800px' }}>
+            <img src={event.profileImage} alt={event.eventName} style={{ height: '240px', width: '160px', objectFit: 'cover', marginRight: '20px', borderRadius: '4px' }} />
+            <div style={{ flex: '1', marginRight: '20px' }}>
+                <h3>{event.eventName}</h3>
+                <p>{event.eventDesc}</p>
+            </div>
+            <div>
+                <button style={{ padding: '10px 20px', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold', fontSize: '16px', backgroundColor: 'lightgreen', marginRight: '10px' }} onClick={() => handleStatusChange(event.eventId, 'Approved')}>Approve</button>
+                <button style={{ padding: '10px 20px', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold', fontSize: '16px', backgroundColor: 'tomato' }} onClick={() => handleStatusChange(event.eventId, 'Rejected')}>Reject</button>
+            </div>
+        </div>
+    );
 
     return (
         <>
             <Navbar />
             <h1 style={{ textAlign: 'center' }}>Event Approval</h1>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                {events.map(event => (
-                    <div key={event.id} style={cardStyle} onClick={() => navigate(`/event/${event.id}`)}>
-                        <img src={event.posterImage} alt={event.title} style={imageStyle} />
-                        <div style={detailsStyle}>
-                            <h3>{event.title}</h3>
-                            <p>{event.description}</p>
-                        </div>
-                        <div>
-                            <button
-                                onClick={(e) => handleStatusChange(event.id, 'Approved', e)}
-                                style={approveButtonStyle}
-                            >
-                                Approve
-                            </button>
-                            <button
-                                onClick={(e) => handleStatusChange(event.id, 'Rejected', e)}
-                                style={rejectButtonStyle}
-                                onMouseEnter={(e) => e.target.style.backgroundColor = '#bd2130'}
-                                onMouseLeave={(e) => e.target.style.backgroundColor = 'red'}
-                            >
-                                Reject
-                            </button>
-                        </div>
-                    </div>
-                ))}
+                <h2>Pending Events</h2>
+                {events.filter(event => event.approvalStatus === 'Pending').map(renderEventCard)}
+                <h2>Approved Events</h2>
+                {approvedEvents.length > 0 ? approvedEvents.map(renderEventCard) : <p>No approved events to display.</p>}
+                <h2>Rejected Events</h2>
+                {rejectedEvents.length > 0 ? rejectedEvents.map(renderEventCard) : <p>No rejected events to display.</p>}
             </div>
         </>
     );

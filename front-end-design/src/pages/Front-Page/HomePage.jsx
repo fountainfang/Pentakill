@@ -1,5 +1,6 @@
 // HomePage.js
 import React from 'react';
+import api from '../../api';
 import { Container, Grid, Box, Typography, Paper, Button } from '@mui/material';
 import Navbar from '../Front-Page/Navbar';
 import EventCard from './EventCard';
@@ -28,36 +29,120 @@ const carouselItems = [
   },
 ];
 
-// Sample events data (12 sample events)
+api.getEvents({}).then(response => {
+  //console.log(response.data)
+  const events = [response.data]
+  const jsonData = JSON.stringify(events);
+  localStorage.setItem('eventsData', jsonData);
+  //console.log(jsonData)
+  const eventDataJSON = localStorage.getItem('eventsData');
+
+  // 检查localStorage中是否有存储的数据
+  if (eventDataJSON) {
+    // 解析JSON字符串为JavaScript对象
+    const eventData = JSON.parse(eventDataJSON);
+    //console.log(eventData)
+    //console.log(eventData[0][1])
+
+
+
+    // 遍历对象
+    eventData.forEach(event => {
+      // 在这里对每个事件对象执行操作，例如打印或处理数据
+      //   console.log(event);
+    });
+  } else {
+    console.log('No data found in localStorage.');
+  }
+
+})
+
+
+// })
+// 从localStorage中获取存储的JSON字符串
+const eventDataJSON = localStorage.getItem('eventsData');
+const eventData = JSON.parse(eventDataJSON);
+
+
+
+
+const events = eventData[0];
+
+const approvedEvents = events.filter(event => event.approvalStatus === "Approved");
+
 const eventsByType = {
-  Drama: Array.from({ length: 4 }, (_, index) => ({
-    id: index + 1,
-    title: `Drama Event ${index + 1}`,
-    type: 'Drama',
-    rating: 4.8, // Static rating for the example
-    reviews: 200, // Static reviews for the example
-    price: 30, // Static price for the example
-    imageUrl: `sample_posters/small/s-${index + 1}.jpg`, // Path should be from public folder
-  })),
-  Concert: Array.from({ length: 4 }, (_, index) => ({
-    id: index + 5,
-    title: `Concert Event ${index + 5}`,
-    type: 'Concert',
-    rating: 4.7,
-    reviews: 350,
-    price: 45,
-    imageUrl: `sample_posters/small/s-${index + 5}.jpg`,
-  })),
-  Sports: Array.from({ length: 4 }, (_, index) => ({
-    id: index + 9,
-    title: `Sports Event ${index + 9}`,
-    type: 'Sports',
-    rating: 4.9,
-    reviews: 150,
-    price: 25,
-    imageUrl: `sample_posters/small/s-${index + 9}.jpg`,
-  })),
+  Drama: [],
+  Concert: [],
+  Sports: []
 };
+approvedEvents.forEach(event => {
+  const { eventCategory } = event;
+
+  // Push the event into the corresponding category array
+  if (eventCategory === 'Drama' && eventsByType.Drama.length < 4) {
+    eventsByType.Drama.push({
+      id: event.eventId,
+      title: event.eventName,
+      type: eventCategory,
+      rating: event.rating,
+      reviews: event.reviews,
+      price: event.ticketPrice,
+      imageUrl: event.profileImage
+    });
+  } else if (eventCategory === 'Concert' && eventsByType.Concert.length < 4) {
+    eventsByType.Concert.push({
+      id: event.eventId,
+      title: event.eventName,
+      type: eventCategory,
+      rating: event.rating,
+      reviews: event.reviews,
+      price: event.ticketPrice,
+      imageUrl: event.profileImage
+    });
+  } else if (eventCategory === 'Sport' && eventsByType.Sports.length < 4) {
+    eventsByType.Sports.push({
+      id: event.eventId,
+      title: event.eventName,
+      type: eventCategory,
+      rating: event.rating,
+      reviews: event.reviews,
+      price: event.ticketPrice,
+      imageUrl: event.profileImage
+    });
+  }
+});
+
+
+
+// const eventsByType = {
+//   Drama: Array.from({ length: 4 }, (_, index) => ({
+//     id: index + 1,
+//     title: `Drama Event ${index + 1}`,
+//     type: 'Drama',
+//     rating: 4.8, // Static rating for the example
+//     reviews: 200, // Static reviews for the example
+//     price: 30, // Static price for the example
+//     imageUrl: `sample_posters/small/s-${index + 1}.jpg`, // Path should be from public folder
+//   })),
+//   Concert: Array.from({ length: 4 }, (_, index) => ({
+//     id: index + 5,
+//     title: `Concert Event ${index + 5}`,
+//     type: 'Concert',
+//     rating: 4.7,
+//     reviews: 350,
+//     price: 45,
+//     imageUrl: `sample_posters/small/s-${index + 5}.jpg`,
+//   })),
+//   Sports: Array.from({ length: 4 }, (_, index) => ({
+//     id: index + 9,
+//     title: `Sports Event ${index + 9}`,
+//     type: 'Sports',
+//     rating: 4.9,
+//     reviews: 150,
+//     price: 25,
+//     imageUrl: `sample_posters/small/s-${index + 9}.jpg`,
+//   })),
+// };
 
 const HomePage = () => {
   return (

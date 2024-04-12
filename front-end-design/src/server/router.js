@@ -5,7 +5,7 @@ const isEmpty = require("lodash/isEmpty");
 const sqlFn = require("./config");
 const url = require("url");
 const jwt = require("jsonwebtoken");
-const key = require("./secretkey")
+const key = require("./secretkey");
 
 
 // encrypt password
@@ -100,6 +100,7 @@ router.get("/repeat/username", (req, res) => {
 })
 
 
+// login
 router.post("/login", (req, res) => {
     const username = req.body.username;
     const encryptedPassword = encryptPassword(req.body.password);
@@ -147,8 +148,146 @@ router.post("/login", (req, res) => {
 
     })
 })
+router.post("/createEvent", (req, res) => {
+    const { userId, eventName, eventCategory, eventDesc, eventDate, startTime, endTime, address, totalTicket, ticketPrice, profileImage, bannerImage, rating, approvalStatus } = req.body;
+    console.log(userId)
+    const sql = "INSERT INTO event (userId, eventName, eventCategory, eventDesc, eventDate, startTime, endTime, address, totalTicket, ticketPrice, profileImage, bannerImage, rating, approvalStatus) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    const arr = [userId, eventName, eventCategory, eventDesc, eventDate, startTime, endTime, address, totalTicket, ticketPrice, "/sample_posters/small/default.jpg", "/sample_posters/banner/drama.webp", 0, "pending"];
+    console.log(req.body)
+    sqlFn(sql, arr, result => {
+        console.log(result)
+
+        console.log(result.affectedRows)
+        if (result.affectedRows > 0) {
+            res.status(200).send({ msg: "success" });
+            console.log("success")
+        } else {
+            // Assuming failure here means no rows were affected
+            res.status(400).send({ msg: "fail" });
+            console.log("fail")
+        }
+    });
+});
+
+router.post("/updateUser", (req, res) => {
+    // 解析来自前端的编辑信息
+    const { firstName, lastName, email, phonenumber, address, city, state, country, postalCode, username } = req.body;
+    console.log(req.body)
+
+    // 更新数据库中相应用户的信息
+    // 例如使用 SQL UPDATE 语句
+    const sql = "UPDATE user SET firstname=?, lastname=?, email=?, phonenumber=?, address=?, city=?, province=?, country=?, postalCode=? WHERE username=?";
+    const values = [firstName, lastName, email, phonenumber, address, city, state, country, postalCode, username];
+    sqlFn(sql, values, result => {
+        if (result.affectedRows > 0) {
+            // 更新成功
+            res.status(200).json({ success: true, message: "User information updated successfully" });
+        } else {
+            // 更新失败
+            res.status(400).json({ success: false, message: "Failed to update user information" });
+        }
+    });
+});
+
+router.post("/updateStatus", (req, res) => {
+    const { eventId, approvalStatus } = req.body; // Destructure eventId and approvalStatus from the request body
+
+    // Validation (optional, but recommended)
+    if (!eventId || validator.isEmpty(approvalStatus)) {
+        return res.status(400).send({ msg: "Missing eventId or approvalStatus" });
+    }
+
+    const sql = "UPDATE event SET approvalStatus = ? WHERE eventId = ?";
+    const arr = [approvalStatus, eventId];
+
+    sqlFn(sql, arr, (result) => {
 
 
+        if (result.affectedRows > 0) {
+            res.status(200).send({ msg: "Event status updated successfully" });
+        } else {
+            res.status(404).send({ msg: "Event not found" });
+        }
+    });
+});
+
+router.get("/getEvents", (req, res) => {
+    const sql = "SELECT * FROM event"; // Fetch all events
+    sqlFn(sql, [], result => {
+
+
+        res.json(result); // Send the list of all events as JSON
+    });
+});
+
+router.get("/getUserEvents", (req, res) => {
+    const { userId } = req.query;
+    console.log(req.query);
+    const sql = "SELECT * FROM event WHERE userId = ?";
+    const arr = [userId];
+    sqlFn(sql, arr, result => {
+        console.log(result)
+        res.json(result);
+    });
+});
+
+router.post("/createOrder", (req, res) => {
+    const { eventId, orderDate, ticketPrice, customerId } = req.body;
+
+    const sql = "INSERT INTO `order` (eventId, orderDate, ticketPrice, customerId) VALUES (?, ?, ?, ?)";
+    const arr = [eventId, orderDate, ticketPrice, customerId];
+
+    sqlFn(sql, arr, result => {
+        // console.log(sql)
+
+        if (result.affectedRows > 0) {
+            res.status(200).send({ msg: "success" });
+            console.log("success")
+        } else {
+            // Assuming failure here means no rows were affected
+            res.status(400).send({ msg: "fail" });
+            console.log("fail")
+        }
+    });
+});
+
+router.get("/getOrder", (req, res) => {
+
+    const { customerId } = req.query;
+
+
+
+    const sql = "SELECT * FROM `order` WHERE customerId = ?  ";
+    const arr = [customerId]
+
+    sqlFn(sql, arr, result => {
+
+
+        res.json(result); // Send the list of all events as JSON
+    });
+});
+
+router.post("/updateEvent", (req, res) => {
+    // 解析来自前端的编辑信息
+    const { eventName, eventCategory, eventDesc, eventDate, startTime, endTime, address, totalTicket, ticketPrice, eventId } = req.body;
+    console.log(req.body)
+
+    // 更新数据库中相应用户的信息
+    // 例如使用 SQL UPDATE 语句
+    const sql = "UPDATE Event SET eventName=?, eventCategory=?, eventDesc=?, eventDate=?, startTime=?, endTime=?,address=?, totalTicket=?, ticketPrice=? WHERE eventId=?";
+    const values = [eventName, eventCategory, eventDesc, eventDate, startTime, endTime, address, totalTicket, ticketPrice, eventId];
+    sqlFn(sql, values, result => {
+        console.log(result)
+
+        if (result.affectedRows > 0) {
+            // 更新成功
+            res.status(200).json({ success: true, message: "User information updated successfully" });
+        } else {
+            // 更新失败
+            res.status(400).json({ success: false, message: "Failed to update user information" });
+        }
+    });
+});
 
 
 module.exports = router;

@@ -2,11 +2,27 @@ import React, { Component } from 'react';
 import api from '../../api'; // Adjust the path as necessary
 import Navbar from '../Front-Page/Navbar'; // Adjust the path as necessary
 import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
-function EventCreation() {
+let userId;
+const userinfo = localStorage.getItem("rl");
+
+if (userinfo) {
+
+    userId = JSON.parse(userinfo).customerid
+}
+
+
+
+
+function Updatedetail() {
+
+    const Id = useParams();
+
+    const id = parseInt(Id.eventId);
     const [eventData, setEventData] = useState({
-        eventId: 0,
-        userId: 0, // Assuming a user ID of 1 for now
+        eventId: useParams(),
+        userId: userId, // Assuming a user ID of 1 for now
         eventName: '',
         eventCategory: '',
         eventDesc: '',
@@ -22,10 +38,31 @@ function EventCreation() {
         approvalStatus: 'Pending',
     });
 
+
     //Change title of the page
 
     useEffect(() => {
-        document.title = "New Event";
+
+        document.title = "Edit Event";
+        const storedEventData = localStorage.getItem(`eventsData`);
+        const eventDataArr = JSON.parse(storedEventData)[0]
+
+        const event = eventDataArr.find(event => event.eventId === id);
+        console.log(event)
+
+        const isoDate = event.eventDate;
+        const dateObject = new Date(isoDate);
+        const year = dateObject.getFullYear();
+        const month = String(dateObject.getMonth() + 1).padStart(2, '0');
+        const day = String(dateObject.getDate()).padStart(2, '0');
+        const formattedDate = `${year}-${month}-${day}`;
+        event.eventDate = formattedDate;
+
+        setEventData(event);
+
+
+
+
     }, []);
 
     // An array to hold a list of evenets
@@ -61,12 +98,12 @@ function EventCreation() {
     const handleSubmit = (e) => {
         e.preventDefault();
         const userinfo = localStorage.getItem("rl")
-        console.log(userinfo)
+        //console.log(userinfo)
         console.log(JSON.parse(userinfo).customerid)
 
         // Correctly structured data to match backend expectations
         const eventSubmission = {
-            userId: JSON.parse(userinfo).customerid, // Assuming a user ID of 1 for now
+
             eventName: eventData.eventName,
             eventCategory: eventData.eventCategory,
             eventDesc: eventData.eventDesc,
@@ -76,13 +113,13 @@ function EventCreation() {
             address: eventData.address,
             totalTicket: parseInt(eventData.totalTicket, 10),
             ticketPrice: parseFloat(eventData.ticketPrice),
-            profileImage: eventData.profileImage, // Placeholder for now
-            bannerImage: eventData.bannerImage, // Placeholder for now
+            eventId: eventData.eventId,
+
         };
         console.log(eventSubmission)
 
         // Using api.createEvent to submit the data
-        api.createEvent(eventSubmission)
+        api.updateEvent(eventSubmission)
             .then(response => {
                 console.log(response)
 
@@ -220,30 +257,8 @@ function EventCreation() {
                         min="0"
                     />
                 </div>
-                {/* <div style={divStyle}>
-                    <label style={labelStyle}>Profile Image URL:</label>
-                    <input
-                        type="text"
-                        name="profileImage"
-                        value={eventData.profileImage}
-                        onChange={handleChange}
-                        required
-                        style={inputStyle}
-                    />
-                </div>
-                <div style={divStyle}>
-                    <label style={labelStyle}>Banner Image URL:</label>
-                    <input
-                        type="text"
-                        name="bannerImage"
-                        value={eventData.bannerImage}
-                        onChange={handleChange}
-                        required
-                        style={inputStyle}
-                    />
-                </div> */}
 
-                <button type="submit" style={buttonStyle}>Submit Event</button>
+                <button type="submit" style={buttonStyle} >Update Event</button>
             </form>
             {/* Display submitted events for confirmation */}
             {eventsList.length > 0 && (
@@ -262,4 +277,4 @@ function EventCreation() {
     );
 }
 
-export default EventCreation;
+export default Updatedetail;

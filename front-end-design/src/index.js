@@ -13,7 +13,7 @@ if (localStorage.getItem("rl")) {
     user: JSON.parse(localStorage.getItem("rl"))
   })
 }
-
+//console.log(store.getState());
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
